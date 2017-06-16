@@ -86,6 +86,28 @@
 
 /*Materialize section*/
 
+/*Pulse*/
 .pulse::before{
   background-color: lightcyan !important;
 }
+
+/*Historico Card*/
+#historico{
+  width: 300px !important;
+  height: 400px !important;
+  position: absolute;
+  top: 80px !important;
+  left: 2px !important;
+}
+
+#info{
+  width: 300px !important;
+  height: 400px !important;
+  position: absolute;
+  top: 80px !important;
+  left: 400px !important;
+}
+
+
+
+/**/

@@ -7,7 +7,7 @@
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="/style/materialize.css"/>
+    <link rel="stylesheet" href="/style/materialize.css" />
     <link rel="stylesheet" href="/style/style.css" />
     <link rel="stylesheet" href="/style/chat.css" />
     <link rel="stylesheet" href="/style/animate.css" />
@@ -35,25 +35,63 @@
         <div class="loading-holder" id="welcomeGifHolder">
             <img src="/gifs/watson.gif" class="welconeGif" />
         </div>-->
-        <div class="row full-height centralized">
-            <div class="col m3 offset-m4 teal" style=" margin:auto !important;">
-                <div class="row">
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-                                <label for="first_name">First Name</label>
-                            </div>
+        <!-- -->
+        <!-- Card Historico -->
+        <div class="row hide" id="row-historico">
+            <div class="col s12 m6">
+                <div class="card blue-grey darken-1" id="historico">
+                    <div class="card-content white-text">
+                        <a href="#" id="dismiss-historico"><i class="material-icons right">close</i></a><span class="card-title">Histórico</span>
+                        <div class="input-field" style="color: #fff;">
+                            <input disabled value="João da Silva" id="disabled" type="text" class="validate" style="color: #fff;">
+                            <label for="disabled" style="color: #fff;">Nome</label>
                         </div>
-                    </form>
+                        <div class="input-field" style="color: #fff;">
+                            <input disabled value="1234-X" id="disabled" type="text" class="validate" style="color: #fff;">
+                            <label for="disabled" style="color: #fff;">Número SUS</label>
+                        </div>
+                        <div class="input-field" style="color: #fff;">
+                            <input disabled value="40 anos" id="disabled" type="text" class="validate" style="color: #fff;">
+                            <label for="disabled" style="color: #fff;">Idade</label>
+                        </div>
+                        <div class="input-field" style="color: #fff;">
+                            <input disabled value="Solteiro" id="disabled" type="text" class="validate" style="color: #fff;">
+                            <label for="disabled" style="color: #fff;">Situação</label>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-        <!--- Collapsible -->
+        <!-- Card Informações Atuais-->
+        <div class="row hide" id="row-info">
+            <div class="col s12 m6">
+                <div class="card blue-grey darken-1" id="info">
+                    <div class="card-content white-text">
+                        <a href="#" id="dismiss-info"><i class="material-icons right">close</i></a><span class="card-title">Informações</span>
+                        <div class="input-field" style="color: #fff;">
+                            <input disabled value="37 C" id="disabled" type="text" class="validate" style="color: #fff;">
+                            <label for="disabled" style="color: #fff;">Temperatura</label>
+                        </div>
+                        <div class="input-field" style="color: #fff;">
+                            <input disabled value="80/60" id="disabled" type="text" class="validate" style="color: #fff;">
+                            <label for="disabled" style="color: #fff;">Pressao</label>
+                        </div>
+                        <div class="input-field" style="color: #fff;">
+                            <input disabled value="110" id="disabled" type="text" class="validate" style="color: #fff;">
+                            <label for="disabled" style="color: #fff;">CO2</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- -->
+        <!--- Collapsible ChatBot-->
         <div class="teal chatbox " id="chatbox">
             <ul class="collapsible" data-collapsible="accordion">
                 <li>
-                    <div class="collapsible-header pulse" id="chatbox-header"><i class="material-icons">bot</i>ChatBot</div>
+                    <div class="collapsible-header pulse" id="chatbox-header" style="text-align: center;"><i class="material-icons">chat</i>ChatBot</div>
                     <div class="collapsible-body">
                         <div class="main" id="chat-main">
                             <div class="chat-popup" id="chat-popup">
@@ -62,23 +100,21 @@
 
                             </div>
                         </div>
-                        <!--<div class="collapsible-footer">-->
+                        <!-- Footer ChatBot-->
                         <div class="chat-footer">
                             <div class="input_field">
                                 <input type="text" id="chatInput" placeholder="Type your message here..." onkeypress="return newEvent(event)" />
                                 <a href="javascript:;" class="send-btn"></a>
                             </div>
                         </div>
-                        <!--</div>-->
+                        <!--  -->
                     </div>
 
                 </li>
             </ul>
         </div>
 
-        <!--- -->
-
-        <!--</div>-->
+        <!--- End of ChatBot-->
     </main>
     <footer class="lighten-2 footer teal" id="footer">
         <div class="">

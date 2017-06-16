@@ -21,7 +21,25 @@ $(document).ready(function () {
     setTimeout(function () {
         $('#chatbox-header').removeClass('pulse');
     }, 10000);
-    $('#chatbox').click(function(){
+    $('#chatbox').click(function () {
         $('#chatbox-header').removeClass('pulse');
+    });
+    $('#dismiss-historico').click(function () {
+        $('#row-historico').html('');
     })
+    $('#dismiss-info').click(function () {
+        $('#row-info').html('');
+    })
+
+    setTimeout(function(){
+        $('#row-historico').removeClass('hide');
+    },5000);
+
+    setTimeout(function(){
+        $('#row-info').removeClass('hide');
+    },10000);
+    // $("#row-historico").click(function () {
+    //     $('#row-historico').addClass('animated bounce');
+    // });
+
 });
