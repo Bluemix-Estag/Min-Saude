@@ -1,53 +1,96 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Favorites Organizer powered by Cloudant</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<link rel="stylesheet" href="/style/style.css" />
+    <title>Ministério da saúde</title>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="/style/materialize.css"/>
+    <link rel="stylesheet" href="/style/style.css" />
+    <link rel="stylesheet" href="/style/chat.css" />
+    <link rel="stylesheet" href="/style/animate.css" />
+    <script src="/scripts/chat.js" type="text/javascript"></script>
+    <script src="/scripts/materialize.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
+
 <body>
-	<div class = "container">
-	<div class = "banner">
-		<img class="newappIcon" src="images/newapp-icon.png">
-		<p class = "appTitle">
-			Favorites Organizer powered by Cloudant
-		</p>
-	</div>
+    <header>
+        <nav>
+            <div class="nav-wrapper teal lighten-2">
+                <a href="#" class="brand-logo">Ministério da saúde</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <!--<li><a href="collapsible.html">Logout</a></li>-->
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main class=" lighten-5 " class="main-body">
+        <!--<div id="leftSide" class=""></div>
+        <div id="rightSide" class=""></div>
+        <div class="loading-holder" id="welcomeGifHolder">
+            <img src="/gifs/watson.gif" class="welconeGif" />
+        </div>-->
+        <div class="row full-height centralized">
+            <div class="col m3 offset-m4 teal" style=" margin:auto !important;">
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                                <label for="first_name">First Name</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--- Collapsible -->
+        <div class="teal chatbox " id="chatbox">
+            <ul class="collapsible" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header pulse" id="chatbox-header"><i class="material-icons">bot</i>ChatBot</div>
+                    <div class="collapsible-body">
+                        <div class="main" id="chat-main">
+                            <div class="chat-popup" id="chat-popup">
+                                <div class="chat-body" id="chat-body">
+                                </div>
 
+                            </div>
+                        </div>
+                        <!--<div class="collapsible-footer">-->
+                        <div class="chat-footer">
+                            <div class="input_field">
+                                <input type="text" id="chatInput" placeholder="Type your message here..." onkeypress="return newEvent(event)" />
+                                <a href="javascript:;" class="send-btn"></a>
+                            </div>
+                        </div>
+                        <!--</div>-->
+                    </div>
 
-	<section>
-		<table id='notes' class='records' border='0' cellspacing='0' cellpadding='0'><tbody></tbody></table>
-	</section>
-	<footer>
-		<div>
-			<!-- <button class='detailBtn' onclick="toggleServiceInfo()" title='Service information'>
-				<img src='images/detail.png' alt='detail'/>
-			-->
-			<button class="addBtn" onclick="addItem()" title="add record">
-				<img src="images/add.png" alt="add">
-			</button>
-			<br>
-			<a class = "infoImg" onclick="toggleAppInfo()">Help</a>
-		</div>
-		<div id='appinfo' class = 'appinfo' style='display: none;'>
-						This application helps you organize your favorite files.</br>
-						Supports all file types, like Audio, Video, Photos, Text etc.</br>
-						Click on Add icon to create a new category for your files. Provide a title and description for the category in the text fields.</br>
-						To add a file to a given category, Click on 'Browse' button to select a file, and 'Upload' button to upload the file.
-						To modify a title or description, Edit the text and press Enter.</br>
-						You can add multiple files (of any type) to a category.</br>
-						Click on <span class = 'deleteBtn' alt='delete'></span> icon to delete the category.
-		</div>
-		<div id="loadingImage"></div>
-		<br><br><br><br><br>
-		<div id="errorDiv" class='errorMsg'></div>
-	</footer>
-	<script type="text/javascript" src="/scripts/util.js"></script>
-	<script type="text/javascript" src="/scripts/index.js"></script>
-	<div id="myImage"><div id="innerImg"></div></div>
-	<br><br><br>
-	</div>
+                </li>
+            </ul>
+        </div>
+
+        <!--- -->
+
+        <!--</div>-->
+    </main>
+    <footer class="lighten-2 footer teal" id="footer">
+        <div class="">
+            © 2017 Copyright Text
+        </div>
+        </div>
+    </footer>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    <script src="/scripts/index.js"></script>
 </body>
+
 </html>
