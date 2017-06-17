@@ -187,14 +187,14 @@
 
 .chat-popup .chat-body .bubble.watson {
     color: #fff;
-    background-color: #AEC0E0;
+    background-color: #4db6ac;
     align-self: flex-start;
     margin-left: 15px !important;
 }
 
 .chat-popup .chat-body .bubble.watson:before {
     left: -18px !important;
-    background-color: #AEC0E0;
+    background-color: #4db6ac;
 }
 
 .chat-popup .chat-body .bubble.user:before {

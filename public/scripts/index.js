@@ -20,7 +20,7 @@ function welcomeAnimation() {
 $(document).ready(function () {
     setTimeout(function () {
         $('#chatbox-header').removeClass('pulse');
-    }, 10000);
+    }, 20000);
     $('#chatbox').click(function () {
         $('#chatbox-header').removeClass('pulse');
     });
@@ -38,6 +38,29 @@ $(document).ready(function () {
     setTimeout(function(){
         $('#row-info').removeClass('hide');
     },10000);
+
+    setTimeout(function(){
+        $('#temp').removeClass('hide');
+    },15000);
+
+    setTimeout(function(){
+        $('#press').removeClass('hide');
+    },20000);
+
+    setTimeout(function(){
+        $('#co2').removeClass('hide');
+    },25000);
+
+    setTimeout(function(){
+        $('#glicemia').removeClass('hide');
+    },25000);
+
+    setTimeout(function(){
+        $('#dor-peito').removeClass('hide');
+    },25000);
+
+    // so pra mockar os valores mentiraa meuuu oo pode abrir audio ? 
+
     // $("#row-historico").click(function () {
     //     $('#row-historico').addClass('animated bounce');
     // });
