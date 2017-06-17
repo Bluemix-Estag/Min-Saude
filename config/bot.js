@@ -1,5 +1,5 @@
 var watson = require('watson-developer-cloud');
-var CONVERSATION_NAME = "Ministerio-Conv-V1.0.0"; // conversation name goes here.
+var CONVERSATION_NAME = "TriagemV1"; // conversation name goes here.
 var cfenv = require('cfenv');
 var chrono = require('chrono-node');
 var fs = require('fs');

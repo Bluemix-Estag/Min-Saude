@@ -88,7 +88,34 @@ function initCloudant() {
     database = Cloudant.db.use(dbname);
 
 }
+// =============================
+// CLOUDANT METHODS=============
+//==============================
 
+app.get('/getPatients', function(req,res){
+    database.find({
+      "selector": {
+        "_id":"patients"
+      },
+      "fields":[
+          "patients"
+      ]
+    },
+        function(err, data) {
+          if(!err){
+            console.log(" \n" + JSON.stringify(data.docs[0]));
+            res.send({data:data.docs[0]});
+            return;
+          }
+          console.log(err);
+        res.send({status:false,err:"Error"});
+        });
+}); 
+
+
+// =============================
+// ROUTING METHODS==============
+// =============================
 
 app.get('/index', function (req, res) {
     res.render('index.html');
@@ -117,6 +144,8 @@ function processChatMessage(req, res) {
         }
     });
 }
+
+
 
 
 
