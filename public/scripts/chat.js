@@ -77,7 +77,7 @@ function userMessage(message) {
                 }
             }
             if (context['analise'] == true) {
-                typeOfPatient();
+                typeOfPatient(context['atendimento']);
             }
 
             //
@@ -129,7 +129,9 @@ function startScreening() {
     $('#triagem').addClass('animated bounceInUp');
 }
 
-function typeOfPatient(name, sus, type) {
+function typeOfPatient(type) {
+    type = type.substring(0,1).toUpperCase() + type.substring(1);
+    $('#tipo-atendimento').val(type);
     $('#historico').addClass('animated bounceOutDown');
     setTimeout(function () {
         $('#triagem').addClass('animated bounceOutDown');
