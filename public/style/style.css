@@ -115,13 +115,38 @@
   left: 2px !important;
 }
 
-#info{
+#triagem{
   width: 300px !important;
-  height: 480px !important;
+  height: 550px !important;
   position: absolute;
   top: 80px !important;
   left: 400px !important;
 }
+
+#atendimento{
+  width: 700px !important;
+  height: 300px !important;
+  position: absolute;
+  top: 140px !important;
+  left: 200px !important;
+}
+
+#atendimento input{
+  text-align: center;
+}
+#atendimento-title   {
+  text-align: center;
+}
+
+
+
+
+#loading-atendimento{
+  opacity: 1.0 !important;
+  position: absolute;
+  left: 600px !important;
+}
+
 /**/
 
 

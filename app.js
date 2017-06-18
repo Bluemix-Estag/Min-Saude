@@ -92,33 +92,46 @@ function initCloudant() {
 // CLOUDANT METHODS=============
 //==============================
 
-app.get('/getPatients', function(req,res){
-    database.find({
-      "selector": {
-        "_id":"patients"
-      },
-      "fields":[
-          "patients"
-      ]
-    },
-        function(err, data) {
-          if(!err){
-            console.log(" \n" + JSON.stringify(data.docs[0]));
-            res.send({data:data.docs[0]});
-            return;
-          }
-          console.log(err);
-        res.send({status:false,err:"Error"});
-        });
+app.get('/getPatient', function(req,res){
+    var sus = req.query.sus;
+    res.setHeader('Content-Type','application/json');
+    database.get('patients', {
+        revs_info: true
+    },function(err,doc){
+        if(err){
+            console.log(err);
+            res.status(500).json({error: true, description: "Internal server error",status:500});
+        }else{
+            var patient = null;
+            var patients = doc.patients;
+            for(var p of patients){
+                if(p.sus == sus){
+                    patient = p;
+                    console.log("Patient: " + JSON.stringify(patient));
+                    break;
+                }
+            }
+            if(patient != null){
+                res.status(200).json(patient);
+            }else{
+                res.status(404).json({error: true, description : "Patient not found",status:404});
+            }
+        }
+    })
 }); 
 
-
+ 
+ 
 // =============================
 // ROUTING METHODS==============
 // =============================
 
 app.get('/index', function (req, res) {
     res.render('index.html');
+})
+
+app.get('/acolhimento', function(req,res){
+    res.render('acolhimento.html');
 })
 
 app.get('/', function (req, res) {

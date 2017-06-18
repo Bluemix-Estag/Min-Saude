@@ -21,7 +21,7 @@ function xhrGet(url, callback, errback){
 			if(xhr.status == 200){
 				callback(parseJson(xhr.responseText));
 			}else{
-				errback('service not available');
+				errback(JSON.parse(xhr.responseText));
 			}
 		}
 	};

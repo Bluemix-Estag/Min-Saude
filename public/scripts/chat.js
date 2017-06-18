@@ -5,13 +5,16 @@ var params = {},
 
 var lat;
 var long;
+var patientName;
+var patientSus;
+var type;
 
 
 function userMessage(message) {
-    
+
     params.text = message;
     if (context) {
-        params.context = context;    
+        params.context = context;
     }
     var xhr = new XMLHttpRequest();
     var uri = '/api/watson';
@@ -24,28 +27,66 @@ function userMessage(message) {
             text = response.output.text; // Only display the first response
             context = response.context; // Store the context for next round of questions
             console.log("Got response from Ana: ", JSON.stringify(response));
-           
-            if(response['context']['map']){
-                displayMaps(watson);
-                delete response['context']['map'];
-                console.log("Mapa");
+
+
+            if (context['show_history'] == true) {
+                showHistory(context['info'].SUS_number);
+                context['show_history'] = false;
             }
-            
-            if (response['context']['uri'] && response['context']['uri'].length > 0) {
-                displaySpotify(response['context']['uri'], watson);
-                delete response['context']['musica'];
-                delete response['context']['uri'];
-                
+
+            // Triagem
+            if (context['triagem'] == true) {
+                context['triagem'] = false;
+                startScreening();
             }
-            
-            
-            
+            if (context['info'] != null) {
+                if (context['info'].freq_card != null) {
+                    $('#frequencia').val(context['info']['freq_card']);
+                    $('#freq').removeClass('hide');
+                    $('#frequencia').addClass('animated bounceInRight');
+                }
+                if (context['info']['pressaoD']) {
+                    var pressao = context['info']['pressaoN'] + " / " + context['info']['pressaoD'];
+                    $('#pressao').val(pressao);
+                    $('#press').removeClass('hide');
+                    $('#pressao').addClass('animated bounceInRight');
+                }
+                if (context['info']['temperatura'] && context['info']['temperatura'] != null) {
+                    $('#temperatura').val(context['info']['temperatura']);
+                    $('#temp').removeClass('hide');
+                    $('#temperatura').addClass('animated bounceInRight');
+                }
+                if (context['info']['glicemia'] && context['info']['glicemia'] != null) {
+                    $('#glicemia').val(context['info']['glicemia']);
+                    $('#glic').removeClass('hide');
+                    $('#glicemia').addClass('animated bounceInRight');
+                }
+                if (context['info']['o2'] && context['info']['o2'] != null) {
+                    $('#o2').val(context['info']['o2']);
+                    $('#co2').removeClass('hide');
+                    $('#o2').addClass('animated bounceInRight');
+                }
+                if (context['info']['dor'] == true || context['info']['dor'] == false) {
+                    if (context['info']['dor'] == true) {
+                        $('#dor').val("Sim");
+                    } else {
+                        $('#dor').val("Não");
+                    }
+                    $('#dor-peito').removeClass('hide');
+                    $('#dor').addClass('animated bounceInRight');
+                }
+            }
+            if (context['analise'] == true) {
+                typeOfPatient();
+            }
+
+            //
+            console.log(JSON.stringify(text));
             for (var txt in text) {
                 displayMessage(text[txt], watson);
             }
 
-        }
-        else {
+        } else {
             console.error('Server error for Conversation. Return status of: ', xhr.statusText);
             displayMessage("Putz, deu um tilt aqui. Você pode tentar novamente.", watson);
         }
@@ -56,6 +97,51 @@ function userMessage(message) {
     };
     console.log(JSON.stringify(params));
     xhr.send(JSON.stringify(params));
+}
+
+function showHistory(sus_number) {
+
+    xhrGet('/getPatient?sus=' + sus_number, function (data) {
+        $('#row-historico').removeClass('hide');
+        $('#historico').addClass('animated bounceInUp');
+        $('#nome').val(data.nome);
+        $('#paciente-nome').val(data.nome);
+        $('#sus').val(data.sus);
+        $('#paciente-sus').val(data.sus);
+        $('#idade').val(data.idade);
+        $('#situacao').val(data.situacao);
+        context.sus_valido = true;
+        userMessage('sus_valido');
+    }, function (err) {
+        console.log(err);
+        alert(JSON.stringify(err));
+        if (err.status == 404) {
+            context.sus_valido = false;
+            userMessage('sus_invalido');
+        }
+
+    })
+}
+
+
+function startScreening() {
+    $('#row-triagem').removeClass('hide');
+    $('#triagem').addClass('animated bounceInUp');
+}
+
+function typeOfPatient(name, sus, type) {
+    $('#historico').addClass('animated bounceOutDown');
+    setTimeout(function () {
+        $('#triagem').addClass('animated bounceOutDown');
+    }, 1000);
+    setTimeout(function () {
+        $('#loading-atendimento').removeClass('hide');
+    }, 1000);
+    setTimeout(function () {
+        $('#loading-atendimento').addClass('hide');
+        $('#row-atendimento').removeClass('hide');
+        $('#atendimento').addClass('animated bounceInUp');
+    }, 4000);
 }
 
 function newEvent(event) {
@@ -72,8 +158,7 @@ function newEvent(event) {
             displayMessage(text, 'user');
             userInput.value = '';
             userMessage(text);
-        }
-        else {
+        } else {
             // Blank user message. Do nothing.
             console.error("No message.");
             userInput.value = '';
@@ -88,8 +173,7 @@ function displayMessage(text, user) {
     bubble.setAttribute("class", "bubble");
     if (user == "user") {
         bubble.className += " user";
-    }
-    else {
+    } else {
         bubble.className += " watson";
     }
     bubble.innerHTML = text;
@@ -102,30 +186,11 @@ function displayMessage(text, user) {
 function displayMaps(watson) {
     var chat_body = document.getElementById('chat-body');
     var bubble = document.createElement('div');
-        bubble.innerHTML += '<iframe width = "350px" height = "170px" frameborder = "0" style="border:0;" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCzFkRQ3y5QUWILwMttySU7MFGS-mWakOw&q=UFABC&zoom=12" allowfullscreen></iframe>';
+    bubble.innerHTML += '<iframe width = "350px" height = "170px" frameborder = "0" style="border:0;" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCzFkRQ3y5QUWILwMttySU7MFGS-mWakOw&q=UFABC&zoom=12" allowfullscreen></iframe>';
     chat_body.appendChild(bubble);
     chat_body.scrollTop = chat_body.scrollHeight; // Move chat down to the last message displayed
     document.getElementById('chatInput').focus();
 }
 
 
-
-function displaySpotify(uri, watson) {
-    uri = uri.replace(new RegExp('\\"', "g"), "");
-    var chat_body = document.getElementById('chat-body');
-    var bubble = document.createElement('div');
-    var main = document.getElementById('main');
-    bubble.innerHTML += '<iframe src="https://embed.spotify.com/?uri=' + uri + '" width="270" height="80" frameborder="0" allowtransparency="true"></iframe>';
-    chat_body.appendChild(bubble);
-    document.getElementById('chat-main').scrollTop = document.getElementById('chat-main').scrollHeight; // Move chat down to the last message displayed
-    document.getElementById('chatInput').focus();
-}
-
-
-
-
-
-context = {
-    "timezone": "America/Sao_Paulo"
-  };
 userMessage('');
