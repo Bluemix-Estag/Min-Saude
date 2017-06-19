@@ -149,13 +149,22 @@
 }
 
 #espera{
-  width: 300px !important;
+  width: 400px !important;
   height: 530px !important;
   position: absolute;
   top: 80px !important;
   left: 2px !important;
 }
 
+
+.waiting_item{
+
+  color: #fff;
+  padding: 10px;
+  font-size: 12pt;
+  border-bottom: 1px solid #39535C;
+  
+}
 
 
 
@@ -224,3 +233,4 @@
     visibility: visible;
   }
 }
+

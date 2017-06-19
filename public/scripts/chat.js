@@ -22,11 +22,11 @@ function userMessage(message) {
             var response = JSON.parse(xhr.responseText);
             text = response.output.text; // Only display the first response
             context = response.context; // Store the context for next round of questions
-            console.log("Got response from Ana: ", JSON.stringify(response));
+            // console.log("Got response from Ana: ", JSON.stringify(response));
 
 
             if (context['show_history'] == true) {
-                showHistory(context['info'].SUS_number);
+                showHistory(context['patient'].sus);
                 context['show_history'] = false;
             }
 
@@ -80,7 +80,7 @@ function userMessage(message) {
             }
 
             //
-            console.log(JSON.stringify(text));
+            // console.log(JSON.stringify(text));
             for (var txt in text) {
                 displayMessage(text[txt], watson);
             }
@@ -110,7 +110,7 @@ function showHistory(sus_number) {
         $('#idade').val(data.idade);
         $('#situacao').val(data.situacao);
         context.sus_valido = true;
-        userMessage('sus_valido');
+        // userMessage('sus_valido');
     }, function (err) {
         console.log(err);
         if (err.status == 404) {
@@ -131,9 +131,9 @@ function typeOfPatient(type) {
     type = type.substring(0, 1).toUpperCase() + type.substring(1);
     $('#tipo-atendimento').val(type);
     // $('#historico').addClass('animated bounceOutDown');
-    setTimeout(function(){
+    setTimeout(function () {
         $('#triagem').addClass('animated bounceOutDown');
-    },1000);
+    }, 1000);
     setTimeout(function () {
         $('#historico').addClass('animated bounceOutDown');
         // $('#triagem').addClass('animated bounceOutDown');
@@ -145,8 +145,8 @@ function typeOfPatient(type) {
         $('#loading-atendimento').addClass('hide');
         $('#row-atendimento').removeClass('hide');
         $('#atendimento').addClass('animated bounceInUp');
-        var color = (type=='Imediato')?'red':(type=='Prioritario')?'yellow':'#fff';
-        $('#tipo-atendimento').css('color',color);
+        var color = (type == 'Imediato') ? 'red' : (type == 'Prioritario') ? 'yellow' : '#fff';
+        $('#tipo-atendimento').css('color', color);
     }, 3000);
 }
 
@@ -201,67 +201,85 @@ function displayMaps(watson) {
 
 
 
-function getInfo(element){
-    document.getElementById('proximo-nome').innerHTML = element.childNodes[0].value.split('-')[0];
-    document.getElementById('proximo-sus').value = element.childNodes[0].getAttribute('data-sus');
+function getInfo(element) {
+
+    document.getElementById('proximo-nome').innerHTML = element.firstChild.innerHTML.split('-')[0];
+    document.getElementById('proximo-sus').value = element.firstChild.getAttribute('data-sus');
 }
 
-function iniciarAtendimento(){
+function iniciarAtendimento() {
     var sus = document.getElementById('proximo-sus').value;
-    sus = "12345";
-        //  $('.collapsible').collapsible('open', 0);
-    xhrGet('/getPatient?sus='+sus,function(data){
-        context['info'] = data;
+    context = (context === undefined) ? {} : context;
+    xhrGet('/getPatient?sus=' + sus, function (data) {
+        context['patient'] = data;
         context['init_triagem'] = true;
         context['sus_valid'] = true;
-        alert(JSON.stringify(data));
-        userMessage('');
-        
-    },function(err){
-        alert('error',JSON.stringify(err));
+        userMessage('test');
+        $('.collapsible').collapsible('open', 0);
+        $('#espera').removeClass('bounceInUp');
+        $('#espera').addClass('fadeOutLeft');
+        // $('#row-espera').addClass('hide');
+        pacienteAtendido();
+
+    }, function (err) {
+        alert('error', JSON.stringify(err));
 
         context['init_triagem'] = false;
         context['sus_valid'] = false;
-        userMessage('');
+        userMessage('test-error');
+        $('.collapsible').collapsible('open', 0);
     })
 }
+
 
 var local_list = [];
 var waiting_list = [];
 
-function receberLista(){
-    xhrGet('https://min-saude-login.mybluemix.net/getWaiting', function(data){
+function receberLista() {
+    xhrGet('https://min-saude-login.mybluemix.net/getWaiting', function (data) {
         var patients = data['unchecked'];
-        waiting_list = getWaitingList(patients,local_list);
-        
-        // local_list = (patients.length > local_list.length)? getWaitingList(patients,local_list): patients;
-        
-        if(waiting_list.length > 0 ){
-        for(var patient of waiting_list){
-            // alert(moment(new Date(patient.arrival)).format());
-            $('#lista-espera').append('<a href="#modal1" onclick="getInfo(this)"><input disabled value="'+patient.name+' - '+moment(patient.arrival * 1000).format('hh:mm:ss')+'" id="nome'+patient.sus_number+'" data-sus="'+patient.sus_number+'" type="text" class="validate" style="color: #fff;cursor: pointer !important;"></a>');
-            $('#nome'+patient.sus_number).addClass('animated bounceInUp');
-        }
+        waiting_list = getWaitingList(patients, local_list);
 
-        waiting_list = [];
-    }
-    local_list = patients;
-    setTimeout(function(){
-        receberLista();
-    },5000);
+
+        if (waiting_list.length > 0) {
+            var i =1;
+            for (var patient of waiting_list) {
+                // alert(moment(new Date(patient.arrival)).format());
+                $('#lista-espera').append('<a href="#modal'+i+'" onclick="getInfo(this)"><div class="waiting_item" id="sus_' + patient.sus_number + '" data-sus="' + patient.sus_number + '" ">' + patient.name + ' - ' + moment(patient.arrival * 1000).format('hh:mm:ss') + '</div></a>');
+                $('#sus_' + patient.sus_number).addClass('animated bounceInUp');
+                i++;
+            }
+
+            waiting_list = [];
+        }
+        local_list = patients;
+
+        setTimeout(function () {
+            receberLista();
+        }, 10000);
         console.log(JSON.stringify(data));
-    },function(error){
-        alert(JSON.stringify(error));
+    }, function (error) {
+        
     });
-    
+
+}
+
+function pacienteAtendido(){
+    var first = local_list.shift();
+    document.getElementById('sus_'+first.sus_number).parentElement.remove();
+    xhrGet('https://min-saude-login.mybluemix.net/checkIn?susNumber='+first.sus_number,function(data){
+
+    },function(err){
+        console.log(err);
+    });
 }
 
 receberLista();
 
 
-function getWaitingList(patients,local_list){
+function getWaitingList(patients, local_list) {
     waiting_list = [];
-    for(var i = local_list.length ; i< patients.length ; i++){
+    for (var i = local_list.length; i < patients.length; i++) {
         waiting_list.push(patients[i]);
     }
     return waiting_list;
