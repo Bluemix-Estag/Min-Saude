@@ -18,18 +18,15 @@ function welcomeAnimation() {
 // document.getElementById('chatbox').style.bottom = document.getElementById('footer').offsetHeight + 'px';
 
 $(document).ready(function () {
-    setTimeout(function(){
+    setTimeout(function () {
+        $('#chatbox').removeClass('bounce');
         $('#chatbox').removeClass('infinite');
-    },2000); //2 segundos para fazer a animacao duas vezes
+    }, 2000); //2 segundos para fazer a animacao duas vezes
     $('#chatbox').click(function () {
         $('#chatbox').removeClass('infinite');
+        $('#chatbox').removeClass('bounce');
     });
-    // setTimeout(function () {
-    //     $('#chatbox-header').removeClass('pulse');
-    // }, 20000);
-    // $('#chatbox').click(function () {
-    //     $('#chatbox-header').removeClass('pulse');
-    // });
+
     $('#dismiss-historico').click(function () {
         $('#historico').addClass('animated bounceOutDown');
         // $('#row-historico').html('');
@@ -43,55 +40,33 @@ $(document).ready(function () {
         $('#atendimento').addClass('animated bounceOutDown');
     })
 
-    // setTimeout(function(){
-    //     $('#row-historico').removeClass('hide');
+    $('#dismiss-consulta').click(function () {
+        // $('#row-info').html('');
+        $('#consulta').addClass('animated bounceOutDown');
+    })
 
-    //     $('#historico').addClass('animated bounceInUp');
-    // },5000);
-
-    // setTimeout(function(){
-    //     $('#row-info').removeClass('hide');
-
-    //     $('#info').addClass('animated bounceInUp');
-    // },10000);
-
-    // setTimeout(function(){
-    //     $('#temp').removeClass('hide');
-    //     $('#temp').addClass('animated bounceInRight');
-    // },15000);
-
-    // setTimeout(function(){
-    //     $('#press').removeClass('hide');
-    // },20000);
-
-    // setTimeout(function(){
-    //     $('#co2').removeClass('hide');
-    // },25000);
-
-    // setTimeout(function(){
-    //     $('#glicemia').removeClass('hide');
-    // },25000);
-
-    // setTimeout(function(){
-    //     $('#dor-peito').removeClass('hide');
-    // },25000);
+    $('.modal').modal({
+        dismissible: false, // Modal can be dismissed by clicking outside of the modal
+        opacity: .5, // Opacity of modal background
+        inDuration: 300, // Transition in duration
+        outDuration: 200, // Transition out duration
+        startingTop: '4%', // Starting top style attribute
+        endingTop: '10%', // Ending top style attribute
+        ready: function (modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+            // alert("Ready");
+            // console.log(modal, trigger);
+        },
+        complete: function () {
+            // alert('Closed');
+        } // Callback for Modal close
+    });
 
 
-    // setTimeout(function(){
-    //     $('#row-consulta').removeClass('hide');
-    // },3000);
-    // setTimeout(function(){
-    //     $('#horario').removeClass('hide');
-    // },5000);
 
-    // setTimeout(function(){
-    //     $('#local').removeClass('hide');
-    // },7000);
 
-    // so pra mockar os valores mentiraa meuuu oo pode abrir audio ? 
-
-    // $("#row-historico").click(function () {
-    //     $('#row-historico').addClass('animated bounce');
-    // });
 
 });
+
+function iniciarAtendimento(){
+    alert("Atendimento iniciado");
+}

@@ -145,6 +145,14 @@
   text-align: center;
 }
 
+#espera{
+  width: 300px !important;
+  height: 300px !important;
+  position: absolute;
+  top: 80px !important;
+  left: 2px !important;
+}
+
 
 
 
