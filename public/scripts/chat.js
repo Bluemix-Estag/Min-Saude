@@ -1,10 +1,6 @@
 var params = {},
     watson = 'Watson',
     context;
-
-
-var lat;
-var long;
 var patientName;
 var patientSus;
 var type;
@@ -17,7 +13,7 @@ function userMessage(message) {
         params.context = context;
     }
     var xhr = new XMLHttpRequest();
-    var uri = '/api/watson';
+    var uri = '/api/watson/triagem';
     xhr.open('POST', uri, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onload = function () {
@@ -41,9 +37,12 @@ function userMessage(message) {
             }
             if (context['info'] != null) {
                 if (context['info'].freq_card != null) {
-                    $('#frequencia').val(context['info']['freq_card']);
-                    $('#freq').removeClass('hide');
-                    $('#frequencia').addClass('animated bounceInRight');
+                    setTimeout(function () {
+                        $('#frequencia').val(context['info']['freq_card']);
+                        $('#freq').removeClass('hide');
+                        $('#frequencia').addClass('animated bounceInRight');
+                    }, 1000)
+
                 }
                 if (context['info']['pressaoD']) {
                     var pressao = context['info']['pressaoN'] + " / " + context['info']['pressaoD'];
@@ -88,7 +87,7 @@ function userMessage(message) {
 
         } else {
             console.error('Server error for Conversation. Return status of: ', xhr.statusText);
-            displayMessage("Putz, deu um tilt aqui. Você pode tentar novamente.", watson);
+            displayMessage("Ops.. um erro ocorreu! Você pode tentar novamente.", watson);
         }
     };
     xhr.onerror = function () {
@@ -114,7 +113,6 @@ function showHistory(sus_number) {
         userMessage('sus_valido');
     }, function (err) {
         console.log(err);
-        alert(JSON.stringify(err));
         if (err.status == 404) {
             context.sus_valido = false;
             userMessage('sus_invalido');
@@ -130,12 +128,16 @@ function startScreening() {
 }
 
 function typeOfPatient(type) {
-    type = type.substring(0,1).toUpperCase() + type.substring(1);
+    type = type.substring(0, 1).toUpperCase() + type.substring(1);
     $('#tipo-atendimento').val(type);
-    $('#historico').addClass('animated bounceOutDown');
-    setTimeout(function () {
+    // $('#historico').addClass('animated bounceOutDown');
+    setTimeout(function(){
         $('#triagem').addClass('animated bounceOutDown');
-    }, 1000);
+    },1000);
+    setTimeout(function () {
+        $('#historico').addClass('animated bounceOutDown');
+        // $('#triagem').addClass('animated bounceOutDown');
+    }, 2000);
     setTimeout(function () {
         $('#loading-atendimento').removeClass('hide');
     }, 1000);
@@ -143,7 +145,9 @@ function typeOfPatient(type) {
         $('#loading-atendimento').addClass('hide');
         $('#row-atendimento').removeClass('hide');
         $('#atendimento').addClass('animated bounceInUp');
-    }, 4000);
+        var color = (type=='Imediato')?'red':(type=='Prioritario')?'yellow':'#fff';
+        $('#tipo-atendimento').css('color',color);
+    }, 3000);
 }
 
 function newEvent(event) {
@@ -180,9 +184,7 @@ function displayMessage(text, user) {
     }
     bubble.innerHTML = text;
     chat_body.appendChild(bubble);
-    document.getElementById('chat-main').scrollTop = document.getElementById('chat-main').scrollHeight;
-    // chat_body.scrollTop = 1000;
-    // alert(chat_body.scrollTop);
+    chat_body.scrollTop = chat_body.scrollHeight;
 }
 
 function displayMaps(watson) {

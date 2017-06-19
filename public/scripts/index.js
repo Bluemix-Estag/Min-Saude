@@ -18,12 +18,18 @@ function welcomeAnimation() {
 // document.getElementById('chatbox').style.bottom = document.getElementById('footer').offsetHeight + 'px';
 
 $(document).ready(function () {
-    setTimeout(function () {
-        $('#chatbox-header').removeClass('pulse');
-    }, 20000);
+    setTimeout(function(){
+        $('#chatbox').removeClass('infinite');
+    },2000); //2 segundos para fazer a animacao duas vezes
     $('#chatbox').click(function () {
-        $('#chatbox-header').removeClass('pulse');
+        $('#chatbox').removeClass('infinite');
     });
+    // setTimeout(function () {
+    //     $('#chatbox-header').removeClass('pulse');
+    // }, 20000);
+    // $('#chatbox').click(function () {
+    //     $('#chatbox-header').removeClass('pulse');
+    // });
     $('#dismiss-historico').click(function () {
         $('#historico').addClass('animated bounceOutDown');
         // $('#row-historico').html('');
@@ -71,16 +77,16 @@ $(document).ready(function () {
     // },25000);
 
 
-    setTimeout(function(){
-        $('#row-consulta').removeClass('hide');
-    },3000);
-    setTimeout(function(){
-        $('#horario').removeClass('hide');
-    },5000);
+    // setTimeout(function(){
+    //     $('#row-consulta').removeClass('hide');
+    // },3000);
+    // setTimeout(function(){
+    //     $('#horario').removeClass('hide');
+    // },5000);
 
-    setTimeout(function(){
-        $('#local').removeClass('hide');
-    },7000);
+    // setTimeout(function(){
+    //     $('#local').removeClass('hide');
+    // },7000);
 
     // so pra mockar os valores mentiraa meuuu oo pode abrir audio ? 
 

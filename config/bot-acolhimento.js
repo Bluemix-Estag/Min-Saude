@@ -1,13 +1,13 @@
 var watson = require('watson-developer-cloud');
-var CONVERSATION_NAME = "TriagemV1"; // conversation name goes here.
+var WORKSPACE_ID = "e0c50eb3-2132-4fde-92aa-d2b7b6fd6e49";
 var cfenv = require('cfenv');
 var chrono = require('chrono-node');
 var fs = require('fs');
 // load local VCAP configuration
-var vcapLocal = null;
-var appEnv = null;
-var appEnvOpts = {};
-var conversationWorkspace, conversation;
+var vcapLocal_a = null;
+var appEnv_a = null;
+var appEnvOpts_a = {};
+var conversationWorkspace_a, conversation_a;
 fs.stat('./vcap-local.json', function (err, stat) {
     if (err && err.code === 'ENOENT') {
         // file does not exist
@@ -16,21 +16,21 @@ fs.stat('./vcap-local.json', function (err, stat) {
     } else if (err) {
         console.log('Error retrieving local vcap: ', err.code);
     } else {
-        vcapLocal = require("../vcap-local.json");
-        console.log("Loaded local VCAP", vcapLocal);
-        appEnvOpts = {
-            vcap: vcapLocal
+        vcapLocal_a = require("../vcap-local.json");
+        console.log("Loaded local VCAP", vcapLocal_a);
+        appEnvOpts_a = {
+            vcap: vcapLocal_a
         };
         initializeAppEnv();
     }
 });
 // get the app environment from Cloud Foundry, defaulting to local VCAP
 function initializeAppEnv() {
-    appEnv = cfenv.getAppEnv(appEnvOpts);
-    if (appEnv.isLocal) {
+    appEnv_a = cfenv.getAppEnv(appEnvOpts_a);
+    if (appEnv_a.isLocal) {
         require('dotenv').load();
     }
-    if (appEnv.services.conversation) {
+    if (appEnv_a.services.conversation) {
         initConversation();
     } else {
         console.error("No Watson conversation service exists");
@@ -42,46 +42,46 @@ function initializeAppEnv() {
 // =====================================
 // Create the service wrapper
 function initConversation() {
-    var conversationCredentials = appEnv.getServiceCreds("Bot-Saude");
-    console.log(conversationCredentials);
-    var conversationUsername = process.env.CONVERSATION_USERNAME || conversationCredentials.username;
-    var conversationPassword = process.env.CONVERSATION_PASSWORD || conversationCredentials.password;
-    var conversationURL = process.env.CONVERSATION_URL || conversationCredentials.url;
-    conversation = watson.conversation({
-        url: conversationURL,
-        username: conversationUsername,
-        password: conversationPassword,
+    var conversationCredentials_a = appEnv_a.getServiceCreds("Bot-Saude");
+    console.log(conversationCredentials_a);
+    var conversationUsername_a = process.env.CONVERSATION_USERNAME || conversationCredentials_a.username;
+    var conversationPassword_a = process.env.CONVERSATION_PASSWORD || conversationCredentials_a.password;
+    var conversationURL_a = process.env.CONVERSATION_URL || conversationCredentials_a.url;
+    conversation_a = watson.conversation({
+        url: conversationURL_a,
+        username: conversationUsername_a,
+        password: conversationPassword_a,
         version_date: '2017-04-10',
         version: 'v1'
     });
     // check if the workspace ID is specified in the environment
-    conversationWorkspace = process.env.CONVERSATION_WORKSPACE;
+    conversationWorkspace_a = process.env.CONVERSATION_WORKSPACE;
     // if not, look it up by name or create one
-    if (!conversationWorkspace) {
-        const workspaceName = CONVERSATION_NAME; // Workspace name goes here.
+    if (!conversationWorkspace_a) {
+        const workspaceId = WORKSPACE_ID; // Workspace name goes here.
         console.log('No conversation workspace configured in the environment.');
-        console.log(`Looking for a workspace named '${workspaceName}'...`);
-        conversation.listWorkspaces((err, result) => {
+        console.log(`Looking for a workspace with id '${workspaceId}'...`);
+        conversation_a.listWorkspaces((err, result) => {
             if (err) {
                 console.log('Failed to query workspaces. Conversation will not work.', err);
             } else {
-                const workspace = result.workspaces.find(workspace => workspace.name === workspaceName);
-                if (workspace) {
-                    conversationWorkspace = workspace.workspace_id;
-                    console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
+                const workspace_a = result.workspaces.find(workspace => workspace.workspace_id === workspaceId);
+                if (workspace_a) {
+                    conversationWorkspace_a = workspace_a.workspace_id;
+                    console.log("Using Watson Conversation with username", conversationUsername_a, "and workspace", conversationWorkspace_a);
                 } else {
                     console.log('Importing workspace from ./conversation/conversation-demo.json');
                     // create the workspace
-                    const watsonWorkspace = JSON.parse(fs.readFileSync('./conversation/conversation-demo.json'));
+                    const watsonWorkspace_a = JSON.parse(fs.readFileSync('./conversation/conversation-demo.json'));
                     // force the name to our expected name
-                    watsonWorkspace.name = workspaceName;
-                    conversation.createWorkspace(watsonWorkspace, (createErr, workspace) => {
+                    watsonWorkspace_a.name = "acolhimentov1";
+                    conversation_a.createWorkspace(watsonWorkspace_a, (createErr, workspace_a) => {
                         if (createErr) {
                             console.log('Failed to create workspace', err);
                         } else {
-                            conversationWorkspace = workspace.workspace_id;
-                            console.log(`Successfully created the workspace '${workspaceName}'`);
-                            console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
+                            conversationWorkspace_a = workspace_a.workspace_id;
+                            console.log(`Successfully created the workspace '${workspaceId}'`);
+                            console.log("Using Watson Conversation with username", conversationUsername_a, "and workspace", conversationWorkspace_a);
                         }
                     });
                 }
@@ -89,7 +89,7 @@ function initConversation() {
         });
     } else {
         console.log('Workspace ID was specified as an environment variable.');
-        console.log("Using Watson Conversation with username", conversationUsername, "and workspace", conversationWorkspace);
+        console.log("Using Watson Conversation with username", conversationUsername_a, "and workspace", conversationWorkspace_a);
     }
 }
 var request = require('request');
@@ -97,7 +97,7 @@ var request = require('request');
 // REQUEST =====================
 // =====================================
 // Allow clients to interact
-var chatbot = {
+var chatbot_acolhimento = {
 sendMessage: function (req, callback) {
     //        var owner = req.user.username;
     buildContextObject(req, function (err, params) {
@@ -123,7 +123,7 @@ sendMessage: function (req, callback) {
                 //                });
             } else if (params) {
                 // Send message to the conversation service with the current context
-                conversation.message(params, function (err, data) {
+                conversation_a.message(params, function (err, data) {
                     if (err) {
                         console.log("Error in sending message: ", err);
                         return callback(err);
@@ -164,7 +164,7 @@ function buildContextObject(req, callback) {
     }
     // Null out the parameter object to start building
     var params = {
-        workspace_id: conversationWorkspace,
+        workspace_id: conversationWorkspace_a,
         input: {},
         context: {}
     };
@@ -189,4 +189,4 @@ function buildContextObject(req, callback) {
     //    }
     return callback(null, params);
 }
-module.exports = chatbot;
+module.exports = chatbot_acolhimento;
