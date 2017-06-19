@@ -95,6 +95,9 @@
 .nav-wrapper{
      box-shadow: 0px 10px 5px #888888 !important;
 }
+
+
+
 .page-footer{
     /*box-shadow: 0px -10px 5px #888888 !important;*/
 }
@@ -128,7 +131,7 @@
   height: 300px !important;
   position: absolute;
   top: 80px !important;
-  left: 500px !important;
+  left: 450px !important;
 }
 #atendimento{
   width: 700px !important;
@@ -147,7 +150,7 @@
 
 #espera{
   width: 300px !important;
-  height: 300px !important;
+  height: 530px !important;
   position: absolute;
   top: 80px !important;
   left: 2px !important;

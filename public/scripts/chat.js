@@ -197,4 +197,72 @@ function displayMaps(watson) {
 }
 
 
-userMessage('');
+// userMessage('');
+
+
+
+function getInfo(element){
+    document.getElementById('proximo-nome').innerHTML = element.childNodes[0].value.split('-')[0];
+    document.getElementById('proximo-sus').value = element.childNodes[0].getAttribute('data-sus');
+}
+
+function iniciarAtendimento(){
+    var sus = document.getElementById('proximo-sus').value;
+    sus = "12345";
+        //  $('.collapsible').collapsible('open', 0);
+    xhrGet('/getPatient?sus='+sus,function(data){
+        context['info'] = data;
+        context['init_triagem'] = true;
+        context['sus_valid'] = true;
+        alert(JSON.stringify(data));
+        userMessage('');
+        
+    },function(err){
+        alert('error',JSON.stringify(err));
+
+        context['init_triagem'] = false;
+        context['sus_valid'] = false;
+        userMessage('');
+    })
+}
+
+var local_list = [];
+var waiting_list = [];
+
+function receberLista(){
+    xhrGet('https://min-saude-login.mybluemix.net/getWaiting', function(data){
+        var patients = data['unchecked'];
+        waiting_list = getWaitingList(patients,local_list);
+        
+        // local_list = (patients.length > local_list.length)? getWaitingList(patients,local_list): patients;
+        
+        if(waiting_list.length > 0 ){
+        for(var patient of waiting_list){
+            // alert(moment(new Date(patient.arrival)).format());
+            $('#lista-espera').append('<a href="#modal1" onclick="getInfo(this)"><input disabled value="'+patient.name+' - '+moment(patient.arrival * 1000).format('hh:mm:ss')+'" id="nome'+patient.sus_number+'" data-sus="'+patient.sus_number+'" type="text" class="validate" style="color: #fff;cursor: pointer !important;"></a>');
+            $('#nome'+patient.sus_number).addClass('animated bounceInUp');
+        }
+
+        waiting_list = [];
+    }
+    local_list = patients;
+    setTimeout(function(){
+        receberLista();
+    },5000);
+        console.log(JSON.stringify(data));
+    },function(error){
+        alert(JSON.stringify(error));
+    });
+    
+}
+
+receberLista();
+
+
+function getWaitingList(patients,local_list){
+    waiting_list = [];
+    for(var i = local_list.length ; i< patients.length ; i++){
+        waiting_list.push(patients[i]);
+    }
+    return waiting_list;
+}

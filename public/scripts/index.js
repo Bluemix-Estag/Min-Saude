@@ -67,6 +67,3 @@ $(document).ready(function () {
 
 });
 
-function iniciarAtendimento(){
-    alert("Atendimento iniciado");
-}
