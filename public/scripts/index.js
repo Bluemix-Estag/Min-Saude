@@ -19,50 +19,54 @@ function welcomeAnimation() {
 
 $(document).ready(function () {
     setTimeout(function () {
-        $('#chatbox-header').removeClass('pulse');
-    }, 20000);
+        $('#chatbox').removeClass('bounce');
+        $('#chatbox').removeClass('infinite');
+    }, 2000); //2 segundos para fazer a animacao duas vezes
     $('#chatbox').click(function () {
-        $('#chatbox-header').removeClass('pulse');
+        $('#chatbox').removeClass('infinite');
+        $('#chatbox').removeClass('bounce');
     });
+
     $('#dismiss-historico').click(function () {
-        $('#row-historico').html('');
+        $('#historico').addClass('animated bounceOutDown');
+        // $('#row-historico').html('');
     })
-    $('#dismiss-info').click(function () {
-        $('#row-info').html('');
+    $('#dismiss-triagem').click(function () {
+        // $('#row-info').html('');
+        $('#triagem').addClass('animated bounceOutDown');
+    })
+    $('#dismiss-atendimento').click(function () {
+        // $('#row-info').html('');
+        $('#atendimento').addClass('animated bounceOutDown');
     })
 
-    setTimeout(function(){
-        $('#row-historico').removeClass('hide');
-    },5000);
+    $('#dismiss-consulta').click(function () {
+        // $('#row-info').html('');
+        $('#consulta').addClass('animated bounceOutDown');
+    })
 
-    setTimeout(function(){
-        $('#row-info').removeClass('hide');
-    },10000);
+    $('.modal').modal({
+        dismissible: false, // Modal can be dismissed by clicking outside of the modal
+        opacity: .5, // Opacity of modal background
+        inDuration: 300, // Transition in duration
+        outDuration: 200, // Transition out duration
+        startingTop: '4%', // Starting top style attribute
+        endingTop: '10%', // Ending top style attribute
+        ready: function (modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+            // alert("Ready");
+            // console.log(modal, trigger);
+        },
+        complete: function () {
+            // alert('Closed');
+        } // Callback for Modal close
+    });
 
-    setTimeout(function(){
-        $('#temp').removeClass('hide');
-    },15000);
 
-    setTimeout(function(){
-        $('#press').removeClass('hide');
-    },20000);
 
-    setTimeout(function(){
-        $('#co2').removeClass('hide');
-    },25000);
 
-    setTimeout(function(){
-        $('#glicemia').removeClass('hide');
-    },25000);
-
-    setTimeout(function(){
-        $('#dor-peito').removeClass('hide');
-    },25000);
-
-    // so pra mockar os valores mentiraa meuuu oo pode abrir audio ? 
-
-    // $("#row-historico").click(function () {
-    //     $('#row-historico').addClass('animated bounce');
-    // });
 
 });
+
+function iniciarAtendimento(){
+    alert("Atendimento iniciado");
+}

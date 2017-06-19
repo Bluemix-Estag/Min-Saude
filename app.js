@@ -13,6 +13,8 @@ var http = require('http').createServer(app);
 var socketIO = require('socket.io')(http);
 var request = require('request');
 var chatbot = require('./config/bot.js');
+var moment = require('moment');
+var chatbot_acolhimento = require('./config/bot-acolhimento.js');
 // load local VCAP configuration
 var vcapLocal = null;
 var appEnv = null;
@@ -92,25 +94,77 @@ function initCloudant() {
 // CLOUDANT METHODS=============
 //==============================
 
-app.get('/getPatients', function(req,res){
-    database.find({
-      "selector": {
-        "_id":"patients"
-      },
-      "fields":[
-          "patients"
-      ]
-    },
-        function(err, data) {
-          if(!err){
-            console.log(" \n" + JSON.stringify(data.docs[0]));
-            res.send({data:data.docs[0]});
-            return;
-          }
-          console.log(err);
-        res.send({status:false,err:"Error"});
-        });
-}); 
+app.get('/getPatient', function (req, res) {
+    var sus = req.query.sus;
+    res.setHeader('Content-Type', 'application/json');
+    database.get('patients', {
+        revs_info: true
+    }, function (err, doc) {
+        if (err) {
+            console.log(err);
+            res.status(500).json({ error: true, description: "Internal server error", status: 500 });
+        } else {
+            var patient = null;
+            var patients = doc.patients;
+            for (var p of patients) {
+                if (p.sus == sus) {
+                    patient = p;
+                    console.log("Patient: " + JSON.stringify(patient));
+                    break;
+                }
+            }
+            if (patient != null) {
+                res.status(200).json(patient);
+            } else {
+                res.status(404).json({ error: true, description: "Patient not found", status: 404 });
+            }
+        }
+    })
+});
+
+app.get('/getPatientAgenda', function (req, res) {
+    var sus = req.query.sus;
+    res.setHeader('Content-Type', 'application/json');
+    database.get('patients', {
+        revs_info: true
+    }, function (err, doc) {
+        if (err) {
+            res.status(500).json({ error: true, description: "Internal server error", status: 500 });
+        } else {
+            var patients = doc.patients;
+            var now = moment().unix();
+            var patient = -1;
+            var atividades = [];
+            for (var p in patients) {
+                if (patients[p].sus == sus) {
+                    patient = p;
+                    console.log('p.atividades.length: '+patients[p].atividades.length);
+                    if (patients[p].atividades.length > 0) {
+                        for (var atividade in patients[p].atividades) {
+                            console.log('atividade.date: '+patients[p].atividades[atividade].date + ' now: '+now);
+                            if (patients[p].atividades[atividade].date >= now) {
+                                atividades.push(patients[p].atividades[atividade]);
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+            if(patient != -1){
+                patient = patients[patient];
+                patient.atividades = atividades;
+                res.status(200).json(patient);
+            }else{
+                res.status(404).json({error: true, description: "Patient not found",status: 404});
+            }
+        }
+    })
+});
+
+
+
+
+
 
 
 // =============================
@@ -121,6 +175,10 @@ app.get('/index', function (req, res) {
     res.render('index.html');
 })
 
+app.get('/acolhimento', function (req, res) {
+    res.render('acolhimento.html');
+})
+
 app.get('/', function (req, res) {
     res.render('login.html');
 })
@@ -128,10 +186,10 @@ app.get('/', function (req, res) {
 // =====================================
 // WATSON CONVERSATION  ================
 // =====================================
-app.post('/api/watson', function (req, res) {
-    processChatMessage(req, res);
+app.post('/api/watson/triagem', function (req, res) {
+    processChatMessage_triagem(req, res);
 }); // End app.post 
-function processChatMessage(req, res) {
+function processChatMessage_triagem(req, res) {
     chatbot.sendMessage(req, function (err, data) {
         if (err) {
             console.log("Error in sending message: ", err);
@@ -139,7 +197,22 @@ function processChatMessage(req, res) {
         }
         else {
             var context = data.context;
-//            var owner = req.user.username;
+            res.status(200).json(data);
+        }
+    });
+}
+
+app.post('/api/watson/acolhimento', function (req, res) {
+    processChatMessage_acolhimento(req, res);
+}); // End app.post 
+function processChatMessage_acolhimento(req, res) {
+    chatbot_acolhimento.sendMessage(req, function (err, data) {
+        if (err) {
+            console.log("Error in sending message: ", err);
+            res.status(err.code || 500).json(err);
+        }
+        else {
+            var context = data.context;
             res.status(200).json(data);
         }
     });
