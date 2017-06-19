@@ -19,6 +19,7 @@ var chatbot_acolhimento = require('./config/bot-acolhimento.js');
 var vcapLocal = null;
 var appEnv = null;
 var appEnvOpts = {};
+var discovery = require('./config/discovery.js');
 
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
@@ -217,7 +218,18 @@ function processChatMessage_acolhimento(req, res) {
         }
     });
 }
+// ==========================
+// DISCOVERY METHODS ========
+// ==========================
 
+app.get('/api/watson/discovery',function(req,res){
+    discovery.query(req, function(err,data){
+        if(err) console.log("Error in discovery service", err);
+        else{
+            res.status(200).json(data);
+        }
+    });
+});
 
 
 
