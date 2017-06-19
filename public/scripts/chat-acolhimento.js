@@ -35,6 +35,9 @@ function userMessage(message) {
             }
             if(context['show_agenda'] == true){
                 showAgenda(context['info']);
+                context['show_agenda'] = false;
+                context['acolhimento_continue'] = true;
+                userMessage('');
             }
             
             for (var txt in text) {
@@ -154,3 +157,10 @@ function displayMessage(text, user) {
 }
 
 userMessage('');
+
+
+
+
+function imprimirConsulta(){
+    window.print();
+}

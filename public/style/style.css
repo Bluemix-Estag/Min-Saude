@@ -124,11 +124,11 @@
   left: 400px !important;
 }
 #consulta{
-  width: 300px !important;
+  width: 500px !important;
   height: 300px !important;
   position: absolute;
   top: 80px !important;
-  left: 400px !important;
+  left: 500px !important;
 }
 #atendimento{
   width: 700px !important;
@@ -207,4 +207,17 @@
 	overflow: hidden;
 	-webkit-animation: typing 2s steps(21, end),
 	           blink-caret .5s step-end infinite alternate;
+}
+
+
+
+@media print and (min-width: 0px){
+  *{
+    visibility: hidden;
+  }
+
+  
+  #row-consulta ,  #row-consulta *{
+    visibility: visible;
+  }
 }
