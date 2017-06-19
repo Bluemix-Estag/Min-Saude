@@ -8,3 +8,4 @@ applications:
   disk_quota: 1024M
   services:
   - min-saude-cloudantNoSQLDB
+  - Discovery-Saude
