@@ -38,13 +38,16 @@ $(document).ready(function () {
     $('#dismiss-atendimento').click(function () {
         // $('#row-info').html('');
         $('#atendimento').addClass('animated bounceOutDown');
+        $('#row-espera').removeClass('hide');
+        $('#espera').removeClass('fadeOutLeft');
+        $('#espera').addClass('bounceInUp');
     })
 
     $('#dismiss-consulta').click(function () {
         // $('#row-info').html('');
         $('#consulta').addClass('animated bounceOutDown');
     })
-
+     $('.collapsible').collapsible();
     $('.modal').modal({
         dismissible: false, // Modal can be dismissed by clicking outside of the modal
         opacity: .5, // Opacity of modal background
