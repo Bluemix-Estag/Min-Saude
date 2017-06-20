@@ -254,13 +254,14 @@ function receberLista() {
         }
         local_list = patients;
 
-        setTimeout(function () {
-            receberLista();
-        }, 10000);
         console.log(JSON.stringify(data));
     }, function (error) {
         
     });
+    
+        setTimeout(function () {
+            receberLista();
+        }, 10000);
 
 }
 

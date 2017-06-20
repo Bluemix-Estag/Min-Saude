@@ -70,19 +70,20 @@ function xhrAttach(url, data, callback, errback)
 function xhrPost(url, data, callback, errback){
 	var xhr = new createXHR();
 	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.setRequestHeader("Content-type", "application/json");
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4){
 			if(xhr.status == 200){
 				callback(parseJson(xhr.responseText));
 			}else{
-				errback('service not available');
+				// errback(JSON.parse(xhr.responseText));
+				errback(xhr.responseText);
 			}
 		}
 	};
 	xhr.timeout = 100000;
 	xhr.ontimeout = errback;
-	xhr.send(objectToQuery(data));
+	xhr.send(JSON.stringify(data));
 }
 
 function xhrDelete(url, callback, errback){	
