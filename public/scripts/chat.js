@@ -79,6 +79,8 @@ function userMessage(message) {
                 typeOfPatient(context['atendimento']);
             }
 
+
+
             //
             // console.log(JSON.stringify(text));
             for (var txt in text) {
@@ -242,10 +244,10 @@ function receberLista() {
 
 
         if (waiting_list.length > 0) {
-            var i =1;
+            var i = 1;
             for (var patient of waiting_list) {
                 // alert(moment(new Date(patient.arrival)).format());
-                $('#lista-espera').append('<a href="#modal'+i+'" onclick="getInfo(this)"><div class="waiting_item" id="sus_' + patient.sus_number + '" data-sus="' + patient.sus_number + '" ">' + patient.name + ' - ' + moment(patient.arrival * 1000).format('hh:mm:ss') + '</div></a>');
+                $('#lista-espera').append('<a href="#modal' + i + '" onclick="getInfo(this)"><div class="waiting_item" id="sus_' + patient.sus_number + '" data-sus="' + patient.sus_number + '" ">' + patient.name + ' - ' + moment(patient.arrival * 1000).format('hh:mm:ss') + '</div></a>');
                 $('#sus_' + patient.sus_number).addClass('animated bounceInUp');
                 i++;
             }
@@ -256,21 +258,21 @@ function receberLista() {
 
         console.log(JSON.stringify(data));
     }, function (error) {
-        
+
     });
-    
-        setTimeout(function () {
-            receberLista();
-        }, 10000);
+
+    setTimeout(function () {
+        receberLista();
+    }, 10000);
 
 }
 
-function pacienteAtendido(){
+function pacienteAtendido() {
     var first = local_list.shift();
-    document.getElementById('sus_'+first.sus_number).parentElement.remove();
-    xhrGet('https://min-saude-login.mybluemix.net/checkIn?susNumber='+first.sus_number,function(data){
+    document.getElementById('sus_' + first.sus_number).parentElement.remove();
+    xhrGet('https://min-saude-login.mybluemix.net/checkIn?susNumber=' + first.sus_number, function (data) {
 
-    },function(err){
+    }, function (err) {
         console.log(err);
     });
 }

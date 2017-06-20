@@ -39,8 +39,9 @@ $(document).ready(function () {
         // $('#row-info').html('');
         $('#atendimento').addClass('animated bounceOutDown');
         $('#row-espera').removeClass('hide');
-        $('#espera').removeClass('fadeOutLeft');
-        $('#espera').addClass('bounceInUp');
+        setTimeout(function(){
+            window.location('/index');
+        },5000);
     })
 
     $('#dismiss-consulta').click(function () {
