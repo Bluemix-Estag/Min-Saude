@@ -38,13 +38,18 @@ $(document).ready(function () {
     $('#dismiss-atendimento').click(function () {
         // $('#row-info').html('');
         $('#atendimento').addClass('animated bounceOutDown');
+        $('#row-espera').removeClass('hide');
+
+        setTimeout(function(){
+            window.location.href = '/index';
+        },5000);
     })
 
     $('#dismiss-consulta').click(function () {
         // $('#row-info').html('');
         $('#consulta').addClass('animated bounceOutDown');
     })
-
+     $('.collapsible').collapsible();
     $('.modal').modal({
         dismissible: false, // Modal can be dismissed by clicking outside of the modal
         opacity: .5, // Opacity of modal background
@@ -67,6 +72,3 @@ $(document).ready(function () {
 
 });
 
-function iniciarAtendimento(){
-    alert("Atendimento iniciado");
-}

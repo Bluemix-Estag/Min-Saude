@@ -184,6 +184,10 @@ app.get('/', function (req, res) {
     res.render('login.html');
 })
 
+app.get('/doutor',function(req,res){
+    res.render('doutor.html');
+})
+
 // =====================================
 // WATSON CONVERSATION  ================
 // =====================================

@@ -39,6 +39,18 @@ function userMessage(message) {
                 context['acolhimento_continue'] = true;
                 userMessage('');
             }
+            if(context['encaminhar_triagem']){
+                var new_patient = {
+                    "name": context['info']['nome'],
+                    "sus_number": context['info']['sus']
+                }
+                alert(JSON.stringify(new_patient));
+                xhrPost('https://min-saude-login.mybluemix.net/addWaiting', new_patient, function(result){
+                    alert(JSON.stringify(result));
+                },function(err){
+                    console.log(err);
+                })
+            }
             
             for (var txt in text) {
                 displayMessage(text[txt], watson);
