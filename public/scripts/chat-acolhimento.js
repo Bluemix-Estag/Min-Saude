@@ -44,12 +44,20 @@ function userMessage(message) {
                     "name": context['info']['nome'],
                     "sus_number": context['info']['sus']
                 }
-                alert(JSON.stringify(new_patient));
-                xhrPost('https://min-saude-login.mybluemix.net/addWaiting', new_patient, function(result){
-                    alert(JSON.stringify(result));
+                
+                xhrPost('https://min-saude-apis.mybluemix.net/addWaiting', new_patient, function(result){
+                    setTimeout(function(){
+                        window.location.href = '/acolhimento';
+                    },5000);
                 },function(err){
                     console.log(err);
                 })
+            }
+
+            if(context['acolhimento_close']){
+                setTimeout(function(){
+                    window.location.href = '/acolhimento';
+                },5000);
             }
             
             for (var txt in text) {
@@ -78,7 +86,7 @@ function showHistory(data) {
         $('#sus').val(data.sus);
         $('#paciente-sus').val(data.sus);
         $('#idade').val(data.idade);
-        $('#situacao').val(data.situacao);
+        $('#genero').val(data.sexo);
 }
 
 
