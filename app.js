@@ -227,8 +227,12 @@ function processChatMessage_acolhimento(req, res) {
 // ==========================
 
 app.get('/api/watson/discovery',function(req,res){
-    discovery.query(req, function(err,data){
-        if(err) console.log("Error in discovery service", err);
+    var query = req.query.q;
+    discovery.query(query, function(err,data){
+        if(err) {
+            console.log("Error in discovery service", err);
+            res.status(err.code || 500).json(err);
+        }
         else{
             res.status(200).json(data);
         }

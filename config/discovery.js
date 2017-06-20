@@ -50,30 +50,28 @@ function initDiscovery() {
     discoveryService = new DiscoveryV1({
         username: discoveryUsername,
         password: discoveryPassword,
-        version_date: '2016-12-01'
+        version_date: DiscoveryV1.VERSION_DATE_2017_04_27
     });
 
 
 }
 var discovery = {
     query: function (req, callback) {
-
+        
         discoveryService.query({
             environment_id: 'f9d55b62-0856-410c-ac7a-b52d6a2776de',
             collection_id: '0e8ecdf5-2cea-4337-9734-b7fcc9276a30',
-            query: 'purple bruises and high fever'
+            query: req      
+                   
         }, function (err, response) {
             if (err) {
                 console.error(err);
                 return callback(err);
             } else {
-                var output = {
-
-                    title: response.results[0].extracted_metadata.title,
-                    text: response.results[0].text
-                    
-                };
-
+                var output = [];
+                for(var i = 0; i < response.results.length; i++){
+                    output.push({title: response.results[i].extracted_metadata.title, score: response.results[i].score, text: response.results[0].text});
+                }
                 callback(null, output);
             }
         });
