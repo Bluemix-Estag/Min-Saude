@@ -132,7 +132,7 @@ footer {
     display: flex !important;
     align-content: space-between !important;
     justify-content: center !important;
-    top: 80px !important;
+    top: 145px !important;
     height: 175px !important;
     width: 350px !important;
     left: 860px !important;
@@ -199,6 +199,14 @@ footer {
     position: absolute;
     top: 80px !important;
     left: 700px !important;
+}
+
+#pre-analise {
+    width: 620px !important;
+    height: 223px !important;
+    position: absolute;
+    top: 260px !important;
+    left: 730px !important;
 }
 
 /*.canvas-holder {

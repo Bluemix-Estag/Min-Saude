@@ -41,11 +41,11 @@
 
 
         <!-- Espera Médico -->
-        <div class="row " id="row-espera-medico-imediato">
+        <div class="row  " id="row-espera-medico-imediato">
             <div class="col s12 m6">
                 <div class="card light-blue lighten-5 darken-1 z-depth-5 animated bounceInUp" id="espera-medico-imediato" style="overflow-y: scroll !important">
                     <div class="card-content black-text" id="lista-medico-imediato">
-                        <span class="new badge  blue-grey lighten-4 black-text"  data-badge-caption=" " id="imediato_bagde">4</span>
+                        <span class="new badge  blue-grey lighten-4 black-text" data-badge-caption=" " id="imediato_bagde">0</span>
                         <!--<a href="#" onclick="receberLista()"><i class="material-icons left">close</i></a>-->
                         <span class="card-title" style="text-align: center !important;">Atendimento Imediato</span>
 
@@ -59,11 +59,11 @@
 
         <!-- -->
         <!-- Espera Médico -->
-        <div class="row" id="row-espera-medico-prioritario">
+        <div class="row " id="row-espera-medico-prioritario">
             <div class="col s12 m6">
                 <div class="card light-blue lighten-5 darken-1 z-depth-5 animated bounceInUp" id="espera-medico-prioritario" style="overflow-y: scroll !important">
                     <div class="card-content black-text" id="lista-medico-prioritario">
-                        <span class="new badge blue-grey lighten-4 black-text" data-badge-caption=" " id="prioritario_badge">2</span>
+                        <span class="new badge blue-grey lighten-4 black-text" data-badge-caption=" " id="prioritario_badge">0</span>
                         <!--<a href="#" onclick="receberLista()"><i class="material-icons left">close</i></a>-->
 
                         <span class="card-title" style="text-align: center !important;">Atendimento Prioritário</span>
@@ -79,8 +79,8 @@
             <div class="col s12 m6">
                 <div class="card light-blue lighten-5 darken-1 z-depth-5 animated bounceInUp" id="espera-medico-dia" style="overflow-y: scroll !important">
                     <div class="card-content black-text" id="lista-medico-dia">
-                        
-                        <span class="new badge blue-grey lighten-4 black-text" data-badge-caption=" " id="dia_badge">5</span>
+
+                        <span class="new badge blue-grey lighten-4 black-text" data-badge-caption=" " id="dia_badge">0</span>
                         <!--<a href="#" onclick="receberLista()"><i class="material-icons left">close</i></a>-->
 
                         <span class="card-title" style="text-align: center !important;">Atendimento no Dia</span>
@@ -103,7 +103,7 @@
                 <input type="hidden" id="proximo-sus" value="" />
             </div>
             <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="startTreatment()">Atender</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="getIndividual()">Atender</a>
             </div>
         </div>
 
@@ -185,7 +185,7 @@
                                 <textarea id="queixa_value" disabled class="materialize-textarea" style="color: white !important;">Dor de cabeça e febre</textarea>
                                 <label for="textarea1" style="color: white !important;">Queixa</label>
                             </div>
-                            <div class="input-field hide col m6" id="queixa_tempo_holder">
+                            <div class="input-field  col m6" id="queixa_tempo_holder">
                                 <textarea id="queixa_tempo" disabled class="materialize-textarea" style="color: white !important;">3 dias</textarea>
                                 <label for="textarea2" style="color: white !important;">Período</label>
                             </div>
@@ -195,6 +195,32 @@
             </div>
         </div>
         <!-- -->
+        <!-- Card Pre analise -->
+        <div class="row hide" id="row-pre-analise">
+            <div class="col s12 m6">
+                <div class="card light-blue lighten-5darken-1 z-depth-5" id="pre-analise">
+                    <div class="card-content white-text">
+                        <span class="card-title" style="text-align: center !important;">Informações adicionais da queixa</span>
+                        <div class="row">
+                            <div class="input-field col m6 hide" id="div-pre-analise" >
+                                
+                                <textarea id="pre-analise-value" disabled class="materialize-textarea" style="color: white !important;">Dor de cabeça e febre</textarea>
+                                <label for="pre-analise-value" style="color: white !important;">Pré Análise</label>
+                            </div>
+                            <div class="input-field col m6" id="div-descricao">
+                                <textarea id="descricao-value" disabled class="materialize-textarea" style="color: white !important;">Dor de cabeça e febre</textarea>
+                                <label for="textarea1" style="color: white !important;">Descrição</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- -->
+
+
+
+
         <!-- Loading-->
         <div class="col s12 m6 center">
             <div class="preloader-wrapper big active hide" id="loading-atendimento">
@@ -275,23 +301,16 @@
                                 <textarea id="queixa_value" class="materialize-textarea" style="color: white !important;" disabled>Conclusão vai aqui</textarea>
                                 <label for="textarea1" style="color: white !important;">Conclusão</label>
                             </div>
-
                         </div>
-
-                        <div class="row">
-                            <div class="input-field row m2">
-                                <textarea id="queixa_value" class="materialize-textarea" style="color: white !important;" disabled></textarea>
-                                <label for="textarea1" style="color: white !important;"></label>
-                            </div>
-
-                        </div>
-
                         <div class="row">
                             <div class="input-field row m6">
                                 <textarea id="queixa_value" class="materialize-textarea" style="color: white !important;"></textarea>
                                 <label for="textarea1" style="color: white !important;">Prescrição</label>
                             </div>
+                        </div>
 
+                        <div class="row center">
+                            <button class="btn  btn-large  blue-grey lighten-4"  style="color: black !important;" id="receitar">Receitar</button>
                         </div>
 
 
@@ -386,7 +405,7 @@
     </main>
     <footer class="lighten-2 footer blue lighten-1 page-footer" id="footer">
         <div class="">
-            © 2017 Hybrid Cloud
+            © 2017 Code Bakery
         </div>
         </div>
     </footer>

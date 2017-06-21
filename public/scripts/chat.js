@@ -24,7 +24,7 @@ function userMessage(message) {
             context = response.context; // Store the context for next round of questions
             // console.log("Got response from Ana: ", JSON.stringify(response));
 
-
+            
             if (context['show_history'] == true) {
                 showHistory(context['patient'].sus);
                 context['show_history'] = false;
@@ -74,27 +74,31 @@ function userMessage(message) {
                     $('#temp').removeClass('hide');
                     $('#temperatura').addClass('animated bounceInRight');
                 }
-                // if (context['info']['glicemia'] && context['info']['glicemia'] != null) {
-                //     setScreening('glicemia', context['info'].freq_card,'Frequência Cardíaca');
-                //     // $('#glicemia').val(context['info']['glicemia']);
-                //     // $('#glic').removeClass('hide');
-                //     // $('#glicemia').addClass('animated bounceInRight');
-                // }
+                if (context['info']['glicemia'] && context['info']['glicemia'] != null) {
+                    $('#glicemia').val(context['info']['glicemia']);
+                    $('#glic').removeClass('hide');
+                    $('#glicemia').addClass('animated bounceInRight');
+                }
                 if (context['info']['freq_resp']) {
                     $('#respiratoria').val(context['info']['freq_resp']);
                     $('#freq_resp').removeClass('hide');
                     $('#respiratoria').addClass('animated bounceInRight');
                 }
-                // if (context['info']['dor'] == true || context['info']['dor'] == false) {
+                if (context['info']['dor'] == true || context['info']['dor'] == false) {
                     
-                //     // if (context['info']['dor'] == true) {
-                //     //     $('#dor').val("Sim");
-                //     // } else {
-                //     //     $('#dor').val("Não");
-                //     // }
-                //     // $('#dor-peito').removeClass('hide');
-                //     // $('#dor').addClass('animated bounceInRight');
-                // }
+                    if (context['info']['dor'] == true) {
+                        $('#dor').val("Sim");
+                    } else {
+                        $('#dor').val("Não");
+                    }
+                    $('#dor-peito').removeClass('hide');
+                    $('#dor').addClass('animated bounceInRight');
+                }
+                if (context['info']['o2']) {
+                    $('#saturacao').val(context['info']['o2']);
+                    $('#satur').removeClass('hide');
+                    $('#saturacao').addClass('animated bounceInRight');
+                }
             }
             if (context['analise'] == true) {
                 typeOfPatient(context['atendimento']);
@@ -165,6 +169,7 @@ function startScreening() {
 
 function typeOfPatient(type) {
     type = type.substring(0, 1).toUpperCase() + type.substring(1);
+    alert("Entrou no type");
     $('#tipo-atendimento').val(type);
     // $('#historico').addClass('animated bounceOutDown');
     setTimeout(function () {
@@ -273,7 +278,6 @@ function iniciarAtendimento() {
         $('#espera').removeClass('bounceInUp');
         $('#espera').addClass('fadeOutUp');
         // $('#row-espera').addClass('hide');
-        pacienteAtendido();
 
     }, function (err) {
 
@@ -322,9 +326,18 @@ function receberLista() {
 
 function pacienteAtendido() {
     var first = local_list.shift();
+    
     document.getElementById('sus_' + first.sus_number).parentElement.remove();
-    xhrGet('https://min-saude-login.mybluemix.net/checkIn?susNumber=' + first.sus_number, function (data) {
+    var result = {
+        priority: (context.atendimento == 'imediato')?'3':(context.atendimento == 'prioritario')?'2':'1',
+        info: context.info,
+        patient: context.patient    
+    }
 
+    alert(JSON.stringify(result));
+    xhrPost('https://min-saude-apis.mybluemix.net/checkIn', result, function (data) {
+        
+        
     }, function (err) {
         console.log(err);
     });
@@ -340,3 +353,4 @@ function getWaitingList(patients, local_list) {
     }
     return waiting_list;
 }
+
