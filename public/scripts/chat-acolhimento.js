@@ -54,6 +54,11 @@ function userMessage(message) {
                 })
             }
 
+            // if(context('fim_triagem')){
+            //     // POST com o paciente, info respostas da triagem e o tipo do atendimento
+            // }
+
+
             if(context['acolhimento_close']){
                 setTimeout(function(){
                     window.location.href = '/acolhimento';

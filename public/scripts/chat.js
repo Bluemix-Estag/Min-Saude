@@ -110,12 +110,12 @@ function userMessage(message) {
 
         } else {
             console.error('Server error for Conversation. Return status of: ', xhr.statusText);
-            displayMessage("Ops.. um erro ocorreu! Você pode tentar novamente.", watson);
+            displayMessage("Um erro ocorreu.Tente novamente mais tarde.", watson);
         }
     };
     xhr.onerror = function () {
         console.error('Network error trying to send message!');
-        displayMessage("Ops, acho que meu cérebro está offline. Espera um minutinho para continuarmos por favor.", watson);
+        displayMessage("Meu servidor está offline. Espere alguns instantes para continuar por favor.", watson);
     };
     console.log(JSON.stringify(params));
     xhr.send(JSON.stringify(params));
@@ -272,7 +272,7 @@ function iniciarAtendimento() {
         userMessage('test');
         $('.collapsible').collapsible('open', 0);
         $('#espera').removeClass('bounceInUp');
-        $('#espera').addClass('fadeOutLeft');
+        $('#espera').addClass('fadeOutUp');
         // $('#row-espera').addClass('hide');
         pacienteAtendido();
 

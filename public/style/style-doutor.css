@@ -1,0 +1,250 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+body {
+    /*background-position: ;*/
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-between;
+    background-image: url('../images/healthcare-bg2.jpg') !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+header,
+footer {
+    height: 5% !important;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-body {
+    /*flex: 1 0 auto;*/
+    height: 90% !important;
+}
+
+.loading-holder {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+.welconeGif {
+    display: block;
+    margin: auto;
+    z-index: 100;
+    width: 200px;
+    height: 200px;
+}
+
+#leftSide {
+    position: absolute;
+    background-color: #000;
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: 50%;
+    z-index: 99;
+}
+
+#rightSide {
+    position: absolute;
+    background-color: #000;
+    height: 100%;
+    top: 0;
+    right: 0;
+    width: 50%;
+    z-index: 99;
+}
+
+.custom-logo {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#logo-saude {
+    margin-left: 10px;
+    width: 110px;
+    height: 60px;
+}
+
+.full-height {
+    height: 100% !important;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.centralized {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.nav-wrapper {
+    box-shadow: 0px 5px 5px #888888 !important;
+}
+
+.page-footer {
+    box-shadow: 0px -5px 5px #888888 !important;
+}
+
+
+/*Materialize section*/
+
+
+/*Pulse*/
+
+.pulse::before {
+    background-color: lightcyan !important;
+}
+
+
+/*Historico Card*/
+
+#historico {
+    width: 300px !important;
+    height: 380px !important;
+    position: absolute;
+    top: 80px !important;
+    left: 20px !important;
+}
+
+/*#lista-triagem {
+    
+    height: 100% !important;
+}*/
+
+#triagem {
+    width: 300px !important;
+    height: 380px !important;
+    position: absolute;
+    top: 80px !important;
+    left: 340px !important;
+    overflow: hidden;
+}
+
+/*#consulta {
+    width: 500px !important;
+    height: 300px !important;
+    position: absolute;
+    top: 80px !important;
+    left: 370px !important;
+}*/
+
+/*#atendimento {
+    width: 700px !important;
+    height: 300px !important;
+    position: absolute;
+    top: 140px !important;
+    left: 220px !important;
+}*/
+
+#queixa {
+    width: 620px !important;
+    height: 200px !important;
+    position: absolute;
+    top: 470px !important;
+    left: 20px !important;
+}
+
+#pre-diag {
+    width: 200px !important;
+    height: 380px !important;
+    position: absolute;
+    top: 80px !important;
+    left: 660px !important;
+}
+
+/*
+#atendimento input {
+    text-align: center;
+}
+
+#atendimento-title {
+    text-align: center;
+}*/
+
+
+/*Espera Imediato*/
+#espera-medico-imediato {
+    overflow-y: scroll !important;
+    width: 400px !important;
+    height: 190px !important;
+    position: absolute;
+    top: 80px !important;
+    left: 500px !important;
+    border: 1px solid red !important;
+}
+
+#espera-medico-imediato:hover {
+    height: 390px !important;
+    z-index: 99 !important;
+}
+/**/
+
+
+/*Espera Prioritario*/
+#espera-medico-prioritario {
+    overflow-y: scroll !important;
+    width: 400px !important;
+    height: 190px !important;
+    position: absolute;
+    top: 280px !important;
+    left: 500px !important;
+    border: 1px solid yellow !important;
+    
+}
+
+#espera-medico-prioritario:hover {
+    height: 390px !important;
+    z-index: 99 !important;
+}
+
+/**/
+/*Espera Dia*/
+#espera-medico-dia {
+    overflow-y: scroll !important;
+    width: 400px !important;
+    height: 190px !important;
+    position: absolute;
+    top: 480px !important;
+    left: 500px !important;
+    border: 1px solid green !important;
+}
+
+#espera-medico-dia:hover {
+    height: 390px !important;
+    top: 280px !important;
+    z-index: 99 !important;
+}
+/**/
+
+
+
+.waiting_item {
+    color: #fff;
+    padding: 10px;
+    font-size: 12pt;
+    border-bottom: 1px solid #39535C;
+}
+
+/**/
