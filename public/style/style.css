@@ -116,7 +116,7 @@
   height: 380px !important;
   position: absolute;
   top: 80px !important;
-  left: 20px !important;
+  left: 70px !important;
 }
 
 #lista-triagem{
@@ -128,7 +128,7 @@
   height: 380px !important;
   position: absolute;
   top: 80px !important;
-  left: 330px !important;
+  left: 380px !important;
   overflow: hidden;
 }
 #consulta{
@@ -136,7 +136,7 @@
   height: 300px !important;
   position: absolute;
   top: 80px !important;
-  left: 370px !important;
+  left: 420px !important;
 }
 #atendimento{
   width: 700px !important;
@@ -151,7 +151,7 @@
   height: 200px !important;
   position: absolute;
   top: 470px !important;
-  left: 20px !important;
+  left: 70px !important;
 }
 
 #atendimento input{
