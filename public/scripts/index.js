@@ -45,6 +45,11 @@ $(document).ready(function () {
         },5000);
     })
 
+    $('#dismiss-queixa').click(function (){
+        $('#queixa').addClass('animated bounceOutDown');
+        $('#row-queixa').removeClass('hide');
+    })
+
     $('#dismiss-consulta').click(function () {
         // $('#row-info').html('');
         $('#consulta').addClass('animated bounceOutDown');

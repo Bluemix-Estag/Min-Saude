@@ -99,7 +99,7 @@
 
 
 .page-footer{
-    /*box-shadow: 0px -10px 5px #888888 !important;*/
+    box-shadow: 0px -10px 5px #888888 !important;
 }
 
 
@@ -141,7 +141,7 @@
 #atendimento{
   width: 700px !important;
   height: 300px !important;
-  position: absolute;
+  position: relative;
   top: 140px !important;
   left: 220px !important;
 }
@@ -162,11 +162,12 @@
 }
 
 #espera{
-  width: 400px !important;
-  height: 530px !important;
-  position: absolute;
-  top: 80px !important;
-  left: 500px !important;
+  /*/*width: 400px !important;*/
+  min-height: 530px !important;
+  max-height: 530px !important;
+  /*position: absolute;*/
+  /*top: 80px !important;*/
+  /*left: 500px !important;*/*/
 }
 
 

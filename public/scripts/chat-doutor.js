@@ -14,7 +14,10 @@ $(document).ready(function () {
             // alert('Closed');
         } // Callback for Modal close
     });
+
 });
+
+
 
 function startTreatment() {
     $('#espera-medico-imediato').addClass('animated bounceOutLeft');
@@ -38,15 +41,61 @@ function startTreatment() {
     }, 2500);
 
     setTimeout(function () {
-        $('#row-diagnostico').removeClass('hide');
+        $('#row-pre-diagnostico').removeClass('hide');
         $('#pre-diag').addClass('animated bounceInUp');
     }, 3500);
-    setTimeout(function(){
-        $('#loading-atendimento').addClass('hide');
-    },3750);
-    
+    setTimeout(function () {
+        $('#graph').removeClass('hide');
+        function drawLine() {
+            var ctx2 = document.getElementById('lineChart').getContext('2d');
 
+            var myChart = new Chart(ctx2, {
+                type: 'horizontalBar',
+                data: {
+                    labels: ['Dengue', 'Zika'],
+                    datasets: [{
+                        label: 'Doenças',
+                        data: [40, 30, 20, 0, 100],
+                        borderWidth: 0,
+                        backgroundColor: ['red', 'green', 'blue']
+                    }]
+                },
+                options: Chart.defaults.global
+                // options: {
+                //     showLines : true,
+                //     spanGaps : false,
+                //     responsive: true
+                // }
+            });
+        }
+        drawLine();
+    }, 4000);
+    setTimeout(function () {
+        $('#row-diagnostico').removeClass('hide');
+        $('#diagnostico').addClass('animated bounceInUp');
+    }, 4250);
+    setTimeout(function () {
+        $('#loading-atendimento').addClass('hide');
+    }, 4750);
 }
+
+function setTreatment(){
+    $('#diagnostico').addClass('animate bounceOutUp');
+    //
+    $('#graph').addClass('animate bounceOutUp');
+    $('#row-grafico').addClass('hide');
+    //
+    $('#pre-diag').addClass('animate bounceOutUp');
+    //
+    $('#queixa').addClass('animate bounceOutUp');
+    //
+    $('#historico').addClass('animate bounceOutUp');
+    //
+    $('#triagem').addClass('animate bounceOutUp');
+}
+
+
+
 
 
 // var params = {},

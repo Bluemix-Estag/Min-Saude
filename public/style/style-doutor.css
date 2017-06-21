@@ -125,7 +125,18 @@ footer {
     height: 380px !important;
     position: absolute;
     top: 80px !important;
-    left: 20px !important;
+    left: 60px !important;
+}
+
+#diagnostico{
+    display: flex !important;
+    align-content: space-between !important;
+    justify-content: center !important;
+    top: 169px !important;
+    height: 175px !important;
+    width: 350px !important;
+    left: 1010px !important;
+    
 }
 
 /*#lista-triagem {
@@ -138,7 +149,7 @@ footer {
     height: 380px !important;
     position: absolute;
     top: 80px !important;
-    left: 340px !important;
+    left: 380px !important;
     overflow: hidden;
 }
 
@@ -162,18 +173,34 @@ footer {
     width: 620px !important;
     height: 200px !important;
     position: absolute;
-    top: 470px !important;
-    left: 20px !important;
+    top: 480px !important;
+    left: 60px !important;
 }
 
 #pre-diag {
-    width: 200px !important;
-    height: 380px !important;
+    width: 300px !important;
+    height: 600px !important;
     position: absolute;
     top: 80px !important;
-    left: 660px !important;
+    left: 700px !important;
 }
 
+.canvas-holder {
+     width: 15%;
+ }
+
+.line-holder{
+    display: flex !important;
+    align-content: center;
+    justify-content: center;
+}
+
+#row-grafico{
+    position: absolute;
+    left: 1020px !important;
+    top: 80px !important;
+    
+}
 /*
 #atendimento input {
     text-align: center;
