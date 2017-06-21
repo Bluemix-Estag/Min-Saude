@@ -70,28 +70,34 @@ function startTreatment() {
         }
         drawLine();
     }, 4000);
-    setTimeout(function () {
-        $('#row-diagnostico').removeClass('hide');
-        $('#diagnostico').addClass('animated bounceInUp');
-    }, 4250);
+    // setTimeout(function () {
+    //     $('#row-diagnostico').removeClass('hide');
+    //     // $('#diagnostico').addClass('animated bounceInUp');
+    // }, 4250);
+    setTimeout(function (){
+        $('#row-pre-receita').removeClass('hide');
+        $('#pre-receita').addClass('animated bounceInUp');
+        $('#row-resumo').removeClass('hide');
+        $('#resumo').addClass('animated bounceInUp');
+    },4250);
     setTimeout(function () {
         $('#loading-atendimento').addClass('hide');
     }, 4750);
 }
 
 function setTreatment(){
-    $('#diagnostico').addClass('animate bounceOutUp');
-    //
-    $('#graph').addClass('animate bounceOutUp');
-    $('#row-grafico').addClass('hide');
-    //
-    $('#pre-diag').addClass('animate bounceOutUp');
-    //
-    $('#queixa').addClass('animate bounceOutUp');
-    //
-    $('#historico').addClass('animate bounceOutUp');
-    //
-    $('#triagem').addClass('animate bounceOutUp');
+    
+    $('#row-resumo').addClass('hide');
+    $('#pre-receita').addClass('animated bounceOutRight');
+    $('#row-receita').removeClass('hide');
+    $('#receita').addClass('animated bounceInRight');
+    
+
+    preparePrescription();
+}
+
+function preparePrescription(){
+
 }
 
 

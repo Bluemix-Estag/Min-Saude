@@ -125,18 +125,34 @@ footer {
     height: 380px !important;
     position: absolute;
     top: 80px !important;
-    left: 60px !important;
+    left: 90px !important;
 }
 
-#diagnostico{
+#pre-receita{
     display: flex !important;
     align-content: space-between !important;
     justify-content: center !important;
-    top: 169px !important;
+    top: 80px !important;
     height: 175px !important;
     width: 350px !important;
-    left: 1010px !important;
+    left: 860px !important;
     
+}
+
+#receita{
+    width: 620px !important;
+    height: 600px !important;
+    position: absolute;
+    top: 80px !important;
+    left: 730px !important;
+}
+
+#resumo{
+    width: 620px !important;
+    height: 170px !important;
+    position: absolute;
+    top: 80px !important;
+    left: 730px !important;
 }
 
 /*#lista-triagem {
@@ -149,7 +165,7 @@ footer {
     height: 380px !important;
     position: absolute;
     top: 80px !important;
-    left: 380px !important;
+    left: 410px !important;
     overflow: hidden;
 }
 
@@ -174,7 +190,7 @@ footer {
     height: 200px !important;
     position: absolute;
     top: 480px !important;
-    left: 60px !important;
+    left: 90px !important;
 }
 
 #pre-diag {
@@ -185,7 +201,7 @@ footer {
     left: 700px !important;
 }
 
-.canvas-holder {
+/*.canvas-holder {
      width: 15%;
  }
 
@@ -200,7 +216,7 @@ footer {
     left: 1020px !important;
     top: 80px !important;
     
-}
+}*/
 /*
 #atendimento input {
     text-align: center;
