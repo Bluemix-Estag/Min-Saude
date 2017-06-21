@@ -257,7 +257,6 @@ function displayMaps(watson) {
 
 
 function getInfo(element) {
-
     document.getElementById('proximo-nome').innerHTML = element.firstChild.innerHTML.split('-')[0];
     document.getElementById('proximo-sus').value = element.firstChild.getAttribute('data-sus');
 }

@@ -26,9 +26,10 @@
 
 <body>
     <header>
-        <nav class="transparent">
-            <div class="nav-wrapper transparent lighten-2">
-                <a href="/index" class="brand-logo" style="color: black">Ministério da Saúde</a>
+        <nav class="blue lighten-1">
+            <div class="nav-wrapper transparent lighten-2 flow-text">
+                <a href="/doutor" class="" style="color: black;font-size: 20pt;">Ministério da Saúde</a>
+                <span class="white-text" style="margin-left:20px;">Doutor</span>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <!--<li><a href="collapsible.html">Logout</a></li>-->
                 </ul>
@@ -42,15 +43,13 @@
         <!-- Espera Médico -->
         <div class="row " id="row-espera-medico-imediato">
             <div class="col s12 m6">
-                <div class="card blue-grey darken-1 z-depth-5 animated bounceInUp" id="espera-medico-imediato" style="overflow-y: scroll !important">
-                    <div class="card-content white-text" id="lista-medico-imediato">
-                        <span class="new badge" data-badge-caption="+">4</span>
+                <div class="card light-blue lighten-5 darken-1 z-depth-5 animated bounceInUp" id="espera-medico-imediato" style="overflow-y: scroll !important">
+                    <div class="card-content black-text" id="lista-medico-imediato">
+                        <span class="new badge  blue-grey lighten-4 black-text"  data-badge-caption=" " id="imediato_bagde">4</span>
                         <!--<a href="#" onclick="receberLista()"><i class="material-icons left">close</i></a>-->
                         <span class="card-title" style="text-align: center !important;">Atendimento Imediato</span>
 
-                        <a href="#modal1">
-                            <div class="waiting_item" id="sus_1234">Joana Aparecida - SUS: 12345</div>
-                        </a>
+
                     </div>
 
                 </div>
@@ -60,17 +59,15 @@
 
         <!-- -->
         <!-- Espera Médico -->
-        <div class="row " id="row-espera-medico-prioritario">
+        <div class="row" id="row-espera-medico-prioritario">
             <div class="col s12 m6">
-                <div class="card blue-grey darken-1 z-depth-5 animated bounceInUp" id="espera-medico-prioritario" style="overflow-y: scroll !important">
-                    <div class="card-content white-text" id="lista-medico-prioritario">
-                        <span class="new badge" data-badge-caption="+">2</span>
+                <div class="card light-blue lighten-5 darken-1 z-depth-5 animated bounceInUp" id="espera-medico-prioritario" style="overflow-y: scroll !important">
+                    <div class="card-content black-text" id="lista-medico-prioritario">
+                        <span class="new badge blue-grey lighten-4 black-text" data-badge-caption=" " id="prioritario_badge">2</span>
                         <!--<a href="#" onclick="receberLista()"><i class="material-icons left">close</i></a>-->
 
                         <span class="card-title" style="text-align: center !important;">Atendimento Prioritário</span>
-                        <a href="#modal1">
-                            <div class="waiting_item" id="sus_1234">Pedro Silva - SUS: 13333</div>
-                        </a>
+
                     </div>
                 </div>
             </div>
@@ -80,15 +77,14 @@
         <!-- Espera Dia -->
         <div class="row " id="row-espera-medico-dia">
             <div class="col s12 m6">
-                <div class="card blue-grey darken-1 z-depth-5 animated bounceInUp" id="espera-medico-dia" style="overflow-y: scroll !important">
-                    <div class="card-content white-text" id="lista-medico-dia">
-                        <span class="new badge" data-badge-caption="+">5</span>
+                <div class="card light-blue lighten-5 darken-1 z-depth-5 animated bounceInUp" id="espera-medico-dia" style="overflow-y: scroll !important">
+                    <div class="card-content black-text" id="lista-medico-dia">
+                        
+                        <span class="new badge blue-grey lighten-4 black-text" data-badge-caption=" " id="dia_badge">5</span>
                         <!--<a href="#" onclick="receberLista()"><i class="material-icons left">close</i></a>-->
 
                         <span class="card-title" style="text-align: center !important;">Atendimento no Dia</span>
-                        <a href="#modal1">
-                            <div class="waiting_item" id="sus_1234">Marcos Andrade - SUS: 54321</div>
-                        </a>
+
                     </div>
                 </div>
             </div>
@@ -119,9 +115,9 @@
         <!-- Card Historico -->
         <div class="row hide" id="row-historico">
             <div class="col s12 m6">
-                <div class="card blue-grey darken-1 z-depth-5" id="historico">
+                <div class="card light-blue lighten-5 darken-1 z-depth-5" id="historico">
                     <div class="card-content white-text">
-                        <a href="#" id="dismiss-historico"><i class="material-icons right" style="color:#4db6ac;">close</i></a>
+                        <a href="#" id="dismiss-historico"><i class="material-icons right" style="color:white;">close</i></a>
                         <span class="card-title" style="text-align:center !important">Informações</span>
 
                         <div class="input-field" style="color: #fff;">
@@ -147,9 +143,9 @@
         <!-- Card Informações Atuais-->
         <div class="row hide" id="row-triagem">
             <div class="col s12 m6">
-                <div class="card blue-grey darken-1 z-depth-5" id="triagem">
+                <div class="card light-blue lighten-5 darken-1 z-depth-5" id="triagem">
                     <div class="card-content white-text" id="lista-triagem">
-                        <a href="#" id="dismiss-triagem"><i class="material-icons right" style="color:#4db6ac;">close</i></a>
+                        <a href="#" id="dismiss-triagem"><i class="material-icons right" style="color:white;">close</i></a>
                         <span class="card-title" style="text-align:center !important">Triagem</span>
                         <div class="input-field " id="grav" style="color: #fff;">
                             <input disabled value="Sim" id="gravida" type="text" class="validate" style="color: #fff;">
@@ -180,9 +176,9 @@
         <!-- Card Queixa -->
         <div class="row hide" id="row-queixa">
             <div class="col s12 m6">
-                <div class="card blue-grey darken-1 z-depth-5" id="queixa">
+                <div class="card light-blue lighten-5darken-1 z-depth-5" id="queixa">
                     <div class="card-content white-text">
-                        <a href="#" id="dismiss-queixa"><i class="material-icons right" style="color:#4db6ac;">close</i></a>
+                        <a href="#" id="dismiss-queixa"><i class="material-icons right" style="color:white;">close</i></a>
                         <span class="card-title" style="text-align: center !important;">Motivo da Vinda</span>
                         <div class="row">
                             <div class="input-field col m6">
@@ -242,7 +238,7 @@
         <!-- Card Resumo Médico -->
         <div class="row hide" id="row-resumo">
             <div class="col s12 m6">
-                <div class="card blue-grey darken-1 z-depth-5" id="resumo">
+                <div class="card light-blue lighten-5 darken-1 z-depth-5" id="resumo">
                     <div class="card-content white-text">
 
                         <span class="card-title" style="text-align: center !important;">Resumo Médico</span>
@@ -260,7 +256,7 @@
         <!-- -->
         <!-- Card Receita -->
         <div class="row hide" id="row-receita" style="color: white !important;">
-            <div class="card blue-grey darken-1 z-depth-5" id="receita">
+            <div class="card light-blue lighten-5 darken-1 z-depth-5" id="receita">
                 <div class="card-content white-text">
                     <span class="card-title" style="text-align: center !important;">Receita Médica</span>
                     <form class="col s12">
@@ -281,7 +277,7 @@
                             </div>
 
                         </div>
-                        
+
                         <div class="row">
                             <div class="input-field row m2">
                                 <textarea id="queixa_value" class="materialize-textarea" style="color: white !important;" disabled></textarea>
@@ -289,7 +285,7 @@
                             </div>
 
                         </div>
-                        
+
                         <div class="row">
                             <div class="input-field row m6">
                                 <textarea id="queixa_value" class="materialize-textarea" style="color: white !important;"></textarea>
@@ -297,8 +293,8 @@
                             </div>
 
                         </div>
-                        
-                        
+
+
                     </form>
                 </div>
             </div>
@@ -351,11 +347,11 @@
         <!-- Inicar Diagnostico -->
         <div class="row hide" id="row-pre-receita">
             <div class="col s12 m6">
-                <div class="card blue-grey darken-1 z-depth-5" id="pre-receita">
+                <div class="card light-blue lighten-5 darken-1 z-depth-5" id="pre-receita">
                     <div class="card-content white-text">
                         <span class="card-title" style="text-align: center !important;">Receita</span>
                         <div class="row">
-                            <button class="btn waves-effect btn-large" onclick="setTreatment()">Prescrever Receita</button>
+                            <button class="btn  btn-large  blue-grey lighten-4" onclick="setTreatment()" style="color: black !important;">Prescrever Receita</button>
                         </div>
                     </div>
                 </div>
@@ -388,7 +384,7 @@
 
         <!--- End of ChatBot-->
     </main>
-    <footer class="lighten-2 footer transparent page-footer" id="footer">
+    <footer class="lighten-2 footer blue lighten-1 page-footer" id="footer">
         <div class="">
             © 2017 Hybrid Cloud
         </div>

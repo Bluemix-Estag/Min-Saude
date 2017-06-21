@@ -235,12 +235,14 @@ footer {
     position: absolute;
     top: 80px !important;
     left: 500px !important;
-    border: 1px solid red !important;
+    /*border: 5px solid #d50000!important;*/
+    background-color:  rgba(255, 45, 45, 0.76) !important;
 }
 
 #espera-medico-imediato:hover {
     height: 390px !important;
     z-index: 99 !important;
+    background-color:  rgba(255, 45, 45, 1) !important;
 }
 /**/
 
@@ -253,12 +255,14 @@ footer {
     position: absolute;
     top: 280px !important;
     left: 500px !important;
-    border: 1px solid yellow !important;
+    /*border: 5px solid #ffea00 !important;*/
+    background-color:  rgba(255, 247, 45, 0.86) !important;
     
 }
 
 #espera-medico-prioritario:hover {
     height: 390px !important;
+    background-color:  rgba(255, 247, 45, 1) !important;
     z-index: 99 !important;
 }
 
@@ -271,13 +275,16 @@ footer {
     position: absolute;
     top: 480px !important;
     left: 500px !important;
-    border: 1px solid green !important;
+    
+    /*border: 5px solid #00c853 !important;*/
+    background-color : rgba(45, 255, 53, 0.86) !important;
 }
 
 #espera-medico-dia:hover {
     height: 390px !important;
     top: 280px !important;
     z-index: 99 !important;
+    background-color : rgba(45, 255, 53, 1) !important;
 }
 /**/
 

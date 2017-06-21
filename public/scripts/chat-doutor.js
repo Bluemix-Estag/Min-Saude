@@ -15,8 +15,119 @@ $(document).ready(function () {
         } // Callback for Modal close
     });
 
+
+
 });
 
+var local_imediato = [];
+var local_prioritario = [];
+var local_dia = [];
+
+
+function receberListaDoutor() {
+    xhrGet('https://min-saude-apis.mybluemix.net/getDoctorList', function (data) {
+
+        var imediato = data.imediato;
+        var prioritario = data.prioritario;
+        var dia = data.dia;
+
+
+        //
+        waiting_list_imediato = getWaitingList(imediato, local_imediato);
+        waiting_list_prioritario = getWaitingList(prioritario, local_prioritario);
+        waiting_list_dia = getWaitingList(dia, local_dia);
+
+
+        var total_seconds_imediato = 0;
+        if (waiting_list_imediato.length > 0) {
+            var i = 1;
+            for (var patient of waiting_list_imediato) {
+
+                $('#lista-medico-imediato').append('<a href="#modal' + i + '" onclick="getInfo(this)"><div class="waiting_item black-text" id="sus_' + patient.sus_number + '" data-sus="' + patient.sus_number + '" ">' + patient.name + ' - ' + moment(patient.arrival * 1000).format('hh:mm:ss') +
+                '<div class="right black-text" id="timeri'+i+'"></div>'+'</div></a>');
+                $('#sus_' + patient.sus_number).addClass('animated bounceInUp');
+                var timer_id = 'timeri' + i;
+                i++;
+                var seconds = moment.duration(moment().format('HH:mm:ss')).asSeconds() - moment.duration(moment(patient.arrival * 1000).format('HH:mm:ss')).asSeconds();
+                countUp(seconds,timer_id);
+                total_seconds_imediato += seconds;
+            }
+
+            var tempo_medio_imediato = (total_seconds_imediato/waiting_list_imediato.length);
+            document.getElementById('imediato_bagde').innerHTML = imediato.length;
+            
+            // moment(patient.arrival * 1000).format('hh:mm:ss')
+            
+            waiting_list_imediato = [];
+        }
+        local_imediato = imediato;
+
+        //
+        if (waiting_list_prioritario.length > 0) {
+            var i = 1;
+            for (var patient of waiting_list_prioritario) {
+
+                $('#lista-medico-prioritario').append('<a href="#modal' + i + '" onclick="getInfo(this)"><div class="waiting_item black-text" id="sus_' + patient.sus_number + '" data-sus="' + patient.sus_number + '" ">' + patient.name + ' - ' + moment(patient.arrival * 1000).format('hh:mm:ss') +
+                '<div class="right black-text" id="timerp'+i+'"></div>'+'</div></a>');
+                $('#sus_' + patient.sus_number).addClass('animated bounceInUp');
+                var timer_id = 'timerp' + i;
+                i++;
+                var seconds = moment.duration(moment().format('HH:mm:ss')).asSeconds() - moment.duration(moment(patient.arrival * 1000).format('HH:mm:ss')).asSeconds();
+                countUp(seconds,timer_id);
+            }
+            document.getElementById('prioritario_badge').innerHTML = prioritario.length;
+            waiting_list_prioritario = [];
+
+        }
+        local_prioritario = prioritario;
+        //
+        if (waiting_list_dia.length > 0) {
+            var i = 1;
+            for (var patient of waiting_list_dia) {
+
+                $('#lista-medico-dia').append('<a href="#modal' + i + '" onclick="getInfo(this)"><div class="waiting_item black-text" id="sus_' + patient.sus_number + '" data-sus="' + patient.sus_number + '" ">' + patient.name + ' - ' + moment(patient.arrival * 1000).format('hh:mm:ss') +
+                '<div class="right black-text" id="timerd'+i+'"></div>'+'</div></a>');
+                $('#sus_' + patient.sus_number).addClass('animated bounceInUp');
+                var timer_id = 'timerd' + i;
+                i++;
+                var seconds = moment.duration(moment().format('HH:mm:ss')).asSeconds() - moment.duration(moment(patient.arrival * 1000).format('HH:mm:ss')).asSeconds();
+                countUp(seconds,timer_id);
+            }
+
+            
+
+
+
+            document.getElementById('dia_badge').innerHTML = dia.length;
+            waiting_list_dia = [];
+        }
+        local_dia = dia;
+
+        console.log(JSON.stringify(data));
+    }, function (error) {
+
+    });
+
+    setTimeout(function () {
+        receberListaDoutor();
+    }, 2000);
+
+}
+
+function getInfo(element) {
+    document.getElementById('proximo-nome').innerHTML = element.firstChild.innerHTML.split('-')[0];
+    document.getElementById('proximo-sus').value = element.firstChild.getAttribute('data-sus');
+}
+
+function getWaitingList(patients, local_list) {
+    waiting_list = [];
+    for (var i = local_list.length; i < patients.length; i++) {
+        waiting_list.push(patients[i]);
+    }
+    return waiting_list;
+}
+
+receberListaDoutor();
 
 
 function startTreatment() {
@@ -46,6 +157,7 @@ function startTreatment() {
     }, 3500);
     setTimeout(function () {
         $('#graph').removeClass('hide');
+
         function drawLine() {
             var ctx2 = document.getElementById('lineChart').getContext('2d');
 
@@ -74,31 +186,46 @@ function startTreatment() {
     //     $('#row-diagnostico').removeClass('hide');
     //     // $('#diagnostico').addClass('animated bounceInUp');
     // }, 4250);
-    setTimeout(function (){
+    setTimeout(function () {
         $('#row-pre-receita').removeClass('hide');
         $('#pre-receita').addClass('animated bounceInUp');
         $('#row-resumo').removeClass('hide');
         $('#resumo').addClass('animated bounceInUp');
-    },4250);
+    }, 4250);
     setTimeout(function () {
         $('#loading-atendimento').addClass('hide');
     }, 4750);
 }
 
-function setTreatment(){
-    
+function setTreatment() {
+
     $('#row-resumo').addClass('hide');
     $('#pre-receita').addClass('animated bounceOutRight');
     $('#row-receita').removeClass('hide');
     $('#receita').addClass('animated bounceInRight');
-    
+
 
     preparePrescription();
 }
 
-function preparePrescription(){
+function preparePrescription() {
 
 }
+
+function countUp(timestamp,id) {
+    var timerVar = setInterval(countTimer, 1000);
+    var totalSeconds = timestamp;
+
+    function countTimer() {
+        ++totalSeconds;
+        var hour = Math.floor(totalSeconds / 3600);
+        var minute = Math.floor((totalSeconds - hour * 3600) / 60);
+        var seconds = totalSeconds - (hour * 3600 + minute * 60);
+
+        document.getElementById(id).innerHTML = hour + ":" + minute + ":" + seconds;
+    }
+}
+
 
 
 
