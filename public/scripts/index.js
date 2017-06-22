@@ -39,7 +39,7 @@ $(document).ready(function () {
         // $('#row-info').html('');
         $('#atendimento').addClass('animated bounceOutDown');
         $('#row-espera').removeClass('hide');
-        pacienteAtendido();
+        
 
         setTimeout(function(){
             window.location.href = '/index';

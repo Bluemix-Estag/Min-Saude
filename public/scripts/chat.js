@@ -126,6 +126,7 @@ function userMessage(message) {
 
             if (context['analise'] == true) {
                 typeOfPatient(context['atendimento']);
+                pacienteAtendido();
             }
 
 
@@ -318,7 +319,7 @@ var local_list = [];
 var waiting_list = [];
 
 function receberLista() {
-    xhrGet('http://localhost:4000/getWaiting', function (data) {
+    xhrGet('https://min-saude-apis.mybluemix.net/getWaiting', function (data) {
 
         var patients = data['patients'];
         waiting_list = getWaitingList(patients, local_list);
@@ -360,7 +361,7 @@ function pacienteAtendido() {
     }
 
     // alert(JSON.stringify(result));
-    xhrPost('http://localhost:4000/checkIn', result, function (data) {
+    xhrPost('https://min-saude-apis.mybluemix.net/checkIn', result, function (data) {
         
     }, function (err) {
         // console.log(err);

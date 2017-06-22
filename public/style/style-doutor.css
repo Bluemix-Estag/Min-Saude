@@ -163,10 +163,10 @@ footer {
     left: 730px !important;
 }
 
-/*#lista-triagem {
-    
+#lista-triagem {
+    overflow-y: scroll;  
     height: 100% !important;
-}*/
+}
 
 #triagem {
     width: 300px !important;
@@ -174,7 +174,7 @@ footer {
     position: absolute;
     top: 80px !important;
     left: 410px !important;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 /*#consulta {

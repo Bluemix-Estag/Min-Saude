@@ -179,9 +179,9 @@ app.get('/acolhimento', function (req, res) {
     res.render('acolhimento.html');
 })
 
-// app.get('/', function (req, res) {
-//     res.render('login.html');
-// })
+app.get('/dashboard', function (req, res) {
+    res.render('dashboard.html');
+});
 
 app.get('/doutor',function(req,res){
     res.render('doutor.html');

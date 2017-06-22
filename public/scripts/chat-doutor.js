@@ -135,8 +135,7 @@ function startTreatment(data) {
     $('#espera-medico-prioritario').addClass('animated bounceOutLeft');
     $('#espera-medico-dia').addClass('animated bounceOutLeft');
     $('#loading-atendimento').removeClass('hide');
-    //
-    alert(JSON.stringify(data))
+    
     setTimeout(function () {
         $('#row-historico').removeClass('hide');
         $('#row-historico').removeClass('hide');
@@ -152,14 +151,29 @@ function startTreatment(data) {
     //
     var history = data.patient.historico[data.patient.historico.length-1];
     setTimeout(function () {
-        
-        // alert(JSON.stringify(data));
-        
-        if(history['gravida'] != null ) {$('#gravida').val(history.gravida); }
+        if(history['gravida'] != null ) {
+            $('#grav').removeClass('hide');
+            $('#gravida').val(history.gravida); }
+
         $('#temperatura').val(history.temperatura);
         $('#cardiaca').val(history.freq_card);
         $('#respiratoria').val(history.freq_resp);
         $('#pressao').val(history.pressaoN + ' / ' + history.pressaoD);
+        $('#glicemia').val(history.glicemia);
+        $('#saturacao').val(history.o2);
+        $('#dor_peito').val((history.dor == true)?"Sim":"Não");
+        if(history['tabagista'] != null) {
+            $('#tabagista').val(history['tabagista']);
+            $('#tabag').removeClass('hide');
+        }
+        if(history['diabetes'] != null){
+            $('#diabetes').val(history['diabetes']);
+            $('#diabe').removeClass('hide');
+        }
+        if(history['programa'] != null){
+            $('#prog-tabagista').val((history['programa'] == true)?"Sim":"Não");
+            $('#prog-tabag').removeClass('hide');
+        }
         $('#row-triagem').removeClass('hide');
         $('#triagem').addClass('animated bounceInUp');
     }, 2000);
@@ -235,13 +249,15 @@ function startTreatment(data) {
     }, 4750);
 
     $('#receitar').click(function(){
-        alert(document.getElementById('conclusao').innerHTML);
-        document.getElementyById('conclusao_value').innerHTML = document.getElementById('conclusao').innerHTML;
+        
+        
         var sus = document.getElementById('sus').value;
         prescribe(sus);
         
-        var receita = document.getElementById('prescricao_value').innerHTML;
+        var receita = document.getElementById('prescricao_value').value;
+        
         setTimeout(function(){
+            $('#row-pre-analise').addClass('hide');
             $('#row-queixa').addClass('hide');
             $('#queixa').addClass('animated bounceInUp');
             $('#row-historico').addClass('hide');
@@ -252,9 +268,7 @@ function startTreatment(data) {
             $('#receita').addClass('animated bounceInUp');
             $('#row-queixa').addClass('hide');
             $('#queixa').addClass('animated bounceInUp');
-
-
-            $('#remedios-value').val(receita);
+            $('#remedios_value').val(receita);
             $('#row-final').removeClass('hide');
             $('#final').addClass('animated bounceInUp');
         },2000);
@@ -265,13 +279,19 @@ function startTreatment(data) {
     });
 }
 
-function setTreatment() {
+function saveConclusao(element){
+    
+}
 
+function setTreatment() {
+    
+    document.getElementById('conclusao_value').value = document.getElementById('conclusao').value;
     $('#row-resumo').addClass('hide');
     $('#pre-receita').addClass('animated bounceOutRight');
     $('#row-receita').removeClass('hide');
     $('#receita').addClass('animated bounceInRight');
 
+    
 
     
 }
