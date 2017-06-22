@@ -147,6 +147,14 @@ footer {
     left: 730px !important;
 }
 
+#final{
+    width: 620px !important;
+    height: 600px !important;
+    position: absolute;
+    top: 80px !important;
+    left: 350px !important;
+}
+
 #resumo{
     width: 620px !important;
     height: 170px !important;

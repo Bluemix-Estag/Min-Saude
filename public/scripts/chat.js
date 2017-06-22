@@ -169,7 +169,7 @@ function startScreening() {
 
 function typeOfPatient(type) {
     type = type.substring(0, 1).toUpperCase() + type.substring(1);
-    alert("Entrou no type");
+    // alert("Entrou no type");
     $('#tipo-atendimento').val(type);
     // $('#historico').addClass('animated bounceOutDown');
     setTimeout(function () {
@@ -320,7 +320,7 @@ function receberLista() {
 
     setTimeout(function () {
         receberLista();
-    }, 10000);
+    }, 5000);
 
 }
 
@@ -334,9 +334,9 @@ function pacienteAtendido() {
         patient: context.patient    
     }
 
-    alert(JSON.stringify(result));
+    // alert(JSON.stringify(result));
     xhrPost('https://min-saude-apis.mybluemix.net/checkIn', result, function (data) {
-        
+        alert('fez checkin');
         
     }, function (err) {
         console.log(err);

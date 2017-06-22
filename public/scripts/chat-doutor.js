@@ -136,6 +136,7 @@ function startTreatment(data) {
     $('#espera-medico-dia').addClass('animated bounceOutLeft');
     $('#loading-atendimento').removeClass('hide');
     //
+    alert(JSON.stringify(data))
     setTimeout(function () {
         $('#row-historico').removeClass('hide');
         $('#row-historico').removeClass('hide');
@@ -152,7 +153,7 @@ function startTreatment(data) {
     var history = data.patient.historico[data.patient.historico.length-1];
     setTimeout(function () {
         
-        alert(JSON.stringify(data));
+        // alert(JSON.stringify(data));
         
         if(history['gravida'] != null ) {$('#gravida').val(history.gravida); }
         $('#temperatura').val(history.temperatura);
@@ -234,16 +235,33 @@ function startTreatment(data) {
     }, 4750);
 
     $('#receitar').click(function(){
-        alert('Clicou');
+        alert(document.getElementById('conclusao').innerHTML);
+        document.getElementyById('conclusao_value').innerHTML = document.getElementById('conclusao').innerHTML;
         var sus = document.getElementById('sus').value;
         prescribe(sus);
-        var receita = $('#prescricao').val();
-
+        
+        var receita = document.getElementById('prescricao_value').innerHTML;
         setTimeout(function(){
-            window.location.href = '/doutor';
-        },3000);
-        
-        
+            $('#row-queixa').addClass('hide');
+            $('#queixa').addClass('animated bounceInUp');
+            $('#row-historico').addClass('hide');
+            $('#historico').addClass('animated bounceInUp');
+            $('#row-triagem').addClass('hide');
+            $('#triagem').addClass('animated bounceInUp');
+            $('#row-receita').addClass('hide');
+            $('#receita').addClass('animated bounceInUp');
+            $('#row-queixa').addClass('hide');
+            $('#queixa').addClass('animated bounceInUp');
+
+
+            $('#remedios-value').val(receita);
+            $('#row-final').removeClass('hide');
+            $('#final').addClass('animated bounceInUp');
+        },2000);
+    });
+
+    $('#dismiss-final').click(function(){
+        window.location.href = '/doutor';
     });
 }
 
@@ -282,7 +300,7 @@ function getIndividual(){
         startTreatment(data);
         
     },function(err){
-        alert(err);
+        // alert(err);
     });
 }
 
