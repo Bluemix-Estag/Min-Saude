@@ -67,7 +67,7 @@ function initializeAppEnv() {
 // =====================================
 // CLOUDANT SETUP ======================
 // =====================================
-var dbname = "my_db";
+var dbname = "my_db_dev";
 var database;
 
 function initCloudant() {
@@ -133,13 +133,12 @@ app.get('/getPatientAgenda', function (req, res) {
             res.status(500).json({ error: true, description: "Internal server error", status: 500 });
         } else {
             var patients = doc.patients;
-            var now = moment().unix();
+            var now = moment().unix() * 1000;
             var patient = -1;
             var atividades = [];
             for (var p in patients) {
                 if (patients[p].sus == sus) {
                     patient = p;
-                    console.log('p.atividades.length: '+patients[p].atividades.length);
                     if (patients[p].atividades.length > 0) {
                         for (var atividade in patients[p].atividades) {
                             console.log('atividade.date: '+patients[p].atividades[atividade].date + ' now: '+now);

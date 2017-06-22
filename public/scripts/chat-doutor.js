@@ -103,7 +103,7 @@ function receberListaDoutor() {
         }
         local_dia = dia;
 
-        console.log(JSON.stringify(data));
+        
     }, function (error) {
 
     });
