@@ -5,7 +5,7 @@
 	 padding: 0;
    height: 100%;
    width: 100%;
-   overflow: hidden;
+   
   }
   body {
    
@@ -188,65 +188,12 @@
   left: 600px !important;
 }
 
-/**/
-
-
-/*Collapsible Body*/
-
-.collapsible-body{
-  background-color: rgba(255, 255, 255, 0.08) !important ;
-}
-
-.chat-body{
-  background-color: rgba(255, 255, 255, 0.08) !important ;
-}
-
-/* label focus color */
-   #chatInput{
-     color: black !important;
-     background-color: #fff !important;
-     opacity: 0.9 !important;
-}
-/* label underline focus color */
-   #chatInput:focus {
-     border-bottom: 1px solid #4db6ac;
-     box-shadow: 0 1px 0 0 #4db6ac;
-   }
 
 
 
 
 
-@Keyframes typing { from { width: 0; } }
-@Keyframes blink-caret { 50% { border-color: transparent; } }
 
-.write-text{ 
-    /*border: 1px solid black;*/
-	font: bold 300% Consolas, Monaco, monospace;
-	border-right: .1em solid black;
-	width: 17.5em; 
-    color: #fff;
-	width: 20ch;
-    /*width: auto;*/
-	margin: 2em 1em;
-	white-space: nowrap;
-	overflow: hidden;
-	-webkit-animation: typing 2s steps(21, end),
-	           blink-caret .5s step-end infinite alternate;
-}
-
-
-
-@media print and (min-width: 0px){
-  *{
-    visibility: hidden;
-  }
-
-  
-  #row-consulta ,  #row-consulta *{
-    visibility: visible;
-  }
-}
 
   .card-header {
   margin-top: 0; }
@@ -309,7 +256,7 @@
 }
 
 
-.breadcrumb {
+/*.breadcrumb {
   height: 55px;
   padding: 1% 2% 0 2%; }
   .breadcrumb h5 {
@@ -317,7 +264,7 @@
     line-height: 55px;
     margin: 0;
     color: rgba(0, 0, 0, 0.87);
-    text-align: center }
+    text-align: center }*/
 
 .card-header {
   margin-top: 0; }

@@ -179,15 +179,10 @@ app.get('/acolhimento', function (req, res) {
     res.render('acolhimento.html');
 });
 
-<<<<<<< HEAD
 app.get('/', function (req, res) {
     res.render('login.html');
 });
-=======
-// app.get('/', function (req, res) {
-//     res.render('login.html');
-// })
->>>>>>> e9b90722db7907747bf8a38f66d68f7e562edb6f
+
 
 app.get('/doutor',function(req,res){
     res.render('doutor.html');
