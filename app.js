@@ -174,19 +174,23 @@ app.get('/getPatientAgenda', function (req, res) {
 
 app.get('/index', function (req, res) {
     res.render('index.html');
-})
+});
 
 app.get('/acolhimento', function (req, res) {
     res.render('acolhimento.html');
-})
+});
 
 app.get('/', function (req, res) {
     res.render('login.html');
-})
+});
 
 app.get('/doutor',function(req,res){
     res.render('doutor.html');
-})
+});
+
+app.get('/dashboard', function (req, res) {
+    res.render('dashboard.html');
+});
 
 // =====================================
 // WATSON CONVERSATION  ================
