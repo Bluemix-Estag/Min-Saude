@@ -147,7 +147,7 @@
                     <div class="card-content white-text" id="lista-triagem">
                         
                         <span class="card-title" style="text-align:center !important">Triagem</span>
-                        <div class="input-field " id="grav" style="color: #fff;">
+                        <!--<div class="input-field " id="grav" style="color: #fff;">
                             <input disabled value="Sim" id="gravida" type="text" class="validate" style="color: #fff;">
                             <label for="gravida" style="color: #fff;" id="freq_label">Gravidez</label>
                         </div>
@@ -166,6 +166,50 @@
                         <div class="input-field " id="press" style="color: #fff;">
                             <input disabled value="80 X 60" id="pressao" type="text" class="validate" style="color: #fff;">
                             <label for="pressao" style="color: #fff;">Pressão</label>
+                        </div>-->
+                         <div class="input-field hide" id="grav" style="color: #fff;">
+                            <input disabled value="123" id="gravida" type="text" class="validate" style="color: #fff;">
+                            <label for="gravida" style="color: #fff;" id="freq_label">Gravidez</label>
+                        </div>
+                        <div class="input-field " id="temp" style="color: #fff;">
+                            <input disabled value="80/60" id="temperatura" type="text" class="validate" style="color: #fff;">
+                            <label for="temperatura" style="color: #fff;">Temperatura</label>
+                        </div>
+                        <div class="input-field " id="freq_card" style="color: #fff;">
+                            <input disabled value="1234" id="cardiaca" type="text" class="validate" style="color: #fff;">
+                            <label for="cardiaca" style="color: #fff;">Frequência Cardíaca</label>
+                        </div>
+                        <div class="input-field " id="freq_resp" style="color: #fff;">
+                            <input disabled value="1234" id="respiratoria" type="text" class="validate" style="color: #fff;">
+                            <label for="respiratoria" style="color: #fff;">Frequência Respiratória</label>
+                        </div>
+                        <div class="input-field " id="press" style="color: #fff;">
+                            <input disabled value="60 80" id="pressao" type="text" class="validate" style="color: #fff;">
+                            <label for="pressao" style="color: #fff;">Pressão</label>
+                        </div>
+                        <div class="input-field " id="glic" style="color: #fff;">
+                            <input disabled value="60" id="glicemia" type="text" class="validate" style="color: #fff;">
+                            <label for="glicemia" style="color: #fff;">Glicemia</label>
+                        </div>
+                        <div class="input-field " id="satur" style="color: #fff;">
+                            <input disabled value="676" id="saturacao" type="text" class="validate" style="color: #fff;">
+                            <label for="saturacao" style="color: #fff;">Saturação</label>
+                        </div>
+                        <div class="input-field " id="dor" style="color: #fff;">
+                            <input disabled value="sim" id="dor_peito" type="text" class="validate" style="color: #fff;">
+                            <label for="dor_peito" style="color: #fff;">Dor no Peito</label>
+                        </div>
+                        <div class="input-field hide" id="tabag" style="color: #fff;">
+                            <input disabled value="sim" id="tabagista" type="text" class="validate" style="color: #fff;">
+                            <label for="tabagista" style="color: #fff;">Tabagista</label>
+                        </div>
+                         <div class="input-field hide" id="diabe" style="color: #fff;">
+                            <input disabled value="sim" id="diabetes" type="text" class="validate" style="color: #fff;">
+                            <label for="diabetes" style="color: #fff;">Diabetico</label>
+                        </div>
+                        <div class="input-field hide" id="prog-tabag" style="color: #fff;">
+                            <input disabled value="sim" id="prog-tabagista" type="text" class="validate" style="color: #fff;">
+                            <label for="prog-tabagista" style="color: #fff;">Prog. tabagista</label>
                         </div>
                     </div>
 
@@ -209,7 +253,7 @@
                             </div>
                             <div class="input-field col m6" id="div-descricao">
                                 <textarea id="descricao-value" disabled class="materialize-textarea" style="color: white !important;">Dor de cabeça e febre</textarea>
-                                <label for="textarea1" style="color: white !important;">Descrição</label>
+                                <label for="descricao-value" style="color: white !important;">Descrição</label>
                             </div>
                         </div>
                     </div>
@@ -270,8 +314,8 @@
                         <span class="card-title" style="text-align: center !important;">Resumo Médico</span>
                         <div class="row">
                             <div class="input-field row m6">
-                                <textarea id="conclusao" class="materialize-textarea" style="color: white !important;"></textarea>
-                                <label for="textarea1" style="color: white !important;">Conclusão</label>
+                                <textarea id="conclusao" class="materialize-textarea" style="color: white !important;" ></textarea>
+                                <label for="conclusao" style="color: white !important;">Conclusão</label>
                             </div>
 
                         </div>
@@ -304,8 +348,8 @@
                         </div>
                         <div class="row">
                             <div class="input-field row m6">
-                                <textarea id="prescricao_value" class="materialize-textarea" style="color: white !important;"></textarea>
-                                <label for="textarea1" style="color: white !important;">Prescrição</label>
+                                <textarea id="prescricao_value" class="materialize-textarea" style="color: white !important;">Prescrever</textarea>
+                                <label for="prescricao_value" style="color: white !important;">Prescrição</label>
                             </div>
                         </div>
 
@@ -342,7 +386,7 @@
                         </div>
                         <div class="row">
                             <div class="input-field row m6">
-                                <textarea id="remedios_value" class="materialize-textarea" style="color: white !important;"></textarea>
+                                <textarea id="remedios_value" class="materialize-textarea" style="color: white !important;" disabled></textarea>
                                 <label for="textarea1" style="color: white !important;">Prescrição</label>
                             </div>
                         </div>
