@@ -39,6 +39,7 @@ $(document).ready(function () {
         // $('#row-info').html('');
         $('#atendimento').addClass('animated bounceOutDown');
         $('#row-espera').removeClass('hide');
+        pacienteAtendido();
 
         setTimeout(function(){
             window.location.href = '/index';
@@ -56,7 +57,7 @@ $(document).ready(function () {
     })
      $('.collapsible').collapsible();
     $('.modal').modal({
-        dismissible: false, // Modal can be dismissed by clicking outside of the modal
+        dismissible: true, // Modal can be dismissed by clicking outside of the modal
         opacity: .5, // Opacity of modal background
         inDuration: 300, // Transition in duration
         outDuration: 200, // Transition out duration

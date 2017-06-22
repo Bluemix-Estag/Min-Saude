@@ -32,6 +32,7 @@ function userMessage(message) {
             }
             if(context['show_history']){
                 showHistory(context['info']);
+                context['show_history'] = false;
             }
             if(context['show_agenda'] == true){
                 showAgenda(context['info']);
@@ -45,24 +46,20 @@ function userMessage(message) {
                     "sus_number": context['info']['sus']
                 }
                 
-                xhrPost('https://min-saude-apis.mybluemix.net/addWaiting', new_patient, function(result){
+                xhrPost('http://localhost:4000/addWaiting', new_patient, function(result){
                     setTimeout(function(){
                         window.location.href = '/acolhimento';
-                    },5000);
+                    },3000);
                 },function(err){
                     console.log(err);
                 })
             }
 
-            // if(context('fim_triagem')){
-            //     // POST com o paciente, info respostas da triagem e o tipo do atendimento
-            // }
-
 
             if(context['acolhimento_close']){
                 setTimeout(function(){
                     window.location.href = '/acolhimento';
-                },5000);
+                },3000);
             }
             
             for (var txt in text) {

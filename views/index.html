@@ -27,9 +27,10 @@
 
 <body>
     <header>
-        <nav class="transparent">
-            <div class="nav-wrapper transparent lighten-2" id="nav-header">
-                <a href="/index" class="brand-logo" style="color: black">Ministério da Saúde</a>
+        <nav class="blue-grey darken-1">
+            <div class="nav-wrapper transparent lighten-2 flow-text" id="nav-header">
+                <a href="/index" class="" style="color: white;font-size: 20pt;">Ministério da Saúde</a>
+                <span class="blue-text" style="margin-left:20px;">Triagem</span>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <!--<li><a href="collapsible.html">Logout</a></li>-->
                 </ul>
@@ -37,11 +38,7 @@
         </nav>
     </header>
     <main class="lighten-5 " class="main-body">
-        <!--<div id="leftSide" class=""></div>
-        <div id="rightSide" class=""></div>
-        <div class="loading-holder" id="welcomeGifHolder">
-            <img src="/gifs/watson.gif" class="welconeGif" />
-        </div>-->
+        
         <!-- Espera de Atendimento -->
         <div class="col s12 m12">
             <div class="row " id="row-espera">
@@ -49,9 +46,7 @@
                     <div class="card blue-grey darken-1 z-depth-5 animated bounceInUp" id="espera" style="overflow-y: scroll !important">
                         <div class="card-content white-text" id="lista-espera">
                             <!--<a href="#" onclick="receberLista()"><i class="material-icons left">close</i></a>-->
-
                             <span class="card-title" style="text-align:center !important">Espera - Demanda Espontânea</span>
-
                         </div>
                     </div>
                 </div>
@@ -83,7 +78,7 @@
             <div class="col s12 m6">
                 <div class="card blue-grey darken-1 z-depth-5" id="historico">
                     <div class="card-content white-text">
-                        <a href="#" id="dismiss-historico"><i class="material-icons right" style="color:#4db6ac;">close</i></a>
+                        <a href="#" id="dismiss-historico"><i class="material-icons right" style="color:white;">close</i></a>
                         <span class="card-title" style="text-align:center !important">Informações</span>
 
                         <div class="input-field" style="color: #fff;">
@@ -113,7 +108,7 @@
             <div class="col s12 m6">
                 <div class="card blue-grey darken-1 z-depth-5" id="queixa">
                     <div class="card-content white-text">
-                        <a href="#" id="dismiss-queixa"><i class="material-icons right" style="color:#4db6ac;">close</i></a>
+                        <a href="#" id="dismiss-queixa"><i class="material-icons right" style="color:white;">close</i></a>
                         <span class="card-title" style="text-align: center !important;">Motivo da Vinda</span>
                         <div class="row">
                             <div class="input-field col m6">
@@ -138,7 +133,7 @@
             <div class="col s12 m6">
                 <div class="card blue-grey darken-1 z-depth-5" id="triagem">
                     <div class="card-content white-text" id="lista-triagem">
-                        <a href="#" id="dismiss-triagem"><i class="material-icons right" style="color:#4db6ac;">close</i></a>
+                        <a href="#" id="dismiss-triagem"><i class="material-icons right" style="color:white;">close</i></a>
                         <span class="card-title" style="text-align:center !important">Triagem</span>
                         <div class="input-field hide" id="grav" style="color: #fff;">
                             <input disabled value="123" id="gravida" type="text" class="validate" style="color: #fff;">
@@ -157,9 +152,34 @@
                             <label for="respiratoria" style="color: #fff;">Frequência Respiratória</label>
                         </div>
                         <div class="input-field hide" id="press" style="color: #fff;">
-                            <input disabled value="676" id="pressao" type="text" class="validate" style="color: #fff;">
+                            <input disabled value="60 80" id="pressao" type="text" class="validate" style="color: #fff;">
                             <label for="pressao" style="color: #fff;">Pressão</label>
                         </div>
+                        <div class="input-field hide" id="glic" style="color: #fff;">
+                            <input disabled value="60" id="glicemia" type="text" class="validate" style="color: #fff;">
+                            <label for="glicemia" style="color: #fff;">Glicemia</label>
+                        </div>
+                        <div class="input-field hide" id="satur" style="color: #fff;">
+                            <input disabled value="676" id="saturacao" type="text" class="validate" style="color: #fff;">
+                            <label for="saturacao" style="color: #fff;">Saturação</label>
+                        </div>
+                        <div class="input-field hide" id="dor" style="color: #fff;">
+                            <input disabled value="sim" id="dor_peito" type="text" class="validate" style="color: #fff;">
+                            <label for="dor_peito" style="color: #fff;">Dor no Peito</label>
+                        </div>
+                        <div class="input-field hide" id="tabag" style="color: #fff;">
+                            <input disabled value="sim" id="tabagista" type="text" class="validate" style="color: #fff;">
+                            <label for="tabagista" style="color: #fff;">Tabagista</label>
+                        </div>
+                         <div class="input-field hide" id="diabe" style="color: #fff;">
+                            <input disabled value="sim" id="diabetes" type="text" class="validate" style="color: #fff;">
+                            <label for="diabetes" style="color: #fff;">Diabetico</label>
+                        </div>
+                        <div class="input-field hide" id="prog-tabag" style="color: #fff;">
+                            <input disabled value="sim" id="prog-tabagista" type="text" class="validate" style="color: #fff;">
+                            <label for="prog-tabagista" style="color: #fff;">Prog. tabagista</label>
+                        </div>
+                       
                     </div>
 
                 </div>
@@ -213,7 +233,7 @@
             <div class="col s12 m6">
                 <div class="card blue-grey darken-1 z-depth-5" id="atendimento">
                     <div class="card-content white-text">
-                        <a href="#" id="dismiss-atendimento"><i class="material-icons right" style="color:#4db6ac;">close</i></a>
+                        <a href="#" id="dismiss-atendimento"><i class="material-icons right" style="color:white;">close</i></a>
                         <span class="card-title" id="atendimento-title" style="text-align:center !important">Atendimento</span>
                         <div class="input-field" style="color: #fff;">
                             <input disabled value="João da Silva" id="paciente-nome" type="text" class="validate" style="color: #fff;">
@@ -256,9 +276,9 @@
 
         <!--- End of ChatBot-->
     </main>
-    <footer class="lighten-2 footer transparent page-footer" id="footer">
+    <footer class="footer blue-grey darken-1 page-footer" id="footer">
         <div class="">
-            © 2017 Hybrid Cloud
+            © 2017 Code Bakery
         </div>
         </div>
     </footer>

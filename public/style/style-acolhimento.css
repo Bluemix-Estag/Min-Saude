@@ -159,8 +159,8 @@
 }
 /* label underline focus color */
    #chatInput:focus {
-     border-bottom: 1px solid #4db6ac;
-     box-shadow: 0 1px 0 0 #4db6ac;
+     border-bottom: 1px solid #00e676 !important;
+     box-shadow: 0 1px 0 0 #00e676 !important;
    }
 
 

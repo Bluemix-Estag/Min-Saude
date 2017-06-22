@@ -24,7 +24,7 @@ function userMessage(message) {
             context = response.context; // Store the context for next round of questions
             // console.log("Got response from Ana: ", JSON.stringify(response));
 
-
+            
             if (context['show_history'] == true) {
                 showHistory(context['patient'].sus);
                 context['show_history'] = false;
@@ -69,33 +69,61 @@ function userMessage(message) {
                     $('#pressao').addClass('animated bounceInRight');
                     fixScrollTriagem();
                 }
-                if (context['info']['temperatura']) {
-                    $('#temperatura').val(context['info']['temperatura']);
+                if (context['info']['temperatura'] && context['show_temp'] == true) {
+                    var temp = (typeof context['info']['temperatura'] != 'number' && context['info']['temperatura'].split(' ').length>1)?context['info']['temperatura'].split(' ').join('.'):context['info']['temperatura'];
+                    temp = parseFloat(temp);
+                    context['info']['temperatura'] = temp;
+                    $('#temperatura').val(temp);
                     $('#temp').removeClass('hide');
                     $('#temperatura').addClass('animated bounceInRight');
+                     context['show_temp'] = false;
                 }
-                // if (context['info']['glicemia'] && context['info']['glicemia'] != null) {
-                //     setScreening('glicemia', context['info'].freq_card,'Frequência Cardíaca');
-                //     // $('#glicemia').val(context['info']['glicemia']);
-                //     // $('#glic').removeClass('hide');
-                //     // $('#glicemia').addClass('animated bounceInRight');
-                // }
+                if (context['info']['glicemia'] && context['info']['glicemia'] != null) {
+                    $('#glicemia').val(context['info']['glicemia']);
+                    $('#glic').removeClass('hide');
+                    $('#glicemia').addClass('animated bounceInRight');
+                }
                 if (context['info']['freq_resp']) {
                     $('#respiratoria').val(context['info']['freq_resp']);
                     $('#freq_resp').removeClass('hide');
                     $('#respiratoria').addClass('animated bounceInRight');
                 }
-                // if (context['info']['dor'] == true || context['info']['dor'] == false) {
-                    
-                //     // if (context['info']['dor'] == true) {
-                //     //     $('#dor').val("Sim");
-                //     // } else {
-                //     //     $('#dor').val("Não");
-                //     // }
-                //     // $('#dor-peito').removeClass('hide');
-                //     // $('#dor').addClass('animated bounceInRight');
-                // }
+                if (context['info']['dor'] == true || context['info']['dor'] == false) {
+                    if (context['info']['dor'] == true) {
+                        $('#dor_peito').val("Sim");
+                    } else {
+                        $('#dor_peito').val("Não");
+                    }
+                    $('#dor').removeClass('hide');
+                    $('#dor').addClass('animated bounceInRight');
+                }
+                if (context['info']['o2']) {
+                    $('#saturacao').val(context['info']['o2']);
+                    $('#satur').removeClass('hide');
+                    $('#saturacao').addClass('animated bounceInRight');
+                }
+                if(context['info']['tabagista'] != null){
+                    $('#tabagista').val(context['info']['tabagista']);
+                    $('#tabag').removeClass('hide');
+                    $('#tabagista').addClass('animated bounceInRight');
+                }
+                if(context['info']['diabetes'] != null){
+                    $('#diabetes').val(context['info']['diabetes']);
+                    $('#diabe').removeClass('hide');
+                    $('#diabetes').addClass('animated bounceInRight');
+                }
+
+                
+                if(context['info']['programa'] != null ){
+                    $('#prog-tabagista').val((context['info']['programa']== true)?"Sim":"Não");
+                    $('#prog-tabag').removeClass('hide');
+                    $('#prog-tabagista').addClass('animated bounceInRight');
+
+                }
             }
+
+
+
             if (context['analise'] == true) {
                 typeOfPatient(context['atendimento']);
             }
@@ -117,7 +145,7 @@ function userMessage(message) {
         console.error('Network error trying to send message!');
         displayMessage("Meu servidor está offline. Espere alguns instantes para continuar por favor.", watson);
     };
-    console.log(JSON.stringify(params));
+    // console.log(JSON.stringify(params));
     xhr.send(JSON.stringify(params));
 }
 
@@ -137,7 +165,7 @@ function showHistory(sus_number) {
         $('#paciente-sus').val(data.sus);
         $('#idade').val(data.idade);
         $('#genero').val(data.sexo);
-        context.sus_valido = true;
+        // context.sus_valido = true;
         // userMessage('sus_valido');
     }, function (err) {
         console.log(err);
@@ -165,30 +193,31 @@ function startScreening() {
 
 function typeOfPatient(type) {
     type = type.substring(0, 1).toUpperCase() + type.substring(1);
+    // alert("Entrou no type");
     $('#tipo-atendimento').val(type);
     // $('#historico').addClass('animated bounceOutDown');
     setTimeout(function () {
         $('#triagem').addClass('animated bounceOutDown');
-    }, 1000);
+    }, 3000);
     setTimeout(function () {
         $('#historico').addClass('animated bounceOutDown');
         // $('#triagem').addClass('animated bounceOutDown');
-    }, 2000);
+    }, 4000);
     setTimeout(function () {
         $('#queixa').addClass('animated bounceOutDown');
         // $('#triagem').addClass('animated bounceOutDown');
-    }, 2000);
+    }, 4000);
 
     setTimeout(function () {
         $('#loading-atendimento').removeClass('hide');
-    }, 1000);
+    }, 3000);
     setTimeout(function () {
         $('#loading-atendimento').addClass('hide');
         $('#row-atendimento').removeClass('hide');
         $('#atendimento').addClass('animated bounceInUp');
         var color = (type == 'Imediato') ? 'red' : (type == 'Prioritario') ? 'yellow' : '#fff';
         $('#tipo-atendimento').css('color', color);
-    }, 3000);
+    }, 4000);
 }
 
 function reason(queixas) {
@@ -257,7 +286,6 @@ function displayMaps(watson) {
 
 
 function getInfo(element) {
-
     document.getElementById('proximo-nome').innerHTML = element.firstChild.innerHTML.split('-')[0];
     document.getElementById('proximo-sus').value = element.firstChild.getAttribute('data-sus');
 }
@@ -274,7 +302,6 @@ function iniciarAtendimento() {
         $('#espera').removeClass('bounceInUp');
         $('#espera').addClass('fadeOutUp');
         // $('#row-espera').addClass('hide');
-        pacienteAtendido();
 
     }, function (err) {
 
@@ -291,7 +318,7 @@ var local_list = [];
 var waiting_list = [];
 
 function receberLista() {
-    xhrGet('https://min-saude-apis.mybluemix.net/getWaiting', function (data) {
+    xhrGet('http://localhost:4000/getWaiting', function (data) {
 
         var patients = data['patients'];
         waiting_list = getWaitingList(patients, local_list);
@@ -317,21 +344,31 @@ function receberLista() {
 
     setTimeout(function () {
         receberLista();
-    }, 10000);
+    }, 5000);
 
 }
+receberLista();
 
 function pacienteAtendido() {
     var first = local_list.shift();
+    
     document.getElementById('sus_' + first.sus_number).parentElement.remove();
-    xhrGet('https://min-saude-login.mybluemix.net/checkIn?susNumber=' + first.sus_number, function (data) {
+    var result = {
+        priority: (context.atendimento == 'imediato')?'3':(context.atendimento == 'prioritario')?'2':'1',
+        info: context.info,
+        patient: context.patient    
+    }
 
+    // alert(JSON.stringify(result));
+    xhrPost('http://localhost:4000/checkIn', result, function (data) {
+        
     }, function (err) {
-        console.log(err);
+        // console.log(err);
+        alert(JSON.stringify(err));
     });
 }
 
-receberLista();
+
 
 
 function getWaitingList(patients, local_list) {
@@ -341,3 +378,4 @@ function getWaitingList(patients, local_list) {
     }
     return waiting_list;
 }
+

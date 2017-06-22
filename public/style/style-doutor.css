@@ -132,7 +132,7 @@ footer {
     display: flex !important;
     align-content: space-between !important;
     justify-content: center !important;
-    top: 80px !important;
+    top: 145px !important;
     height: 175px !important;
     width: 350px !important;
     left: 860px !important;
@@ -145,6 +145,14 @@ footer {
     position: absolute;
     top: 80px !important;
     left: 730px !important;
+}
+
+#final{
+    width: 620px !important;
+    height: 600px !important;
+    position: absolute;
+    top: 80px !important;
+    left: 350px !important;
 }
 
 #resumo{
@@ -201,6 +209,14 @@ footer {
     left: 700px !important;
 }
 
+#pre-analise {
+    width: 620px !important;
+    height: 223px !important;
+    position: absolute;
+    top: 260px !important;
+    left: 730px !important;
+}
+
 /*.canvas-holder {
      width: 15%;
  }
@@ -235,12 +251,14 @@ footer {
     position: absolute;
     top: 80px !important;
     left: 500px !important;
-    border: 1px solid red !important;
+    /*border: 5px solid #d50000!important;*/
+    background-color:  rgba(255, 45, 45, 0.76) !important;
 }
 
 #espera-medico-imediato:hover {
     height: 390px !important;
     z-index: 99 !important;
+    background-color:  rgba(255, 45, 45, 1) !important;
 }
 /**/
 
@@ -253,12 +271,14 @@ footer {
     position: absolute;
     top: 280px !important;
     left: 500px !important;
-    border: 1px solid yellow !important;
+    /*border: 5px solid #ffea00 !important;*/
+    background-color:  rgba(255, 247, 45, 0.86) !important;
     
 }
 
 #espera-medico-prioritario:hover {
     height: 390px !important;
+    background-color:  rgba(255, 247, 45, 1) !important;
     z-index: 99 !important;
 }
 
@@ -271,13 +291,16 @@ footer {
     position: absolute;
     top: 480px !important;
     left: 500px !important;
-    border: 1px solid green !important;
+    
+    /*border: 5px solid #00c853 !important;*/
+    background-color : rgba(45, 255, 53, 0.86) !important;
 }
 
 #espera-medico-dia:hover {
     height: 390px !important;
     top: 280px !important;
     z-index: 99 !important;
+    background-color : rgba(45, 255, 53, 1) !important;
 }
 /**/
 

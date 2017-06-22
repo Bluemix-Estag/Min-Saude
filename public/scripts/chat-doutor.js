@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('.modal').modal({
-        dismissible: false, // Modal can be dismissed by clicking outside of the modal
+        dismissible: true, // Modal can be dismissed by clicking outside of the modal
         opacity: .5, // Opacity of modal background
         inDuration: 300, // Transition in duration
         outDuration: 200, // Transition out duration
@@ -15,27 +15,159 @@ $(document).ready(function () {
         } // Callback for Modal close
     });
 
+
+
 });
 
+var local_imediato = [];
+var local_prioritario = [];
+var local_dia = [];
 
 
-function startTreatment() {
+function receberListaDoutor() {
+    xhrGet('https://min-saude-apis.mybluemix.net/getDoctorList', function (data) {
+
+        var imediato = data.imediato;
+        var prioritario = data.prioritario;
+        var dia = data.dia;
+
+
+        //
+        waiting_list_imediato = getWaitingList(imediato, local_imediato);
+        waiting_list_prioritario = getWaitingList(prioritario, local_prioritario);
+        waiting_list_dia = getWaitingList(dia, local_dia);
+        
+
+        var total_seconds_imediato = 0;
+        if (waiting_list_imediato.length > 0) {
+            var i = 1;
+            for (var patient of waiting_list_imediato) {
+
+                $('#lista-medico-imediato').append('<a href="#modal1" onclick="getInfo(this)"><div class="waiting_item black-text" id="sus_' + patient.sus_number + '" data-sus="' + patient.sus_number + '" ">' + patient.name + ' - ' + moment(patient.arrival * 1000).format('hh:mm:ss') +
+                '<div class="right black-text" id="timeri'+i+'"></div>'+'</div></a>');
+                $('#sus_' + patient.sus_number).addClass('animated bounceInUp');
+                var timer_id = 'timeri' + i;
+                i++;
+                var seconds = moment.duration(moment().format('HH:mm:ss')).asSeconds() - moment.duration(moment(patient.arrival * 1000).format('HH:mm:ss')).asSeconds();
+                countUp(seconds,timer_id);
+                total_seconds_imediato += seconds;
+            }
+
+            var tempo_medio_imediato = (total_seconds_imediato/waiting_list_imediato.length);
+            document.getElementById('imediato_bagde').innerHTML = imediato.length;
+            
+            // moment(patient.arrival * 1000).format('hh:mm:ss')
+            
+            waiting_list_imediato = [];
+        }
+        local_imediato = imediato;
+
+        //
+        if (waiting_list_prioritario.length > 0) {
+            var i = 1;
+            for (var patient of waiting_list_prioritario) {
+
+                $('#lista-medico-prioritario').append('<a href="#modal1" onclick="getInfo(this)"><div class="waiting_item black-text" id="sus_' + patient.sus_number + '" data-sus="' + patient.sus_number + '" ">' + patient.name + ' - ' + moment(patient.arrival * 1000).format('hh:mm:ss') +
+                '<div class="right black-text" id="timerp'+i+'"></div>'+'</div></a>');
+                $('#sus_' + patient.sus_number).addClass('animated bounceInUp');
+                var timer_id = 'timerp' + i;
+                i++;
+                var seconds = moment.duration(moment().format('HH:mm:ss')).asSeconds() - moment.duration(moment(patient.arrival * 1000).format('HH:mm:ss')).asSeconds();
+                countUp(seconds,timer_id);
+            }
+            document.getElementById('prioritario_badge').innerHTML = prioritario.length;
+            waiting_list_prioritario = [];
+
+        }
+        local_prioritario = prioritario;
+        //
+        if (waiting_list_dia.length > 0) {
+            var i = 1;
+            for (var patient of waiting_list_dia) {
+
+                $('#lista-medico-dia').append('<a href="#modal1" onclick="getInfo(this)"><div class="waiting_item black-text" id="sus_' + patient.sus_number + '" data-sus="' + patient.sus_number + '" ">' + patient.name + ' - ' + moment(patient.arrival * 1000).format('hh:mm:ss') +
+                '<div class="right black-text" id="timerd'+i+'"></div>'+'</div></a>');
+                $('#sus_' + patient.sus_number).addClass('animated bounceInUp');
+                var timer_id = 'timerd' + i;
+                i++;
+                var seconds = moment.duration(moment().format('HH:mm:ss')).asSeconds() - moment.duration(moment(patient.arrival * 1000).format('HH:mm:ss')).asSeconds();
+                countUp(seconds,timer_id);
+            }
+
+            
+
+
+
+            document.getElementById('dia_badge').innerHTML = dia.length;
+            waiting_list_dia = [];
+        }
+        local_dia = dia;
+
+        
+    }, function (error) {
+
+    });
+
+    setTimeout(function () {
+        receberListaDoutor();
+    }, 2000);
+
+}
+
+function getInfo(element) {
+    document.getElementById('proximo-nome').innerHTML = element.firstChild.innerHTML.split('-')[0];
+    document.getElementById('proximo-sus').value = element.firstChild.getAttribute('data-sus');
+}
+
+function getWaitingList(patients, local_list) {
+    waiting_list = [];
+    for (var i = local_list.length; i < patients.length; i++) {
+        waiting_list.push(patients[i]);
+    }
+    return waiting_list;
+}
+
+receberListaDoutor();
+
+
+function startTreatment(data) {
     $('#espera-medico-imediato').addClass('animated bounceOutLeft');
     $('#espera-medico-prioritario').addClass('animated bounceOutLeft');
     $('#espera-medico-dia').addClass('animated bounceOutLeft');
     $('#loading-atendimento').removeClass('hide');
     //
+    alert(JSON.stringify(data))
     setTimeout(function () {
         $('#row-historico').removeClass('hide');
+        $('#row-historico').removeClass('hide');
+        $('#historico').addClass('animated bounceInUp');
+        $('#nome').val(data.patient.nome);
+        $('#sus').val(data.patient.sus);
+        // $('#paciente-sus').val(data.sus);
+        $('#idade').val(data.patient.idade);
+        $('#genero').val(data.patient.sexo);
+        $('#situacao').val(data.patient.situacao);
         $('#historico').addClass('animated bounceInUp');
     }, 1000);
     //
+    var history = data.patient.historico[data.patient.historico.length-1];
     setTimeout(function () {
+        
+        // alert(JSON.stringify(data));
+        
+        if(history['gravida'] != null ) {$('#gravida').val(history.gravida); }
+        $('#temperatura').val(history.temperatura);
+        $('#cardiaca').val(history.freq_card);
+        $('#respiratoria').val(history.freq_resp);
+        $('#pressao').val(history.pressaoN + ' / ' + history.pressaoD);
         $('#row-triagem').removeClass('hide');
         $('#triagem').addClass('animated bounceInUp');
     }, 2000);
 
     setTimeout(function () {
+        
+        $('#queixa_value').val(history.queixa);
+        document.getElementById('queixa_tempo').innerHTML = history.tempo;
         $('#row-queixa').removeClass('hide');
         $('#queixa').addClass('animated bounceInUp');
     }, 2500);
@@ -44,190 +176,143 @@ function startTreatment() {
         $('#row-pre-diagnostico').removeClass('hide');
         $('#pre-diag').addClass('animated bounceInUp');
     }, 3500);
-    setTimeout(function () {
-        $('#graph').removeClass('hide');
-        function drawLine() {
-            var ctx2 = document.getElementById('lineChart').getContext('2d');
 
-            var myChart = new Chart(ctx2, {
-                type: 'horizontalBar',
-                data: {
-                    labels: ['Dengue', 'Zika'],
-                    datasets: [{
-                        label: 'Doenças',
-                        data: [40, 30, 20, 0, 100],
-                        borderWidth: 0,
-                        backgroundColor: ['red', 'green', 'blue']
-                    }]
-                },
-                options: Chart.defaults.global
-                // options: {
-                //     showLines : true,
-                //     spanGaps : false,
-                //     responsive: true
-                // }
-            });
-        }
-        drawLine();
-    }, 4000);
+    if(history.descricao != null){
+        setTimeout(function(){
+            document.getElementById('descricao-value').innerHTML = history.descricao;
+
+            if(history.pre_analise){
+            
+            $('#div-pre-analise').removeClass('hide');
+            document.getElementById('pre-analise-value').innerHTML = history.pre_analise;
+            }else{
+                document.getElementById('div-descricao').className = document.getElementById('div-descricao').className.replace(/m6/g,',12') ;
+            }
+            $('#row-pre-analise').removeClass('hide');
+            $('#pre-analise').addClass('animated bounceInUp');
+        },4000);
+       
+    }
+    // setTimeout(function () {
+    //     $('#graph').removeClass('hide');
+
+    //     function drawLine() {
+    //         var ctx2 = document.getElementById('lineChart').getContext('2d');
+
+    //         var myChart = new Chart(ctx2, {
+    //             type: 'horizontalBar',
+    //             data: {
+    //                 labels: ['Dengue', 'Zika'],
+    //                 datasets: [{
+    //                     label: 'Doenças',
+    //                     data: [40, 30, 20, 0, 100],
+    //                     borderWidth: 0,
+    //                     backgroundColor: ['red', 'green', 'blue']
+    //                 }]
+    //             },
+    //             options: Chart.defaults.global
+    //             // options: {
+    //             //     showLines : true,
+    //             //     spanGaps : false,
+    //             //     responsive: true
+    //             // }
+    //         });
+    //     }
+    //     drawLine();
+    // }, 4000);
     // setTimeout(function () {
     //     $('#row-diagnostico').removeClass('hide');
     //     // $('#diagnostico').addClass('animated bounceInUp');
     // }, 4250);
-    setTimeout(function (){
+    setTimeout(function () {
         $('#row-pre-receita').removeClass('hide');
         $('#pre-receita').addClass('animated bounceInUp');
         $('#row-resumo').removeClass('hide');
         $('#resumo').addClass('animated bounceInUp');
-    },4250);
+    }, 4250);
     setTimeout(function () {
         $('#loading-atendimento').addClass('hide');
     }, 4750);
+
+    $('#receitar').click(function(){
+        alert(document.getElementById('conclusao').innerHTML);
+        document.getElementyById('conclusao_value').innerHTML = document.getElementById('conclusao').innerHTML;
+        var sus = document.getElementById('sus').value;
+        prescribe(sus);
+        
+        var receita = document.getElementById('prescricao_value').innerHTML;
+        setTimeout(function(){
+            $('#row-queixa').addClass('hide');
+            $('#queixa').addClass('animated bounceInUp');
+            $('#row-historico').addClass('hide');
+            $('#historico').addClass('animated bounceInUp');
+            $('#row-triagem').addClass('hide');
+            $('#triagem').addClass('animated bounceInUp');
+            $('#row-receita').addClass('hide');
+            $('#receita').addClass('animated bounceInUp');
+            $('#row-queixa').addClass('hide');
+            $('#queixa').addClass('animated bounceInUp');
+
+
+            $('#remedios-value').val(receita);
+            $('#row-final').removeClass('hide');
+            $('#final').addClass('animated bounceInUp');
+        },2000);
+    });
+
+    $('#dismiss-final').click(function(){
+        window.location.href = '/doutor';
+    });
 }
 
-function setTreatment(){
-    
+function setTreatment() {
+
     $('#row-resumo').addClass('hide');
     $('#pre-receita').addClass('animated bounceOutRight');
     $('#row-receita').removeClass('hide');
     $('#receita').addClass('animated bounceInRight');
+
+
     
-
-    preparePrescription();
-}
-
-function preparePrescription(){
-
 }
 
 
 
+function countUp(timestamp,id) {
+    var timerVar = setInterval(countTimer, 1000);
+    var totalSeconds = timestamp;
 
+    function countTimer() {
+        ++totalSeconds;
+        var hour = Math.floor(totalSeconds / 3600);
+        var minute = Math.floor((totalSeconds - hour * 3600) / 60);
+        var seconds = totalSeconds - (hour * 3600 + minute * 60);
 
-// var params = {},
-//     watson = 'Watson',
-//     context;
-// var patientName;
-// var patientSus;
-// var type;
-
-
-// function userMessage(message) {
-
-//     params.text = message;
-//     if (context) {
-//         params.context = context;
-//     }
-//     var xhr = new XMLHttpRequest();
-//     var uri = '/api/watson/triagem';
-//     xhr.open('POST', uri, true);
-//     xhr.setRequestHeader('Content-Type', 'application/json');
-//     xhr.onload = function () {
-//         // Verify if there is a success code response and some text was sent
-//         if (xhr.status === 200 && xhr.responseText) {
-//             var response = JSON.parse(xhr.responseText);
-//             text = response.output.text; // Only display the first response
-//             context = response.context; // Store the context for next round of questions
-//             // console.log("Got response from Ana: ", JSON.stringify(response));
-
-
-//             if (context['show_history'] == true) {
-//                 showHistory(context['patient'].sus);
-//                 context['show_history'] = false;
-//             }
-
-//             // Triagem
-//             if (context['triagem'] == true) {
-//                 context['triagem'] = false;
-//                 startScreening();
-//             }
-//             if (context['info'] != null) {
-//                 if (context['info'].queixa != null) {
-//                     reason(context['info']['queixa']);
-//                 }
-
-//                 if (context['info'].tempo != null) {
-//                     periodReason(context['info'].tempo);
-//                 }
-
-//                 if (context['info'].gravida != null) {
-//                     setTimeout(function () {
-//                         $('#gravida').val(context['info']['gravida']);
-//                         $('#grav').removeClass('hide');
-//                         $('#gravida').addClass('animated bounceInRight');
-//                     }, 1000)
-//                 }
-
-//                 if (context['info'].freq_card != null) {
-//                     setTimeout(function () {
-//                         $('#cardiaca').val(context['info']['freq_card']);
-//                         $('#freq_card').removeClass('hide');
-//                         $('#cardiaca').addClass('animated bounceInRight');
-
-//                         fixScrollTriagem();
-//                     }, 1000)
-
-//                 }
-//                 if (context['info']['pressaoD']) {
-//                     var pressao = context['info']['pressaoN'] + " / " + context['info']['pressaoD'];
-//                     $('#pressao').val(pressao);
-//                     $('#press').removeClass('hide');
-//                     $('#pressao').addClass('animated bounceInRight');
-//                     fixScrollTriagem();
-//                 }
-//                 if (context['info']['temperatura']) {
-//                     $('#temperatura').val(context['info']['temperatura']);
-//                     $('#temp').removeClass('hide');
-//                     $('#temperatura').addClass('animated bounceInRight');
-//                 }
-//                 // if (context['info']['glicemia'] && context['info']['glicemia'] != null) {
-//                 //     setScreening('glicemia', context['info'].freq_card,'Frequência Cardíaca');
-//                 //     // $('#glicemia').val(context['info']['glicemia']);
-//                 //     // $('#glic').removeClass('hide');
-//                 //     // $('#glicemia').addClass('animated bounceInRight');
-//                 // }
-//                 if (context['info']['freq_resp']) {
-//                     $('#respiratoria').val(context['info']['freq_resp']);
-//                     $('#freq_resp').removeClass('hide');
-//                     $('#respiratoria').addClass('animated bounceInRight');
-//                 }
-//                 // if (context['info']['dor'] == true || context['info']['dor'] == false) {
-
-//                 //     // if (context['info']['dor'] == true) {
-//                 //     //     $('#dor').val("Sim");
-//                 //     // } else {
-//                 //     //     $('#dor').val("Não");
-//                 //     // }
-//                 //     // $('#dor-peito').removeClass('hide');
-//                 //     // $('#dor').addClass('animated bounceInRight');
-//                 // }
-//             }
-//             if (context['analise'] == true) {
-//                 typeOfPatient(context['atendimento']);
-//             }
+        document.getElementById(id).innerHTML = hour + ":" + minute + ":" + seconds;
+    }
+}
 
 
 
-//             //
-//             // console.log(JSON.stringify(text));
-//             for (var txt in text) {
-//                 displayMessage(text[txt], watson);
-//             }
-
-//         } else {
-//             console.error('Server error for Conversation. Return status of: ', xhr.statusText);
-//             displayMessage("Ops.. um erro ocorreu! Você pode tentar novamente.", watson);
-//         }
-//     };
-//     xhr.onerror = function () {
-//         console.error('Network error trying to send message!');
-//         displayMessage("Ops, acho que meu cérebro está offline. Espera um minutinho para continuarmos por favor.", watson);
-//     };
-//     console.log(JSON.stringify(params));
-//     xhr.send(JSON.stringify(params));
-// }
+function getIndividual(){
+    var sus = document.getElementById('proximo-sus').value;
+    xhrGet('https://min-saude-apis.mybluemix.net/getPatient?susNumber='+sus, function(data){
+        startTreatment(data);
+        
+    },function(err){
+        // alert(err);
+    });
+}
 
 
+
+function prescribe(sus_number){
+    xhrGet('https://min-saude-apis.mybluemix.net/removeDoctorList?susNumber='+sus_number, function(data){
+        
+    },function(err){
+
+    })
+}
 
 
 
