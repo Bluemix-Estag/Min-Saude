@@ -25,20 +25,18 @@
 </head>
 
 <body>
-    <header>
-        <nav class="blue lighten-1">
-            <div class="nav-wrapper transparent lighten-2 flow-text">
-                <a href="/doutor" class="" style="color: black;font-size: 20pt;">Ministério da Saúde</a>
-                <span class="white-text" style="margin-left:20px;">Doutor</span>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <!--<li><a href="collapsible.html">Logout</a></li>-->
-                </ul>
-            </div>
-        </nav>
+
+    <nav class="blue lighten-1">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo flow-text">
+                <div class="brand-div"><img src="/images/logo.png" class="logo-img" /><span class="logo-text white-text">Médico</span></div>
+            </a>
+        </div>
+    </nav>
     </header>
-    <main class="lighten-5 " class="main-body">
+    <main>
 
-
+        
 
         <!-- Espera Médico -->
         <div class="row  " id="row-espera-medico-imediato">
@@ -117,7 +115,7 @@
             <div class="col s12 m6">
                 <div class="card light-blue lighten-5 darken-1 z-depth-5" id="historico">
                     <div class="card-content white-text">
-                        
+
                         <span class="card-title" style="text-align:center !important">Informações</span>
 
                         <div class="input-field" style="color: #fff;">
@@ -145,7 +143,7 @@
             <div class="col s12 m6">
                 <div class="card light-blue lighten-5 darken-1 z-depth-5" id="triagem">
                     <div class="card-content white-text" id="lista-triagem">
-                        
+
                         <span class="card-title" style="text-align:center !important">Triagem</span>
                         <!--<div class="input-field " id="grav" style="color: #fff;">
                             <input disabled value="Sim" id="gravida" type="text" class="validate" style="color: #fff;">
@@ -167,7 +165,7 @@
                             <input disabled value="80 X 60" id="pressao" type="text" class="validate" style="color: #fff;">
                             <label for="pressao" style="color: #fff;">Pressão</label>
                         </div>-->
-                         <div class="input-field hide" id="grav" style="color: #fff;">
+                        <div class="input-field hide" id="grav" style="color: #fff;">
                             <input disabled value="123" id="gravida" type="text" class="validate" style="color: #fff;">
                             <label for="gravida" style="color: #fff;" id="freq_label">Gravidez</label>
                         </div>
@@ -203,7 +201,7 @@
                             <input disabled value="sim" id="tabagista" type="text" class="validate" style="color: #fff;">
                             <label for="tabagista" style="color: #fff;">Tabagista</label>
                         </div>
-                         <div class="input-field hide" id="diabe" style="color: #fff;">
+                        <div class="input-field hide" id="diabe" style="color: #fff;">
                             <input disabled value="sim" id="diabetes" type="text" class="validate" style="color: #fff;">
                             <label for="diabetes" style="color: #fff;">Diabetico</label>
                         </div>
@@ -222,7 +220,7 @@
             <div class="col s12 m6">
                 <div class="card light-blue lighten-5darken-1 z-depth-5" id="queixa">
                     <div class="card-content white-text">
-                        
+
                         <span class="card-title" style="text-align: center !important;">Motivo da Vinda</span>
                         <div class="row">
                             <div class="input-field col m6">
@@ -246,8 +244,8 @@
                     <div class="card-content white-text">
                         <span class="card-title" style="text-align: center !important;">Informações adicionais da queixa</span>
                         <div class="row">
-                            <div class="input-field col m6 hide" id="div-pre-analise" >
-                                
+                            <div class="input-field col m6 hide" id="div-pre-analise">
+
                                 <textarea id="pre-analise-value" disabled class="materialize-textarea" style="color: white !important;">Dor de cabeça e febre</textarea>
                                 <label for="pre-analise-value" style="color: white !important;">Pré Análise</label>
                             </div>
@@ -312,10 +310,15 @@
                     <div class="card-content white-text">
 
                         <span class="card-title" style="text-align: center !important;">Resumo Médico</span>
+
                         <div class="row">
                             <div class="input-field row m6">
-                                <textarea id="conclusao" class="materialize-textarea" style="color: white !important;" ></textarea>
-                                <label for="conclusao" style="color: white !important;">Conclusão</label>
+                                <textarea id="conclusao" class="materialize-textarea" style="color: white !important;"></textarea>
+                                <label for="conclusao" style="color: white !important;">História Clinica</label>
+                            </div>
+                            <div class="input-field">
+                                <input id="CID" type="text" placeholder="CID" class="validate" style="color: white !important;">
+                                <label for="CID" style="color: white !important;">CID: </label>
                             </div>
 
                         </div>
@@ -332,29 +335,29 @@
                     <form class="col s12">
                         <div class="row">
                             <div class="input-field col s6">
-                                <input placeholder="Placeholder" id="first_name" type="text" disabled value="Joana" class="validate" style="color: white !important;">
-                                <label for="first_name" style="color: white !important;">Nome: </label>
+                                <input placeholder="Placeholder" id="receita_name" type="text" disabled value="Joana" class="validate" style="color: white !important;">
+                                <label for="receita_name" style="color: white !important;">Nome: </label>
                             </div>
                             <div class="input-field col s6">
-                                <input id="last_name" type="text" disabled value="12345" class="validate" style="color: white !important;">
-                                <label for="last_name" style="color: white !important;">SUS</label>
+                                <input id="receita_sus" type="text" disabled value="12345" class="validate" style="color: white !important;">
+                                <label for="receita_sus" style="color: white !important;">SUS</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field row m6">
-                                <textarea id="conclusao_value" class="materialize-textarea" style="color: white !important;" disabled>Conclusão vai aqui</textarea>
-                                <label for="textarea1" style="color: white !important;">Conclusão</label>
+                                <textarea id="conclusao_value" placeholder=" " class="materialize-textarea" style="color: white !important;" disabled>Conclusão vai aqui</textarea>
+                                <label for="textarea1" style="color: white !important;">História Clinica</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field row m6">
-                                <textarea id="prescricao_value" class="materialize-textarea" style="color: white !important;">Prescrever</textarea>
+                                <textarea id="prescricao_value" placeholder=" " class="materialize-textarea" style="color: white !important;">Prescrever</textarea>
                                 <label for="prescricao_value" style="color: white !important;">Prescrição</label>
                             </div>
                         </div>
 
                         <div class="row center">
-                            <button class="btn  btn-large  blue-grey lighten-4"  style="color: black !important;" id="receitar">Receitar</button>
+                            <button class="btn  btn-large  blue-grey lighten-4" style="color: black !important;" id="receitar">Receitar</button>
                         </div>
                     </form>
                 </div>
@@ -372,22 +375,23 @@
             <div class="card light-blue lighten-5 darken-1 z-depth-5" id="final">
                 <div class="card-content white-text">
                     <a href="#" id="dismiss-final"><i class="material-icons right" style="color:white;">close</i></a>
+                    <a onclick="imprimirConsulta()" class="right" style="color: #fff;" href="#"><i class="material-icons right">print</i></a>
                     <span class="card-title" style="text-align: center !important;">Receita Médica</span>
                     <form class="col s12">
                         <div class="row">
                             <div class="input-field col s6">
-                                <input placeholder="Placeholder" id="first_name" type="text" disabled value="Joana" class="validate" style="color: white !important;">
-                                <label for="first_name" style="color: white !important;">Nome: </label>
+                                <input placeholder="Placeholder" id="final_name" type="text" disabled value="Joana" class="validate" style="color: white !important;">
+                                <label for="final_name" style="color: white !important;">Nome: </label>
                             </div>
                             <div class="input-field col s6">
-                                <input id="last_name" type="text" disabled value="12345" class="validate" style="color: white !important;">
-                                <label for="last_name" style="color: white !important;">SUS</label>
+                                <input id="final_sus" type="text" disabled value="12345" class="validate" style="color: white !important;">
+                                <label for="final_sus" style="color: white !important;">SUS</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field row m6">
-                                <textarea id="remedios_value" class="materialize-textarea" style="color: white !important;" disabled></textarea>
-                                <label for="textarea1" style="color: white !important;">Prescrição</label>
+                                <textarea id="remedios_value" class="materialize-textarea" placeholder=" " style="color: white !important;" disabled></textarea>
+                                <label for="remedios_value" style="color: white !important;">Prescrição</label>
                             </div>
                         </div>
                     </form>

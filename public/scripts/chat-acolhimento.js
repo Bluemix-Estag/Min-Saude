@@ -27,8 +27,6 @@ function userMessage(message) {
             if(context['check_patient']){
                 checkPatient(context['info']['SUS_number']);
                 context['check_patient'] = false;
-                
-            
             }
             if(context['show_history']){
                 showHistory(context['info']);
@@ -81,7 +79,8 @@ function userMessage(message) {
 
 
 function showHistory(data) {
-        $('#row-historico').removeClass('hide');
+
+        $('#historico').removeClass('hide');
         $('#historico').addClass('animated bounceInUp');
         $('#nome').val(data.nome);
         $('#paciente-nome').val(data.nome);
@@ -96,7 +95,7 @@ function showHistory(data) {
 function showAgenda(patient){
     
     setTimeout(function(){
-        $('#row-consulta').removeClass('hide');
+        $('#consulta').removeClass('hide');
     },1000);
     setTimeout(function(){
         $('#atividade_value').val(patient.atividades[0].atividade);

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ministério da saúde</title>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <!-- Compiled and minified CSS -->
+    <script src="/scripts/moment.js"></script>
+    <!--<link rel="stylesheet" href="/style/materialize.css" />-->
+    <link rel="stylesheet" href="/style/style.css" />
+    <link rel="stylesheet" href="/style/chat.css" />
+    <link rel="stylesheet" href="/style/animate.css" />
+    <script src="/scripts/util.js" type="text/javascript"></script>
+    <script src="/scripts/chat.js" type="text/javascript"></script>
+    <!--<script src="/scripts/materialize.js" type="text/javascript"></script>-->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <header>
+        <nav class="blue-grey darken-1">
+            <div class="nav-wrapper transparent lighten-2 flow-text" id="nav-header">
+                <a href="/index" class="" style="color: white;font-size: 20pt;">Ministério da Saúde</a>
+                <span class="blue-text" style="margin-left:20px;">Triagem</span>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <!--<li><a href="collapsible.html">Logout</a></li>-->
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main class="lighten-5 " class="main-body">
+        
+        <!-- Espera de Atendimento -->
+        <div class="col s12 m12">
+            <div class="row " id="row-espera">
+                <div class="col s8 offset-s2 l4 offset-l4 m6 offset-m3">
+                    <div class="card blue-grey darken-1 z-depth-5 animated bounceInUp" id="espera" style="overflow-y: scroll !important">
+                        <div class="card-content white-text" id="lista-espera">
+                            <!--<a href="#" onclick="receberLista()"><i class="material-icons left">close</i></a>-->
+                            <span class="card-title" style="text-align:center !important">Espera - Demanda Espontânea</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal Espera-->
+        <!-- Modal Trigger -->
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Atendimento</h4>
+                <p>Deseja inicar o atendimento para <span id="proximo-nome"></span>?</p>
+                <input type="hidden" id="proximo-sus" value="" />
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="iniciarAtendimento()">Atender</a>
+            </div>
+        </div>
+
+        <!-- -->
+
+        <!-- -->
+
+
+        <!-- Card Historico -->
+        <div class="row hide" id="row-historico">
+            <div class="col s12 m6">
+                <div class="card blue-grey darken-1 z-depth-5" id="historico">
+                    <div class="card-content white-text">
+                        <a href="#" id="dismiss-historico"><i class="material-icons right" style="color:white;">close</i></a>
+                        <span class="card-title" style="text-align:center !important">Informações</span>
+
+                        <div class="input-field" style="color: #fff;">
+                            <input disabled value="João da Silva" id="nome" type="text" class="validate" style="color: #fff;">
+                            <label for="nome" style="color: #fff;">Nome</label>
+                        </div>
+                        <div class="input-field" style="color: #fff;">
+                            <input disabled value="1234-X" id="sus" type="text" class="validate" style="color: #fff;">
+                            <label for="sus" style="color: #fff;">Número SUS</label>
+                        </div>
+                        <div class="input-field" style="color: #fff;">
+                            <input disabled value="40 anos" id="idade" type="text" class="validate" style="color: #fff;">
+                            <label for="idade" style="color: #fff;">Idade</label>
+                        </div>
+                        <div class="input-field" style="color: #fff;">
+                            <input disabled value="gt" id="genero" type="text" class="validate" style="color: #fff;">
+                            <label for="genero" style="color: #fff;">Gênero</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Card Queixa -->
+        <div class="row hide" id="row-queixa">
+            <div class="col s12 m6">
+                <div class="card blue-grey darken-1 z-depth-5" id="queixa">
+                    <div class="card-content white-text">
+                        <a href="#" id="dismiss-queixa"><i class="material-icons right" style="color:white;">close</i></a>
+                        <span class="card-title" style="text-align: center !important;">Motivo da Vinda</span>
+                        <div class="row">
+                            <div class="input-field col m6">
+                                <textarea id="queixa_value" disabled class="materialize-textarea" style="color: white !important;">Dores vao estar aqui</textarea>
+                                <label for="textarea1" style="color: white !important;">Queixas</label>
+                            </div>
+                            <div class="input-field hide col m6" id="queixa_tempo_holder">
+                                <textarea id="queixa_tempo" disabled class="materialize-textarea" style="color: white !important;">Periodo da Dor vai estar aqui</textarea>
+                                <label for="textarea2" style="color: white !important;">Período</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- -->
+
+
+
+        <!-- Card Informações Atuais-->
+        <div class="row hide" id="row-triagem">
+            <div class="col s12 m6">
+                <div class="card blue-grey darken-1 z-depth-5" id="triagem">
+                    <div class="card-content white-text" id="lista-triagem">
+                        <a href="#" id="dismiss-triagem"><i class="material-icons right" style="color:white;">close</i></a>
+                        <span class="card-title" style="text-align:center !important">Triagem</span>
+                        <div class="input-field hide" id="grav" style="color: #fff;">
+                            <input disabled value="123" id="gravida" type="text" class="validate" style="color: #fff;">
+                            <label for="gravida" style="color: #fff;" id="freq_label">Gravidez</label>
+                        </div>
+                        <div class="input-field hide" id="temp" style="color: #fff;">
+                            <input disabled value="80/60" id="temperatura" type="text" class="validate" style="color: #fff;">
+                            <label for="temperatura" style="color: #fff;">Temperatura</label>
+                        </div>
+                        <div class="input-field hide" id="freq_card" style="color: #fff;">
+                            <input disabled value="1234" id="cardiaca" type="text" class="validate" style="color: #fff;">
+                            <label for="cardiaca" style="color: #fff;">Frequência Cardíaca</label>
+                        </div>
+                        <div class="input-field hide" id="freq_resp" style="color: #fff;">
+                            <input disabled value="1234" id="respiratoria" type="text" class="validate" style="color: #fff;">
+                            <label for="respiratoria" style="color: #fff;">Frequência Respiratória</label>
+                        </div>
+                        <div class="input-field hide" id="press" style="color: #fff;">
+                            <input disabled value="60 80" id="pressao" type="text" class="validate" style="color: #fff;">
+                            <label for="pressao" style="color: #fff;">Pressão</label>
+                        </div>
+                        <div class="input-field hide" id="glic" style="color: #fff;">
+                            <input disabled value="60" id="glicemia" type="text" class="validate" style="color: #fff;">
+                            <label for="glicemia" style="color: #fff;">Glicemia</label>
+                        </div>
+                        <div class="input-field hide" id="satur" style="color: #fff;">
+                            <input disabled value="676" id="saturacao" type="text" class="validate" style="color: #fff;">
+                            <label for="saturacao" style="color: #fff;">Saturação</label>
+                        </div>
+                        <div class="input-field hide" id="dor" style="color: #fff;">
+                            <input disabled value="sim" id="dor_peito" type="text" class="validate" style="color: #fff;">
+                            <label for="dor_peito" style="color: #fff;">Dor no Peito</label>
+                        </div>
+                        <div class="input-field hide" id="tabag" style="color: #fff;">
+                            <input disabled value="sim" id="tabagista" type="text" class="validate" style="color: #fff;">
+                            <label for="tabagista" style="color: #fff;">Tabagista</label>
+                        </div>
+                         <div class="input-field hide" id="diabe" style="color: #fff;">
+                            <input disabled value="sim" id="diabetes" type="text" class="validate" style="color: #fff;">
+                            <label for="diabetes" style="color: #fff;">Diabetico</label>
+                        </div>
+                        <div class="input-field hide" id="prog-tabag" style="color: #fff;">
+                            <input disabled value="sim" id="prog-tabagista" type="text" class="validate" style="color: #fff;">
+                            <label for="prog-tabagista" style="color: #fff;">Prog. tabagista</label>
+                        </div>
+                       
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- -->
+        <!-- Loading-->
+        <div class="col s12 m6 center">
+            <div class="preloader-wrapper big active hide" id="loading-atendimento">
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Loading End-->
+
+
+        <!-- Atendimento -->
+
+        <div class="row hide" id="row-atendimento">
+            <div class="col s12 m6">
+                <div class="card blue-grey darken-1 z-depth-5" id="atendimento">
+                    <div class="card-content white-text">
+                        <a href="#" id="dismiss-atendimento"><i class="material-icons right" style="color:white;">close</i></a>
+                        <span class="card-title" id="atendimento-title" style="text-align:center !important">Atendimento</span>
+                        <div class="input-field" style="color: #fff;">
+                            <input disabled value="João da Silva" id="paciente-nome" type="text" class="validate" style="color: #fff;">
+                            <label for="nome" style="color: #fff;">Nome</label>
+                        </div>
+                        <div class="input-field" style="color: #fff;">
+                            <input disabled value="1234-X" id="paciente-sus" type="text" class="validate" style="color: #fff;">
+                            <label for="sus" style="color: #fff;">Número SUS</label>
+                        </div>
+                        <div class="input-field" style="color: #fff;">
+                            <input disabled value="Prioritário" id="tipo-atendimento" type="text" class="validate">
+                            <label for="tipo-atendimento" style="color: #fff;">Atendimento</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -->
+
+        <!--- Collapsible ChatBot-->
+        <div class=" transparent chatbox animated bounce infinite" id="chatbox">
+            <ul class="collapsible" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header " id="chatbox-header" style="text-align: center;"><i class="material-icons">chat</i>ChatBot</div>
+                    <div class="collapsible-body">
+                        <div class="chat-popup" id="chat-popup">
+                            <div class="chat-body" id="chat-body"></div>
+                        </div>
+                        <!-- Footer ChatBot-->
+                        <div class="chat-footer">
+                            <div class="input_field">
+                                <input type="text" id="chatInput" placeholder="  Type your message here..." onkeypress="return newEvent(event)" />
+                            </div>
+                        </div>
+                        <!-- -->
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!--- End of ChatBot-->
+    </main>
+    <footer class="footer blue-grey darken-1 page-footer" id="footer">
+        <div class="">
+            © 2017 Code Bakery
+        </div>
+        </div>
+    </footer>
+    <!--Import jQuery before materialize.js-->
+    <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
+    <!-- Compiled and minified JavaScript -->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>-->
+    <script src="/scripts/index.js"></script>
+</body>
+
+</html>

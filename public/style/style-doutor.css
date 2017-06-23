@@ -23,6 +23,23 @@ footer {
     height: 5% !important;
 }
 
+
+.brand-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-img{
+    width: 150px;
+    height: 50px;
+    margin-left: 10px;
+}
+.logo-text{
+    margin-left: 10px;
+}
+
+
 .footer {
     display: flex;
     justify-content: center;
@@ -132,7 +149,7 @@ footer {
     display: flex !important;
     align-content: space-between !important;
     justify-content: center !important;
-    top: 145px !important;
+    top: 220px !important;
     height: 175px !important;
     width: 350px !important;
     left: 860px !important;
@@ -157,7 +174,7 @@ footer {
 
 #resumo{
     width: 620px !important;
-    height: 170px !important;
+    height: 270px !important;
     position: absolute;
     top: 80px !important;
     left: 730px !important;
@@ -213,7 +230,7 @@ footer {
     width: 620px !important;
     height: 223px !important;
     position: absolute;
-    top: 260px !important;
+    top: 360px !important;
     left: 730px !important;
 }
 
@@ -314,3 +331,17 @@ footer {
 }
 
 /**/
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #final, #final * {
+    visibility: visible;
+  }
+  #final {
+    position: absolute;
+    left: 150px !important;
+    top: 20px !important;
+  }
+}

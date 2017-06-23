@@ -187,14 +187,6 @@
   left: 600px !important;
 }
 
-/**/
-
-
-/*Collapsible Body*/
-
-.collapsible-body{
-  background-color: rgba(255, 255, 255, 0.08) !important ;
-}
 
 .chat-body{
   background-color: rgba(255, 255, 255, 0.08) !important ;
@@ -254,7 +246,6 @@
     padding-top: 10px; }
 
 #teste-grafico{
-  background-color: #00e676 !important;
 }
 
 .content {

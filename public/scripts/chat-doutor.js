@@ -141,8 +141,11 @@ function startTreatment(data) {
         $('#row-historico').removeClass('hide');
         $('#historico').addClass('animated bounceInUp');
         $('#nome').val(data.patient.nome);
+        $('#final_name').val(data.patient.nome);
+        $('#receita_name').val(data.patient.nome);
         $('#sus').val(data.patient.sus);
-        // $('#paciente-sus').val(data.sus);
+        $('#final_sus').val(data.patient.sus);
+        $('#receita_sus').val(data.patient.sus);
         $('#idade').val(data.patient.idade);
         $('#genero').val(data.patient.sexo);
         $('#situacao').val(data.patient.situacao);
@@ -195,13 +198,13 @@ function startTreatment(data) {
         setTimeout(function(){
             document.getElementById('descricao-value').innerHTML = history.descricao;
 
-            if(history.pre_analise){
+            // if(history.pre_analise){
             
-            $('#div-pre-analise').removeClass('hide');
-            document.getElementById('pre-analise-value').innerHTML = history.pre_analise;
-            }else{
-                document.getElementById('div-descricao').className = document.getElementById('div-descricao').className.replace(/m6/g,',12') ;
-            }
+            // $('#div-pre-analise').removeClass('hide');
+            // document.getElementById('pre-analise-value').innerHTML = history.pre_analise;
+            // }else{
+            //     document.getElementById('div-descricao').className = document.getElementById('div-descricao').className.replace(/m6/g,',12') ;
+            // }
             $('#row-pre-analise').removeClass('hide');
             $('#pre-analise').addClass('animated bounceInUp');
         },4000);
@@ -335,6 +338,9 @@ function prescribe(sus_number){
 }
 
 
+function imprimirConsulta(){
+    window.print();
+}
 
 
 
