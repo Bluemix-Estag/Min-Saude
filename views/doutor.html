@@ -3,51 +3,44 @@
 
 <head>
     <title>Ministério da saúde</title>
-    <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <!-- Compiled and minified CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="/scripts/moment.js"></script>
-    <!--<link rel="stylesheet" href="/style/materialize.css" />-->
-    <link rel="stylesheet" href="/style/style-doutor.css" />
     <link rel="stylesheet" href="/style/animate.css" />
     <script src="/scripts/util.js" type="text/javascript"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="/scripts/chat-doutor.js" type="text/javascript"></script>
-    <!--<script src="/scripts/materialize.js" type="text/javascript"></script>-->
-    <!-- Compiled and minified CSS -->
+    <!--<script src="/scripts/chat-doutor.js" type="text/javascript"></script>-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
-
-    <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-    <!--Let browser know website is optimized for mobile-->
+
+    <link rel="stylesheet" href="/style/chat-doutor.css" />
+    <link rel="stylesheet" href="/style/style-doutor.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <body>
 
-    <nav class="blue lighten-1">
+    <nav class="grey lighten-5">
         <div class="nav-wrapper">
             <a href="#" class="brand-logo flow-text">
-                <div class="brand-div"><img src="/images/logo.png" class="logo-img" /><span class="logo-text white-text">Médico</span></div>
+                <div class="brand-div"><img src="/images/logo.png" class="logo-img" /><span class="logo-text black-text">Atendimento Médico</span></div>
             </a>
         </div>
     </nav>
     </header>
-    <main>
+    <main class="main-body">
+        <div class="overlay hide" id="overlay">
 
-        
+        </div>
+
 
         <!-- Espera Médico -->
-        <div class="row  " id="row-espera-medico-imediato">
+        <div class="row " id="row-espera-medico-imediato">
             <div class="col s12 m6">
                 <div class="card light-blue lighten-5 darken-1 z-depth-5 animated bounceInUp" id="espera-medico-imediato" style="overflow-y: scroll !important">
                     <div class="card-content black-text" id="lista-medico-imediato">
                         <span class="new badge  blue-grey lighten-4 black-text" data-badge-caption=" " id="imediato_bagde">0</span>
                         <!--<a href="#" onclick="receberLista()"><i class="material-icons left">close</i></a>-->
                         <span class="card-title" style="text-align: center !important;">Atendimento Imediato</span>
-
-
                     </div>
 
                 </div>
@@ -88,183 +81,197 @@
             </div>
         </div>
 
-        <!-- -->
+        
 
-        <!-- Modal Espera-->
-        <!-- Modal Trigger -->
-        <!-- Modal Structure -->
+        
 
-        <div id="modal1" class="modal">
-            <div class="modal-content">
-                <h4>Atendimento</h4>
-                <p>Deseja inicar o atendimento para <span id="proximo-nome"></span>?</p>
-                <input type="hidden" id="proximo-sus" value="" />
-            </div>
-            <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="getIndividual()">Atender</a>
-            </div>
-        </div>
-
-        <!-- -->
-
+        <!-- Entrou no hide, imediato ,prioritario, dia -->
+        <!-- Saiu do hide, historico, queixa, triagem, resumo e receita -->
 
 
 
         <!-- Card Historico -->
-        <div class="row hide" id="row-historico">
-            <div class="col s12 m6">
-                <div class="card light-blue lighten-5 darken-1 z-depth-5" id="historico">
-                    <div class="card-content white-text">
+        <div class="row col s12 hide" id="row-info">
+            <div class="col s12 m2 l2 hide " id="historico_holder">
+                <div class="card grey lighten-5 z-depth-5  " id="historico">
+                    <div class="card-content black-text row">
+                        <div class="col s12 ">
+                            <span class="card-title center-align">Informações</span>
+                        </div>
+                        <div class="col s12">
+                            <div class="input-field">
+                                <input disabled value="João da Silva" placeholder=" " id="nome" type="text" class="validate black-text">
+                                <label for="nome" class="black-text">Nome</label>
+                            </div>
+                        </div>
+                        <div class="col s12">
+                            <div class="input-field">
+                                <input disabled value="1234-X" id="sus" type="text" placeholder=" " class="validate black-text">
+                                <label for="sus" class="black-text">Número SUS</label>
+                            </div>
+                        </div>
+                        <div class="col s12">
+                            <div class="input-field">
+                                <input disabled value="40 anos" id="idade" type="text" placeholder=" " class="validate black-text">
+                                <label for="idade" class="black-text">Idade</label>
+                            </div>
+                        </div>
+                        <div class="col s12">
+                            <div class="input-field " id="prog-tabag">
+                                <input disabled value="Nenhum" id="prog-tabagista" type="text" placeholder=" " class="validate black-text">
+                                <label for="prog-tabagista" class="black-text">Exames</label>
+                            </div>
+                        </div>
+                        <div class="col s12">
+                            <div class="input-field " id="prog-tabag">
+                                <input disabled value="sim" id="prog-tabagista" type="text" placeholder=" " class="validate black-text">
+                                <label for="prog-tabagista" class="black-text">Medicamentos</label>
+                            </div>
+                        </div>
 
-                        <span class="card-title" style="text-align:center !important">Informações</span>
-
-                        <div class="input-field" style="color: #fff;">
-                            <input disabled value="Joana Aparecida" id="nome" type="text" class="validate" style="color: #fff;">
-                            <label for="nome" style="color: #fff;">Nome</label>
-                        </div>
-                        <div class="input-field" style="color: #fff;">
-                            <input disabled value="12345" id="sus" type="text" class="validate" style="color: #fff;">
-                            <label for="sus" style="color: #fff;">Número SUS</label>
-                        </div>
-                        <div class="input-field" style="color: #fff;">
-                            <input disabled value="51 anos" id="idade" type="text" class="validate" style="color: #fff;">
-                            <label for="idade" style="color: #fff;">Idade</label>
-                        </div>
-                        <div class="input-field" style="color: #fff;">
-                            <input disabled value="Casada" id="situacao" type="text" class="validate" style="color: #fff;">
-                            <label for="situacao" style="color: #fff;">Situação</label>
-                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Card Informações Atuais-->
-        <div class="row hide" id="row-triagem">
-            <div class="col s12 m6">
-                <div class="card light-blue lighten-5 darken-1 z-depth-5" id="triagem">
-                    <div class="card-content white-text" id="lista-triagem">
 
-                        <span class="card-title" style="text-align:center !important">Triagem</span>
-                        <!--<div class="input-field " id="grav" style="color: #fff;">
-                            <input disabled value="Sim" id="gravida" type="text" class="validate" style="color: #fff;">
-                            <label for="gravida" style="color: #fff;" id="freq_label">Gravidez</label>
-                        </div>
-                        <div class="input-field " id="temp" style="color: #fff;">
-                            <input disabled value="39" id="temperatura" type="text" class="validate" style="color: #fff;">
-                            <label for="temperatura" style="color: #fff;">Temperatura</label>
-                        </div>
-                        <div class="input-field " id="freq_card" style="color: #fff;">
-                            <input disabled value="110" id="cardiaca" type="text" class="validate" style="color: #fff;">
-                            <label for="cardiaca" style="color: #fff;">Frequência Cardíaca</label>
-                        </div>
-                        <div class="input-field " id="freq_resp" style="color: #fff;">
-                            <input disabled value="123" id="respiratoria" type="text" class="validate" style="color: #fff;">
-                            <label for="respiratoria" style="color: #fff;">Frequência Respiratória</label>
-                        </div>
-                        <div class="input-field " id="press" style="color: #fff;">
-                            <input disabled value="80 X 60" id="pressao" type="text" class="validate" style="color: #fff;">
-                            <label for="pressao" style="color: #fff;">Pressão</label>
-                        </div>-->
-                        <div class="input-field hide" id="grav" style="color: #fff;">
-                            <input disabled value="123" id="gravida" type="text" class="validate" style="color: #fff;">
-                            <label for="gravida" style="color: #fff;" id="freq_label">Gravidez</label>
-                        </div>
-                        <div class="input-field " id="temp" style="color: #fff;">
-                            <input disabled value="80/60" id="temperatura" type="text" class="validate" style="color: #fff;">
-                            <label for="temperatura" style="color: #fff;">Temperatura</label>
-                        </div>
-                        <div class="input-field " id="freq_card" style="color: #fff;">
-                            <input disabled value="1234" id="cardiaca" type="text" class="validate" style="color: #fff;">
-                            <label for="cardiaca" style="color: #fff;">Frequência Cardíaca</label>
-                        </div>
-                        <div class="input-field " id="freq_resp" style="color: #fff;">
-                            <input disabled value="1234" id="respiratoria" type="text" class="validate" style="color: #fff;">
-                            <label for="respiratoria" style="color: #fff;">Frequência Respiratória</label>
-                        </div>
-                        <div class="input-field " id="press" style="color: #fff;">
-                            <input disabled value="60 80" id="pressao" type="text" class="validate" style="color: #fff;">
-                            <label for="pressao" style="color: #fff;">Pressão</label>
-                        </div>
-                        <div class="input-field " id="glic" style="color: #fff;">
-                            <input disabled value="60" id="glicemia" type="text" class="validate" style="color: #fff;">
-                            <label for="glicemia" style="color: #fff;">Glicemia</label>
-                        </div>
-                        <div class="input-field " id="satur" style="color: #fff;">
-                            <input disabled value="676" id="saturacao" type="text" class="validate" style="color: #fff;">
-                            <label for="saturacao" style="color: #fff;">Saturação</label>
-                        </div>
-                        <div class="input-field " id="dor" style="color: #fff;">
-                            <input disabled value="sim" id="dor_peito" type="text" class="validate" style="color: #fff;">
-                            <label for="dor_peito" style="color: #fff;">Dor no Peito</label>
-                        </div>
-                        <div class="input-field hide" id="tabag" style="color: #fff;">
-                            <input disabled value="sim" id="tabagista" type="text" class="validate" style="color: #fff;">
-                            <label for="tabagista" style="color: #fff;">Tabagista</label>
-                        </div>
-                        <div class="input-field hide" id="diabe" style="color: #fff;">
-                            <input disabled value="sim" id="diabetes" type="text" class="validate" style="color: #fff;">
-                            <label for="diabetes" style="color: #fff;">Diabetico</label>
-                        </div>
-                        <div class="input-field hide" id="prog-tabag" style="color: #fff;">
-                            <input disabled value="sim" id="prog-tabagista" type="text" class="validate" style="color: #fff;">
-                            <label for="prog-tabagista" style="color: #fff;">Prog. tabagista</label>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <!-- -->
-        <!-- Card Queixa -->
-        <div class="row hide" id="row-queixa">
-            <div class="col s12 m6">
-                <div class="card light-blue lighten-5darken-1 z-depth-5" id="queixa">
-                    <div class="card-content white-text">
-
-                        <span class="card-title" style="text-align: center !important;">Motivo da Vinda</span>
+            <div class="col s12 m2 l2 hide" id="triagem_holder">
+                <div class="card grey lighten-5 z-depth-5 " id="triagem">
+                    <div class="card-content black-text" id="lista-triagem">
                         <div class="row">
-                            <div class="input-field col m6">
-                                <textarea id="queixa_value" disabled class="materialize-textarea" style="color: white !important;">Dor de cabeça e febre</textarea>
-                                <label for="textarea1" style="color: white !important;">Queixa</label>
+                            <div class="col s12">
+                                <span class="card-title col s10 center-align ">Triagem</span>
+
                             </div>
-                            <div class="input-field  col m6" id="queixa_tempo_holder">
-                                <textarea id="queixa_tempo" disabled class="materialize-textarea" style="color: white !important;">3 dias</textarea>
-                                <label for="textarea2" style="color: white !important;">Período</label>
+                            <div class="col s12">
+                                <div class="input-field" id="div-pre-analise">
+                                    <textarea id="pre-analise-value" disabled class="materialize-textarea" style="color: black !important;">Dor de cabeça e febre</textarea>
+                                    <label for="pre-analise-value" style="color: black !important;">Pré Análise</label>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class="input-field" id="div-descricao">
+                                    <textarea id="descricao-value" disabled class="materialize-textarea validate" style="color: black !important;">Dor de cabeça e febre</textarea>
+                                    <label for="descricao-value" style="color: black !important;">Descrição</label>
+                                </div>
+                            </div>
+
+                            <div class="col s12">
+                                <div class="input-field " id="grav">
+                                    <input disabled value="123" id="gravida" placeholder=" " type="text" class="validate black-text">
+                                    <label for="gravida" class="black-text" id="freq_label">Gravidez</label>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class="input-field " id="temp">
+                                    <input disabled value="80/60" id="temperatura" type="text" class="validate black-text" placeholder=" ">
+                                    <label for="temperatura" class="black-text">Temperatura</label>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class="input-field " id="freq_card">
+                                    <input disabled value="1234" id="cardiaca" type="text" class="validate black-text" placeholder=" ">
+                                    <label for="cardiaca" class="black-text">Frequência Cardíaca</label>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class="input-field " id="freq_resp">
+                                    <input disabled value="1234" id="respiratoria" type="text" placeholder=" " class="validate black-text">
+                                    <label for="respiratoria" class="black-text">Frequência Respiratória</label>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class="input-field " id="press">
+                                    <input disabled id="pressao" type="text" class="validate black-text" placeholder="">
+                                    <label for="pressao" class="black-text">Pressão</label>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class="input-field " id="glic">
+                                    <input disabled value="60" id="glicemia" type="text" placeholder=" " class="validate black-text">
+                                    <label for="glicemia" class=" black-text">Glicemia</label>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class="input-field " id="satur">
+                                    <input disabled value="676" id="saturacao" type="text" placeholder=" " class="validate black-text">
+                                    <label for="saturacao" class="black-text">Saturação</label>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class="input-field " id="dor">
+                                    <input disabled value="sim" id="dor_peito" type="text" class="validate black-text" placeholder=" ">
+                                    <label for="dor_peito" class="black-text">Dor no Peito</label>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class="input-field " id="tabag">
+                                    <input disabled value="sim" id="tabagista" placeholder=" " type="text" class="validate black-text">
+                                    <label for="tabagista" class="black-text">Tabagista</label>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class="input-field " id="diabe">
+                                    <input disabled value="sim" id="diabetes" type="text" placeholder=" " class="validate black-text">
+                                    <label for="diabetes" class="black-text">Diabetico</label>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class="input-field " id="prog-tabag">
+                                    <input disabled value="sim" id="prog-tabagista" type="text" placeholder=" " class="validate black-text">
+                                    <label for="prog-tabagista" class="black-text">Prog. tabagista</label>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
-        </div>
-        <!-- -->
-        <!-- Card Pre analise -->
-        <div class="row hide" id="row-pre-analise">
-            <div class="col s12 m6">
-                <div class="card light-blue lighten-5darken-1 z-depth-5" id="pre-analise">
-                    <div class="card-content white-text">
-                        <span class="card-title" style="text-align: center !important;">Informações adicionais da queixa</span>
-                        <div class="row">
-                            <div class="input-field col m6 hide" id="div-pre-analise">
 
-                                <textarea id="pre-analise-value" disabled class="materialize-textarea" style="color: white !important;">Dor de cabeça e febre</textarea>
-                                <label for="pre-analise-value" style="color: white !important;">Pré Análise</label>
-                            </div>
-                            <div class="input-field col m6" id="div-descricao">
-                                <textarea id="descricao-value" disabled class="materialize-textarea" style="color: white !important;">Dor de cabeça e febre</textarea>
-                                <label for="descricao-value" style="color: white !important;">Descrição</label>
+            <!-- -->
+            <div class="col s12 m8 l5 hide" id="exame_fisico_holder">
+
+
+                <div class="col s12">
+                    <!--<div class="row ">-->
+                    <div class="card grey lighten-5 z-depth-5 col m4 l12 " id="diagnostico" style="height: 100px !important;">
+                        <div class="black-text">
+                            <div class="row ">
+                                <div class="col s12 center-align">
+                                    <span class="card-title" style="">Diagnóstico Médico</span>
+                                </div>
+                                <div class="col s12">
+                                    <div class="input-field col s12 m12" id="area-cid">
+                                        <input id="cid" type="text" placeholder="CID Number" class="cid">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <!--</div>-->
+
+                </div>
+                <div class="col s12">
+                    <!--<div class="row">-->
+                    <div class="card grey  lighten-5 z-depth-5 col m8 l12 hide" id="exame">
+                        <div class="card-content black-text">
+                            <div class="row ">
+                                <div class="col s12">
+                                    <span class="card-title" style="text-align: center !important;">Exame Físico</span>
+                                </div>
+                                <div class="col s12">
+                                    <div class="input-field col s12 m12" id="area-exame">
+                                        <textarea id="exame-fisico_value" placeholder="Exame Físico" class="materialize-textarea white-text exame animate bounceInRight"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--</div>-->
                 </div>
             </div>
         </div>
-        <!-- -->
-
-
-
 
         <!-- Loading-->
-        <div class="col s12 m6 center">
+        <div class="col s12 m6 center ">
             <div class="preloader-wrapper big active hide" id="loading-atendimento">
                 <div class="spinner-layer spinner-red">
                     <div class="circle-clipper left">
@@ -302,72 +309,55 @@
             </div>
         </div>
         <!-- Loading End-->
-        <!-- -->
-        <!-- Card Resumo Médico -->
-        <div class="row hide" id="row-resumo">
-            <div class="col s12 m6">
-                <div class="card light-blue lighten-5 darken-1 z-depth-5" id="resumo">
-                    <div class="card-content white-text">
+        <div class="row " id="row-queixa-exame">
 
-                        <span class="card-title" style="text-align: center !important;">Resumo Médico</span>
-
-                        <div class="row">
-                            <div class="input-field row m6">
-                                <textarea id="conclusao" class="materialize-textarea" style="color: white !important;"></textarea>
-                                <label for="conclusao" style="color: white !important;">História Clinica</label>
+            <div class="col s12 m4 l4 " id="queixa_holder">
+                <!--<div class="row ">-->
+                <div class="card grey lighten-5 z-depth-5 col m12 l12 hide" id="queixa">
+                    <div class="card-content black-text">
+                        <div class="row ">
+                            <div class="col s12">
+                                <span class="card-title" style="text-align: center !important;">Motivo da Vinda</span>
                             </div>
-                            <div class="input-field">
-                                <input id="CID" type="text" placeholder="CID" class="validate" style="color: white !important;">
-                                <label for="CID" style="color: white !important;">CID: </label>
+                            <div class="col s12">
+                                <div class="input-field col s12 l6">
+                                    <textarea id="queixa_value" disabled placeholder=" " class="materialize-textarea black-text  animate bounceInRight">Dores vao estar aqui</textarea>
+                                    <label for="queixa_value" class="black-text">Queixas</label>
+                                </div>
+                                <div class="input-field col s12 l6" id="queixa_tempo_holder">
+                                    <textarea id="queixa_tempo" disabled class="materialize-textarea black-text">Periodo da Dor vai estar aqui</textarea>
+                                    <label for="textarea2" class="black-text">Período</label>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <div class="col s12  m8 l5 ">
+                <div class="col s12">
+                    <div class="card grey lighten-5 z-depth-5 col m8 l12 hide" id="prescricao">
+                        <div class="card-content black-text">
+                            <div class="row ">
+                                <div class="col s12">
+                                    <span class="card-title" style="text-align: center !important;">Prescrição</span>
+                                </div>
+                                <div class="col s12">
+                                    <div class="input-field col s12 m12" id="area-exame">
+                                        <textarea id="exame-fisico_value" placeholder="Prescrição" class="materialize-textarea black-text exame animate bounceInRight"></textarea>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- -->
-        <!-- Card Receita -->
-        <div class="row hide" id="row-receita" style="color: white !important;">
-            <div class="card light-blue lighten-5 darken-1 z-depth-5" id="receita">
-                <div class="card-content white-text">
-                    <span class="card-title" style="text-align: center !important;">Receita Médica</span>
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <input placeholder="Placeholder" id="receita_name" type="text" disabled value="Joana" class="validate" style="color: white !important;">
-                                <label for="receita_name" style="color: white !important;">Nome: </label>
-                            </div>
-                            <div class="input-field col s6">
-                                <input id="receita_sus" type="text" disabled value="12345" class="validate" style="color: white !important;">
-                                <label for="receita_sus" style="color: white !important;">SUS</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field row m6">
-                                <textarea id="conclusao_value" placeholder=" " class="materialize-textarea" style="color: white !important;" disabled>Conclusão vai aqui</textarea>
-                                <label for="textarea1" style="color: white !important;">História Clinica</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field row m6">
-                                <textarea id="prescricao_value" placeholder=" " class="materialize-textarea" style="color: white !important;">Prescrever</textarea>
-                                <label for="prescricao_value" style="color: white !important;">Prescrição</label>
-                            </div>
-                        </div>
-
-                        <div class="row center">
-                            <button class="btn  btn-large  blue-grey lighten-4" style="color: black !important;" id="receitar">Receitar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+       
 
 
 
-
-
+        
 
         <!-- -->
         <!--Card Final -->
@@ -380,112 +370,63 @@
                     <form class="col s12">
                         <div class="row">
                             <div class="input-field col s6">
-                                <input placeholder="Placeholder" id="final_name" type="text" disabled value="Joana" class="validate" style="color: white !important;">
-                                <label for="final_name" style="color: white !important;">Nome: </label>
+                                <input placeholder="Placeholder" id="final_name" type="text" disabled value="Joana" class="validate" style="color: black !important;">
+                                <label for="final_name" style="color: black !important;">Nome: </label>
                             </div>
                             <div class="input-field col s6">
-                                <input id="final_sus" type="text" disabled value="12345" class="validate" style="color: white !important;">
-                                <label for="final_sus" style="color: white !important;">SUS</label>
+                                <input id="final_sus" type="text" disabled value="12345" class="validate" style="color: black !important;">
+                                <label for="final_sus" style="color: black !important;">SUS</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field row m6">
-                                <textarea id="remedios_value" class="materialize-textarea" placeholder=" " style="color: white !important;" disabled></textarea>
-                                <label for="remedios_value" style="color: white !important;">Prescrição</label>
+                                <textarea id="remedios_value" class="materialize-textarea" placeholder=" " style="color: black !important;" disabled></textarea>
+                                <label for="remedios_value" style="color: black !important;">Prescrição</label>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        <!--  -->
-        <!--<div class="row hide" id="row-pre-diagnostico">
-            <div class="col s12 m6">
-                <div class="card blue-grey darken-1 z-depth-5" id="pre-diag">
-                    <div class="card-content white-text">
-                        <a href="#" id="dismiss-pre-diag"><i class="material-icons right" style="color:#4db6ac;">close</i></a>
-                        <span class="card-title" style="text-align: center !important;">Pré Diagnóstico</span>
-                        <div class="row">
-                            <div class="input-field row m6">
-                                <textarea id="queixa_value" disabled class="materialize-textarea" style="color: white !important;">Dengue</textarea>
-                                <label for="textarea1" style="color: white !important;">1</label>
-                            </div>
-                            <div class="input-field  row m6" id="queixa_tempo_holder">
-                                <textarea id="queixa_tempo" disabled class="materialize-textarea" style="color: white !important;">Zika</textarea>
-                                <label for="textarea2" style="color: white !important;">2</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    
+        <div class="chat-popup z-depth-5 hide" id="chat-popup">
+            <div class="chat-header white-text ">Assistente Médico</div>
+            <div class="chat-body" id="chat-body">
+                <!--                <div class="chat-date"><span>Today, 2:22 PM</span></div>-->
             </div>
-        </div>-->
-        <!-- -->
-        <!-- Gráfico-->
-        <!--<div class="row" id="row-grafico">
-            <div class="card blue-grey darken-1 z-depth-5 white hide" id="graph">
-                <div class="card-content white-text white"><span class="card-title" style="text-align: center !important;color:black">Resultados</span>
-                    <div class="row">
-                        <div class="line-holder">
-                            <div class="canvas-holder-line">
-                                <canvas id="lineChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="chat-footer">
+                <input type="text" id="chatInput" placeholder="Digite aqui sua mensagem.." class="input-field" onkeypress="return newEvent(event)"
+                />
             </div>
-        </div>-->
-        <!-- -->
+        </div>
 
-        <!-- Inicar Diagnostico -->
-        <div class="row hide" id="row-pre-receita">
-            <div class="col s12 m6">
-                <div class="card light-blue lighten-5 darken-1 z-depth-5" id="pre-receita">
-                    <div class="card-content white-text">
-                        <span class="card-title" style="text-align: center !important;">Receita</span>
-                        <div class="row">
-                            <button class="btn  btn-large  blue-grey lighten-4" onclick="setTreatment()" style="color: black !important;" id="prescrever-btn">Prescrever Receita</button>
-                        </div>
-                    </div>
-                </div>
+      <!-- -->
+
+        <!-- Modal Espera-->
+        <!-- Modal Trigger -->
+        <!-- Modal Structure -->
+
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Atendimento</h4>
+                <p>Deseja inicar o atendimento para <span id="proximo-nome"></span>?</p>
+                <input type="hidden" id="proximo-sus" value="" />
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="getIndividual()">Atender</a>
             </div>
         </div>
 
         <!-- -->
-
-
-        <!--- Collapsible ChatBot-->
-        <!--<div class=" transparent chatbox animated bounce infinite" id="chatbox">
-            <ul class="collapsible" data-collapsible="accordion">
-                <li>
-                    <div class="collapsible-header " id="chatbox-header" style="text-align: center;"><i class="material-icons">chat</i>ChatBot</div>
-                    <div class="collapsible-body">
-                        <div class="chat-popup" id="chat-popup">
-                                <div class="chat-body" id="chat-body"></div>
-                        </div>
-                        <!- Footer ChatBot-->
-        <!--<div class="chat-footer">
-                            <div class="input_field">
-                                <input type="text" id="chatInput" placeholder="  Type your message here..." onkeypress="return newEvent(event)" />
-                            </div>
-                        </div>
-                        
-        <!- -</div>-->
-        <!--</li>-->
-        <!--</ul>-->
-        <!--</div>-->
-
         <!--- End of ChatBot-->
     </main>
-    <footer class="lighten-2 footer blue lighten-1 page-footer" id="footer">
+
+    <footer class=" footer grey lighten-5 page-footer" id="footer">
         <div class="">
             © 2017 Code Bakery
         </div>
         </div>
     </footer>
-    <!--Import jQuery before materialize.js-->
-    <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
-    <!-- Compiled and minified JavaScript -->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
     <script src="/scripts/chat-doutor.js" type="text/javascript"></script>
 
