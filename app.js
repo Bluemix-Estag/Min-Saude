@@ -179,12 +179,9 @@ app.get('/', function (req, res) {
     res.render('login.html');
 });
 
-<<<<<<< HEAD
-=======
 app.get('/dashboard', function (req, res) {
     res.render('dashboard.html');
 });
->>>>>>> 463285768e6fa57ad10077d45f935d6d4b7b4744
 
 app.get('/doutor',function(req,res){
     res.render('doutor.html');
