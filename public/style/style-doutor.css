@@ -212,7 +212,7 @@ footer {
     right: 320px;
     top: 9%;
     height: 85%;
-    background-color:rgba(183, 183, 183, 0.52);
+    background-color:rgba(183, 183, 183, 0.72);
     z-index: 50;
     pointer-events: none;
 }

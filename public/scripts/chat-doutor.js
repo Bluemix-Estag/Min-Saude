@@ -221,8 +221,6 @@ receberListaDoutor();
 
 
 function startTreatment(data) {
-
-
     $('#espera-medico-imediato').addClass('animated bounceOutLeft');
     $('#espera-medico-prioritario').addClass('animated bounceOutLeft');
     $('#espera-medico-dia').addClass('animated bounceOutLeft');
@@ -234,18 +232,17 @@ function startTreatment(data) {
         $('#espera-medico-prioritario').removeClass('animated bounceOutLeft');
         $('#espera-medico-dia').removeClass('animated bounceOutLeft');
         setTimeout(function(){
-             $('#overlay').removeClass('hide');
+         $('#overlay').removeClass('hide');   
          $('#overlay').addClass('animated slideInLeft');
-        },2000)
+        },250)
+        $('#chat-popup').removeClass('hide');
        
         $('#loading-atendimento').removeClass('hide');
     }, 500)
 
 
     setTimeout(function () {
-        setTimeout(function () {
-            $('#chat-popup').removeClass('hide');
-        }, 1000)
+        
         $('#row-info').removeClass('hide');
         $('#historico_holder').removeClass('hide');
         $('#historico').addClass('animated bounceInUp');
