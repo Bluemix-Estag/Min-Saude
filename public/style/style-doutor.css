@@ -23,6 +23,23 @@ footer {
     height: 5% !important;
 }
 
+
+.brand-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-img{
+    width: 150px;
+    height: 50px;
+    margin-left: 10px;
+}
+.logo-text{
+    margin-left: 10px;
+}
+
+
 .footer {
     display: flex;
     justify-content: center;
@@ -31,10 +48,10 @@ footer {
 
 .main-body {
     /*flex: 1 0 auto;*/
-    height: 90% !important;
+    height: 80% !important;
 }
 
-.loading-holder {
+.loading-atendimento {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -117,9 +134,95 @@ footer {
     background-color: lightcyan !important;
 }
 
+#triagem{
+    max-height: 312px !important;
+    overflow-y: scroll !important;
+}
 
+#historico ,  #triagem{
+    height: 312px;
+}
+
+#exame{
+    overflow-y: scroll !important;
+    max-height: 190px !important;
+    height: 190px !important;
+}
+
+#prescricao{
+    overflow-y: scroll !important;
+    max-height: 190px !important;
+    height: 190px !important;
+}
+
+#historico{
+    overflow-y: scroll !important;
+    max-height: 312px !important;
+    height: 312px !important;
+}
+
+.input-field input[type=text]:focus {
+     border-bottom: 1px solid white;
+     box-shadow: 0 1px 0 0 white;
+}
+
+#queixa{
+    max-height: 190px !important;
+    height: 190px !important;
+}
+
+
+.cid::-moz-placeholder{
+    text-align: center;
+    color: black;
+}
+
+
+.cid::-webkit-input-placeholder{
+    text-align: center;
+    color: black;
+}
+
+.cid::-ms-input-placeholder{
+    text-align: center;
+    color: black;
+}
+
+.exame::-moz-placeholder{
+    text-align: center;
+    color: black;
+}
+
+
+.exame::-webkit-input-placeholder{
+    text-align: center;
+    color: black;
+}
+
+.exame::-ms-input-placeholder{
+    text-align: center;
+    color: black;
+}
+
+
+.overlay{
+    position: absolute;
+    left:0;
+    /*width: 77.6%;*/
+    right: 320px;
+    top: 9%;
+    height: 85%;
+    background-color:rgba(183, 183, 183, 0.52);
+    z-index: 50;
+    pointer-events: none;
+}
 /*Historico Card*/
+/*
 
+
+
+
+Aquii
 #historico {
     width: 300px !important;
     height: 380px !important;
@@ -132,7 +235,7 @@ footer {
     display: flex !important;
     align-content: space-between !important;
     justify-content: center !important;
-    top: 145px !important;
+    top: 220px !important;
     height: 175px !important;
     width: 350px !important;
     left: 860px !important;
@@ -157,7 +260,7 @@ footer {
 
 #resumo{
     width: 620px !important;
-    height: 170px !important;
+    height: 270px !important;
     position: absolute;
     top: 80px !important;
     left: 730px !important;
@@ -167,7 +270,7 @@ footer {
     overflow-y: scroll;  
     height: 100% !important;
 }
-
+Aquiiii
 #triagem {
     width: 300px !important;
     height: 380px !important;
@@ -175,7 +278,7 @@ footer {
     top: 80px !important;
     left: 410px !important;
     /*overflow: hidden;*/
-}
+/*}*/
 
 /*#consulta {
     width: 500px !important;
@@ -193,6 +296,7 @@ footer {
     left: 220px !important;
 }*/
 
+/* Aquiii
 #queixa {
     width: 620px !important;
     height: 200px !important;
@@ -213,9 +317,9 @@ footer {
     width: 620px !important;
     height: 223px !important;
     position: absolute;
-    top: 260px !important;
+    top: 360px !important;
     left: 730px !important;
-}
+}*/
 
 /*.canvas-holder {
      width: 15%;
@@ -314,3 +418,17 @@ footer {
 }
 
 /**/
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #final, #final * {
+    visibility: visible;
+  }
+  #final {
+    position: absolute;
+    left: 150px !important;
+    top: 20px !important;
+  }
+}

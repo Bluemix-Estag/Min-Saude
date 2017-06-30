@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 
@@ -357,3 +358,321 @@
     
 =======
 >>>>>>> 463285768e6fa57ad10077d45f935d6d4b7b4744
+=======
+
+  html,body{
+     margin: 0;
+	 padding: 0;
+   height: 100%;
+   width: 100%;
+   overflow: hidden;
+  }
+  body {
+   
+    /*background-position: ;*/
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-between;
+    background-image: url('../images/healthcare-bg2.jpg') !important;
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position : center center;
+
+  }
+  header , footer{
+    height: 5% !important;
+  }
+  .footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .main-body {
+    /*flex: 1 0 auto;*/
+    height: 90% !important;
+     
+  }
+  .loading-holder{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    
+  }
+.welconeGif{
+  display: block;
+  margin: auto;
+  z-index: 100;
+  width: 200px;
+  height: 200px;
+}
+#leftSide {
+  position: absolute;
+  background-color: #000; 
+  height: 100%;
+  top: 0;
+  left: 0;
+  width: 50%;
+  z-index: 99;
+}
+#rightSide{
+  position: absolute;
+  background-color: #000; 
+  height: 100%;
+  top: 0;
+  right: 0;
+  width: 50%;
+  z-index: 99;
+}
+.custom-logo{
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+
+#logo-saude{
+  margin-left: 10px;
+  width: 110px;
+  height: 60px;
+  
+}
+.full-height{
+    height: 100% !important;
+}
+.full-width{
+  width: 100%;
+}
+.centralized{
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+.nav-wrapper{
+     box-shadow: 0px 10px 5px #888888 !important;
+}
+
+
+
+.page-footer{
+    box-shadow: 0px -10px 5px #888888 !important;
+}
+
+
+/*Materialize section*/
+
+/*Pulse*/
+.pulse::before{
+  background-color: lightcyan !important;
+}
+
+/*Historico Card*/
+#historico{
+  width: 300px !important;
+  height: 380px !important;
+  position: absolute;
+  top: 80px !important;
+  left: 70px !important;
+}
+
+#lista-triagem{
+  overflow-y: scroll !important;
+  height: 100% !important;
+}
+#triagem{
+  width: 300px !important;
+  height: 380px !important;
+  position: absolute;
+  top: 80px !important;
+  left: 380px !important;
+  overflow: hidden;
+}
+#consulta{
+  width: 500px !important;
+  height: 300px !important;
+  position: absolute;
+  top: 80px !important;
+  left: 420px !important;
+}
+#atendimento{
+  width: 700px !important;
+  height: 300px !important;
+  position: relative;
+  top: 140px !important;
+  left: 220px !important;
+}
+
+#queixa{
+  width: 609px !important;
+  height: 200px !important;
+  position: absolute;
+  top: 470px !important;
+  left: 70px !important;
+}
+
+#atendimento input{
+  text-align: center;
+}
+#atendimento-title   {
+  text-align: center;
+}
+
+#espera{
+  /*/*width: 400px !important;*/
+  min-height: 530px !important;
+  max-height: 530px !important;
+  /*position: absolute;*/
+  /*top: 80px !important;*/
+  /*left: 500px !important;*/*/
+}
+
+
+.waiting_item{
+
+  color: #fff;
+  padding: 10px;
+  font-size: 12pt;
+  border-bottom: 1px solid #39535C;
+  
+}
+
+
+
+#loading-atendimento{
+  opacity: 1.0 !important;
+  position: absolute;
+  left: 600px !important;
+}
+
+
+.chat-body{
+  background-color: rgba(255, 255, 255, 0.08) !important ;
+}
+
+/* label focus color */
+   #chatInput{
+     color: black !important;
+     background-color: #fff !important;
+     opacity: 0.9 !important;
+}
+/* label underline focus color */
+   #chatInput:focus {
+     border-bottom: 1px solid #4db6ac;
+     box-shadow: 0 1px 0 0 #4db6ac;
+   }
+
+
+
+
+
+@Keyframes typing { from { width: 0; } }
+@Keyframes blink-caret { 50% { border-color: transparent; } }
+
+.write-text{ 
+    /*border: 1px solid black;*/
+	font: bold 300% Consolas, Monaco, monospace;
+	border-right: .1em solid black;
+	width: 17.5em; 
+    color: #fff;
+	width: 20ch;
+    /*width: auto;*/
+	margin: 2em 1em;
+	white-space: nowrap;
+	overflow: hidden;
+	-webkit-animation: typing 2s steps(21, end),
+	           blink-caret .5s step-end infinite alternate;
+}
+
+
+
+@media print and (min-width: 0px){
+  *{
+    visibility: hidden;
+  }
+
+  
+  #row-consulta ,  #row-consulta *{
+    visibility: visible;
+  }
+}
+
+  .card-header {
+  margin-top: 0; }
+  .card-header .card-content {
+    padding-bottom: 0;
+    padding-top: 10px; }
+
+#teste-grafico{
+}
+
+.content {
+  padding: 1% 2%; }
+
+.brand-logo.page-title {
+  padding-left: 2%;
+  margin-top: 8px; }
+
+.nav-badge {
+  margin-left: -8px;
+  position: absolute;
+  line-height: 15px;
+  top: 8px;
+  font-size: 12px;
+  text-align: center;
+  border-radius: 3px;
+  padding: 1px 5px 1px 4px;
+  background: rgba(0, 0, 0, 0.87); }
+
+
+
+.ct-chart {
+  margin: 0;
+}
+
+.ct-pie-chart {
+  margin: 0;
+}
+
+.ct-series-a .ct-bar, .ct-series-a .ct-line, .ct-series-a .ct-point, .ct-series-a .ct-slice-donut {
+
+    stroke: #0CC162 !important;
+
+}
+
+.ct-series-b .ct-bar, .ct-series-b .ct-line, .ct-series-b .ct-point, .ct-series-b .ct-slice-donut {
+
+    stroke: gold !important;
+
+}
+
+.ct-series-c .ct-bar, .ct-series-c .ct-line, .ct-series-c .ct-point, .ct-series-c .ct-slice-donut {
+
+    stroke: crimson !important;
+
+}
+
+#card{
+  height: 200px !important
+}
+
+
+.breadcrumb {
+  height: 55px;
+  padding: 1% 2% 0 2%; }
+  .breadcrumb h5 {
+    font-weight: 500;
+    line-height: 55px;
+    margin: 0;
+    color: rgba(0, 0, 0, 0.87);
+    text-align: center }
+
+.card-header {
+  margin-top: 0; }
+  .card-header .card-content {
+    padding-bottom: 0;
+    padding-top: 10px; }
+>>>>>>> 22225776615b88ae10e0fbbb72abea9a25b0e57a

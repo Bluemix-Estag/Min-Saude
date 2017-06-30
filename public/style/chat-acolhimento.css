@@ -31,12 +31,13 @@
     color: #000 !important;
     width: 100% !important;
     text-align: center;
+     color: black !important;
+     background-color: #fff !important;
+     opacity: 0.9 !important;
 }
 input::-moz-placeholder { /* Mozilla Firefox 4 to 18 */
   text-align: center;
 }
-
-
 
 
 .chat-popup .chat-body {

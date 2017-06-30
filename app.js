@@ -15,6 +15,7 @@ var request = require('request');
 var chatbot = require('./config/bot.js');
 var moment = require('moment');
 var chatbot_acolhimento = require('./config/bot-acolhimento.js');
+var chatbot_doutor = require('./config/bot-doutor.js');
 // load local VCAP configuration
 var vcapLocal = null;
 var appEnv = null;
@@ -162,11 +163,6 @@ app.get('/getPatientAgenda', function (req, res) {
 });
 
 
-
-
-
-
-
 // =============================
 // ROUTING METHODS==============
 // =============================
@@ -232,6 +228,23 @@ function processChatMessage_acolhimento(req, res) {
         }
     });
 }
+
+app.post('/api/watson/doutor', function (req, res) {
+    processChatMessage_doutor(req, res);
+}); // End app.post 
+function processChatMessage_doutor(req, res) {
+    chatbot_doutor.sendMessage(req, function (err, data) {
+        if (err) {
+            console.log("Error in sending message: ", err);
+            res.status(err.code || 500).json(err);
+        }
+        else {
+            var context = data.context;
+            res.status(200).json(data);
+        }
+    });
+}
+
 // ==========================
 // DISCOVERY METHODS ========
 // ==========================

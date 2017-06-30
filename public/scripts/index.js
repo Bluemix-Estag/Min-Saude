@@ -29,7 +29,6 @@ $(document).ready(function () {
 
     $('#dismiss-historico').click(function () {
         $('#historico').addClass('animated bounceOutDown');
-        // $('#row-historico').html('');
     })
     $('#dismiss-triagem').click(function () {
         // $('#row-info').html('');
