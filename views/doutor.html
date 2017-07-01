@@ -27,63 +27,44 @@
         </div>
     </nav>
     </header>
-    <main class="main-body">
+    <main class="main-body" id="main_body">
         <div class="overlay hide" id="overlay">
 
         </div>
 
-
-        <!-- Espera Médico -->
-        <div class="row " id="row-espera-medico-imediato">
-            <div class="col s12 m6">
-                <div class="card light-blue lighten-5 darken-1 z-depth-5 animated bounceInUp" id="espera-medico-imediato" style="overflow-y: scroll !important">
+        <div class="atendimento_holder" id="atendimento_holder">
+            <!-- Espera Médico -->
+            <div class="" id="espera_imediato_holder">
+                <div class="card light-blue lighten-5 darken-1 z-depth-5 animated bounceInUp" id="espera_imediato">
                     <div class="card-content black-text" id="lista-medico-imediato">
                         <span class="new badge  blue-grey lighten-4 black-text" data-badge-caption=" " id="imediato_bagde">0</span>
-                        <!--<a href="#" onclick="receberLista()"><i class="material-icons left">close</i></a>-->
                         <span class="card-title" style="text-align: center !important;">Atendimento Imediato</span>
                     </div>
-
                 </div>
             </div>
-        </div>
-        </div>
+            <!-- -->
+            <!-- Espera Médico -->
+            <div class="" id="espera_prioritario_holder">
 
-        <!-- -->
-        <!-- Espera Médico -->
-        <div class="row " id="row-espera-medico-prioritario">
-            <div class="col s12 m6">
-                <div class="card light-blue lighten-5 darken-1 z-depth-5 animated bounceInUp" id="espera-medico-prioritario" style="overflow-y: scroll !important">
+                <div class="card light-blue lighten-5 darken-1 z-depth-5 animated bounceInUp" id="espera_prioritario">
                     <div class="card-content black-text" id="lista-medico-prioritario">
                         <span class="new badge blue-grey lighten-4 black-text" data-badge-caption=" " id="prioritario_badge">0</span>
-                        <!--<a href="#" onclick="receberLista()"><i class="material-icons left">close</i></a>-->
-
                         <span class="card-title" style="text-align: center !important;">Atendimento Prioritário</span>
-
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- -->
-        <!-- Espera Dia -->
-        <div class="row " id="row-espera-medico-dia">
-            <div class="col s12 m6">
-                <div class="card light-blue lighten-5 darken-1 z-depth-5 animated bounceInUp" id="espera-medico-dia" style="overflow-y: scroll !important">
+            <div class="" id="espera_dia_holder">
+
+                <div class="card light-blue lighten-5 darken-1 z-depth-5 animated bounceInUp" id="espera_dia">
                     <div class="card-content black-text" id="lista-medico-dia">
-
                         <span class="new badge blue-grey lighten-4 black-text" data-badge-caption=" " id="dia_badge">0</span>
-                        <!--<a href="#" onclick="receberLista()"><i class="material-icons left">close</i></a>-->
-
                         <span class="card-title" style="text-align: center !important;">Atendimento no Dia</span>
-
                     </div>
                 </div>
             </div>
         </div>
 
-        
-
-        
 
         <!-- Entrou no hide, imediato ,prioritario, dia -->
         <!-- Saiu do hide, historico, queixa, triagem, resumo e receita -->
@@ -353,11 +334,11 @@
                 </div>
             </div>
         </div>
-       
 
 
 
-        
+
+
 
         <!-- -->
         <!--Card Final -->
@@ -388,23 +369,16 @@
                 </div>
             </div>
         </div>
-    
+
         <div class="chat-popup z-depth-5 hide" id="chat-popup">
             <div class="chat-header white-text ">Assistente Médico</div>
             <div class="chat-body" id="chat-body">
-                <!--                <div class="chat-date"><span>Today, 2:22 PM</span></div>-->
             </div>
             <div class="chat-footer">
                 <input type="text" id="chatInput" placeholder="Digite aqui sua mensagem.." class="input-field" onkeypress="return newEvent(event)"
                 />
             </div>
         </div>
-
-      <!-- -->
-
-        <!-- Modal Espera-->
-        <!-- Modal Trigger -->
-        <!-- Modal Structure -->
 
         <div id="modal1" class="modal">
             <div class="modal-content">

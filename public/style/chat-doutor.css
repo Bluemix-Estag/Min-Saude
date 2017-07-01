@@ -3,17 +3,11 @@
     z-index: 99;
     right: 0;
     bottom: 5%;
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(255, 255, 255, 0.65);
     color:black;
     width: 320px;
-    height: 40px;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
+    height: 80%;
     overflow: hidden;
-    animation-name: popup_open;
-    /*border-width: 1px 1px 0px 1px;
-    border-style: solid;
-    border-color: #e6e6e6;*/
     box-shadow: -10px 0px 10px 1px #aaaaaa;
     flex-direction: column;
     justify-content: space-between;
@@ -56,7 +50,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 80%;
+    height: 100%;
     overflow-y: scroll;
     padding-top: 10px;
     
@@ -125,13 +119,14 @@
 .chat-popup .chat-body .bubble.user:before {
     right: -18px;
     float: right;
-    background-color: #eceff1;
+    /*background-color: #eceff1;*/
+    background-color: #dedede;
 }
 
 .chat-popup .chat-body .bubble.user {
     color: #1a1a1a;
     align-self: flex-end;
-    background-color: #eceff1;
+    background-color: #dedede;
     margin-right: 20px;
 }
 

@@ -1,6 +1,8 @@
 $(document).ready(function () {
 
-
+var main_height = document.getElementById('main_body').offsetHeight +'px';
+document.getElementById('overlay').style.height =  main_height
+document.getElementById('chat-popup').style.height =  main_height
 
     $('.modal').modal({
         dismissible: true, // Modal can be dismissed by clicking outside of the modal
@@ -220,23 +222,22 @@ function getWaitingList(patients, local_list) {
 receberListaDoutor();
 
 
+
 function startTreatment(data) {
-    $('#espera-medico-imediato').addClass('animated bounceOutLeft');
-    $('#espera-medico-prioritario').addClass('animated bounceOutLeft');
-    $('#espera-medico-dia').addClass('animated bounceOutLeft');
+    userMessage('');
     setTimeout(function () {
-        $('#row-espera-medico-imediato').addClass('hide');
-        $('#row-espera-medico-prioritario').addClass('hide');
-        $('#row-espera-medico-dia').addClass('hide');
-        $('#espera-medico-imediato').removeClass('animated bounceOutLeft');
-        $('#espera-medico-prioritario').removeClass('animated bounceOutLeft');
-        $('#espera-medico-dia').removeClass('animated bounceOutLeft');
+        $('#espera_imediato_holder').addClass('hide');
+        $('#espera_prioritario_holder').addClass('hide');
+        $('#espera_dia_holder').addClass('hide');
+        $('#espera_imediato').removeClass('animated bounceOutLeft');
+        $('#espera_prioritario').removeClass('animated bounceOutLeft');
+        $('#espera_dia').removeClass('animated bounceOutLeft');
         setTimeout(function(){
          $('#overlay').removeClass('hide');   
          $('#overlay').addClass('animated slideInLeft');
-        },250)
-        $('#chat-popup').removeClass('hide');
-       
+         $('#chat-popup').removeClass('hide');
+         $('#chat-popup').addClass('animated slideInUp');
+        },250);
         $('#loading-atendimento').removeClass('hide');
     }, 500)
 
@@ -328,37 +329,7 @@ function startTreatment(data) {
         }, 4000);
 
     }
-    // setTimeout(function () {
-    //     $('#graph').removeClass('hide');
 
-    //     function drawLine() {
-    //         var ctx2 = document.getElementById('lineChart').getContext('2d');
-
-    //         var myChart = new Chart(ctx2, {
-    //             type: 'horizontalBar',
-    //             data: {
-    //                 labels: ['Dengue', 'Zika'],
-    //                 datasets: [{
-    //                     label: 'Doenças',
-    //                     data: [40, 30, 20, 0, 100],
-    //                     borderWidth: 0,
-    //                     backgroundColor: ['red', 'green', 'blue']
-    //                 }]
-    //             },
-    //             options: Chart.defaults.global
-    //             // options: {
-    //             //     showLines : true,
-    //             //     spanGaps : false,
-    //             //     responsive: true
-    //             // }
-    //         });
-    //     }
-    //     drawLine();
-    // }, 4000);
-    // setTimeout(function () {
-    //     $('#row-diagnostico').removeClass('hide');
-    //     // $('#diagnostico').addClass('animated bounceInUp');
-    // }, 4250);
     setTimeout(function () {
         $('#row-pre-receita').removeClass('hide');
         $('#pre-receita').addClass('animated bounceInUp');
@@ -461,4 +432,3 @@ function imprimirConsulta() {
 }
 
 
-userMessage('');

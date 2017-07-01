@@ -1,29 +1,36 @@
-html,
-body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-}
 
-body {
+
+  html,body{
+     margin: 0;
+	 padding: 0;
+   height: 100%;
+   width: 100%;
+   overflow: hidden;
+  }
+  body {
+   
     /*background-position: ;*/
     display: flex !important;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    
     background-image: url('../images/healthcare-bg2.jpg') !important;
     background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-}
+    background-size:cover;
+    background-position : center center;
 
-header,
-footer {
+  }
+  .bg-color{
+      /*background-color:  #009973 !important;*/
+  }
+  header , footer{
     height: 5% !important;
-}
-
-
+    
+  }
+  main{
+      height: 90% !important;
+      
+  }
 .brand-div{
     display: flex;
     justify-content: center;
@@ -39,74 +46,26 @@ footer {
     margin-left: 10px;
 }
 
+.nav-wrapper{
+     box-shadow: 0px 5px 5px #888888 !important;
+}
 
-.footer {
+.page-footer{
+    box-shadow: 0px -5px 5px #888888 !important;
     display: flex;
     justify-content: center;
     align-items: center;
+    align-content: center;
 }
 
-.main-body {
-    /*flex: 1 0 auto;*/
-    height: 80% !important;
+.waiting_item{
+  padding: 10px;
+  font-size: 12pt;
+  border-bottom: 1px solid #39535C;
+  
 }
-
-.loading-atendimento {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-    height: 90%;
-    display: flex;
-    justify-content: center;
-    align-self: center;
-}
-
-.welconeGif {
-    display: block;
-    margin: auto;
-    z-index: 100;
-    width: 200px;
-    height: 200px;
-}
-
-#leftSide {
-    position: absolute;
-    background-color: #000;
-    height: 100%;
-    top: 0;
-    left: 0;
-    width: 50%;
-    z-index: 99;
-}
-
-#rightSide {
-    position: absolute;
-    background-color: #000;
-    height: 100%;
-    top: 0;
-    right: 0;
-    width: 50%;
-    z-index: 99;
-}
-
-.custom-logo {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-#logo-saude {
-    margin-left: 10px;
-    width: 110px;
-    height: 60px;
-}
-
-.full-height {
+.full-height{
     height: 100% !important;
-}
-
-.full-width {
-    width: 100%;
 }
 
 .centralized {
@@ -205,208 +164,91 @@ footer {
 }
 
 
-.overlay{
-    position: absolute;
-    left:0;
-    /*width: 77.6%;*/
-    right: 320px;
-    top: 9%;
-    height: 85%;
-    background-color:rgba(183, 183, 183, 0.72);
-    z-index: 50;
-    pointer-events: none;
-}
-/*Historico Card*/
-/*
 
-
-
-
-Aquii
-#historico {
-    width: 300px !important;
-    height: 380px !important;
-    position: absolute;
-    top: 80px !important;
-    left: 90px !important;
-}
-
-#pre-receita{
-    display: flex !important;
-    align-content: space-between !important;
-    justify-content: center !important;
-    top: 220px !important;
-    height: 175px !important;
-    width: 350px !important;
-    left: 860px !important;
-    
-}
-
-#receita{
-    width: 620px !important;
-    height: 600px !important;
-    position: absolute;
-    top: 80px !important;
-    left: 730px !important;
-}
-
-#final{
-    width: 620px !important;
-    height: 600px !important;
-    position: absolute;
-    top: 80px !important;
-    left: 350px !important;
-}
-
-#resumo{
-    width: 620px !important;
-    height: 270px !important;
-    position: absolute;
-    top: 80px !important;
-    left: 730px !important;
-}
-
-#lista-triagem {
-    overflow-y: scroll;  
-    height: 100% !important;
-}
-Aquiiii
-#triagem {
-    width: 300px !important;
-    height: 380px !important;
-    position: absolute;
-    top: 80px !important;
-    left: 410px !important;
-    /*overflow: hidden;*/
-/*}*/
-
-/*#consulta {
-    width: 500px !important;
-    height: 300px !important;
-    position: absolute;
-    top: 80px !important;
-    left: 370px !important;
-}*/
-
-/*#atendimento {
-    width: 700px !important;
-    height: 300px !important;
-    position: absolute;
-    top: 140px !important;
-    left: 220px !important;
-}*/
-
-/* Aquiii
-#queixa {
-    width: 620px !important;
-    height: 200px !important;
-    position: absolute;
-    top: 480px !important;
-    left: 90px !important;
-}
-
-#pre-diag {
-    width: 300px !important;
-    height: 600px !important;
-    position: absolute;
-    top: 80px !important;
-    left: 700px !important;
-}
-
-#pre-analise {
-    width: 620px !important;
-    height: 223px !important;
-    position: absolute;
-    top: 360px !important;
-    left: 730px !important;
-}*/
-
-/*.canvas-holder {
-     width: 15%;
- }
-
-.line-holder{
-    display: flex !important;
-    align-content: center;
-    justify-content: center;
-}
-
-#row-grafico{
-    position: absolute;
-    left: 1020px !important;
-    top: 80px !important;
-    
-}*/
-/*
-#atendimento input {
-    text-align: center;
-}
-
-#atendimento-title {
-    text-align: center;
-}*/
-
-
-/*Espera Imediato*/
-#espera-medico-imediato {
-    overflow-y: scroll !important;
+#espera_imediato_holder{
     width: 400px !important;
-    height: 190px !important;
     position: absolute;
     top: 80px !important;
-    left: 500px !important;
-    /*border: 5px solid #d50000!important;*/
+    left: 50% !important;
+}
+/*Espera Imediato*/
+#espera_imediato {
+    height: 190px !important;
+    width: 400px !important;
+    position: absolute;
+    left: -50% !important;
     background-color:  rgba(255, 45, 45, 0.76) !important;
 }
 
-#espera-medico-imediato:hover {
+#espera_imediato:hover {
     height: 390px !important;
     z-index: 99 !important;
     background-color:  rgba(255, 45, 45, 1) !important;
 }
 /**/
 
-
+#espera_prioritario_holder{
+    width: 400px !important;
+    position: absolute;
+    top: 280px !important;
+    left: 50% !important;
+}
 /*Espera Prioritario*/
-#espera-medico-prioritario {
+#espera_prioritario {
     overflow-y: scroll !important;
     width: 400px !important;
     height: 190px !important;
     position: absolute;
-    top: 280px !important;
-    left: 500px !important;
-    /*border: 5px solid #ffea00 !important;*/
+    /*top: 280px !important;*/
+    left: -50% !important;
     background-color:  rgba(255, 247, 45, 0.86) !important;
     
 }
 
-#espera-medico-prioritario:hover {
+#espera_prioritario:hover {
     height: 390px !important;
     background-color:  rgba(255, 247, 45, 1) !important;
     z-index: 99 !important;
 }
 
-/**/
+#espera_dia_holder{
+    width: 400px !important;
+    position: absolute;
+    top: 480px !important;
+    left: 50% !important;
+}
 /*Espera Dia*/
-#espera-medico-dia {
+#espera_dia {
     overflow-y: scroll !important;
     width: 400px !important;
     height: 190px !important;
-    position: absolute;
-    top: 480px !important;
-    left: 500px !important;
-    
-    /*border: 5px solid #00c853 !important;*/
+    position: absolute;    
+    left: -50% !important;    
     background-color : rgba(45, 255, 53, 0.86) !important;
 }
-
-#espera-medico-dia:hover {
-    height: 390px !important;
+#espera_dia_holder:hover {
+    /*height: 390px !important;*/
     top: 280px !important;
-    z-index: 99 !important;
-    background-color : rgba(45, 255, 53, 1) !important;
+    z-index: 99 !important;   
 }
-/**/
+#espera_dia_holder:hover  #espera_dia{
+      height: 390px !important;
+      background-color : rgba(45, 255, 53, 1) !important;
+}
+
+.overlay{
+    position: absolute;
+    left:0;
+    /*width: 77.6%;*/
+    right: 320px;   
+    height: 87%;
+    /*top: 5%;*/
+    bottom: 5%;
+    background-color:rgba(183, 183, 183, 0.72);
+    z-index: 50;
+    pointer-events: none;
+}
+
 
 
 

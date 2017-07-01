@@ -29,7 +29,7 @@
   }
   main{
       height: 90% !important;
-      padding: 30px 0 !important;
+      
   }
 .brand-div{
     display: flex;
@@ -76,3 +76,5 @@
 #historico ,  #triagem{
     height: 412px;
 }
+
+
