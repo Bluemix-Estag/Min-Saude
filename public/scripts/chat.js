@@ -224,11 +224,11 @@ function typeOfPatient(type) {
 }
 
 function reason(queixas) {
-    document.getElementById('queixa').className  += ' animate bounceInRight';
-    // $('#queixa').addClass('animate bounceInRight');
+    document.getElementById('queixa').className  += ' animated bounceInRight';
+    $('#queixa').addClass('animated bounceInRight');
     $('#queixa').removeClass('hide');
-    // $('#queixa_value').html(queixas);
-    // $('#queixa_value').addClass('animate bounceInRight');
+    $('#queixa_value').html(queixas);
+    $('#queixa_value').addClass('animated bounceInRight');
 }
 
 function periodReason(periodo) {
@@ -248,7 +248,6 @@ function newEvent(event) {
         // Some claim steps are handled in newEvent and others are handled in userMessage
         if (text) {
             // Display the user's text in the chat box and null out input box
-            //            userMessage(text);
             displayMessage(text, 'user');
             userInput.value = '';
             userMessage(text);

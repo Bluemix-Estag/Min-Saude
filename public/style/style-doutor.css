@@ -131,34 +131,34 @@
 }
 
 
-.cid::-moz-placeholder{
+.cid::-moz-placeholder , .input-field::-moz-placeholder{
     text-align: center;
     color: black;
 }
 
 
-.cid::-webkit-input-placeholder{
+.cid::-webkit-input-placeholder , .input-field::-webkit-input-placeholde{
     text-align: center;
     color: black;
 }
 
-.cid::-ms-input-placeholder{
+.cid::-ms-input-placeholder , .input-field::-ms-input-placeholder{
     text-align: center;
     color: black;
 }
 
-.exame::-moz-placeholder{
+.exame::-moz-placeholder , .input-field::-moz-placeholder{
     text-align: center;
     color: black;
 }
 
 
-.exame::-webkit-input-placeholder{
+.exame::-webkit-input-placeholder , .input-field::-webkit-input-placeholder {
     text-align: center;
     color: black;
 }
 
-.exame::-ms-input-placeholder{
+.exame::-ms-input-placeholder, .input-field::-ms-input-placeholder{
     text-align: center;
     color: black;
 }
@@ -240,7 +240,7 @@
     position: absolute;
     left:0;
     /*width: 77.6%;*/
-    right: 320px;   
+    right: 400px;   
     height: 87%;
     /*top: 5%;*/
     bottom: 5%;

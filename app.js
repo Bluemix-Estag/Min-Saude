@@ -142,7 +142,7 @@ app.get('/getPatientAgenda', function (req, res) {
                     patient = p;
                     if (patients[p].atividades.length > 0) {
                         for (var atividade in patients[p].atividades) {
-                            console.log('atividade.date: '+patients[p].atividades[atividade].date + ' now: '+now);
+                            console.log('atividade.date: ' + patients[p].atividades[atividade].date + ' now: ' + now);
                             if (patients[p].atividades[atividade].date >= now) {
                                 atividades.push(patients[p].atividades[atividade]);
                             }
@@ -151,12 +151,12 @@ app.get('/getPatientAgenda', function (req, res) {
                     break;
                 }
             }
-            if(patient != -1){
+            if (patient != -1) {
                 patient = patients[patient];
                 patient.atividades = atividades;
                 res.status(200).json(patient);
-            }else{
-                res.status(404).json({error: true, description: "Patient not found",status: 404});
+            } else {
+                res.status(404).json({ error: true, description: "Patient not found", status: 404 });
             }
         }
     })
@@ -183,7 +183,7 @@ app.get('/dashboard', function (req, res) {
     res.render('dashboard.html');
 });
 
-app.get('/doutor',function(req,res){
+app.get('/doutor', function (req, res) {
     res.render('doutor.html');
 });
 
@@ -237,7 +237,49 @@ function processChatMessage_doutor(req, res) {
         }
         else {
             var context = data.context;
-            res.status(200).json(data);
+            if (context.search != null && context.show_search == true) {
+                database.get('doencas', {
+                    revs_info: true
+                }, function (err, doc) {
+                    if (err) {
+                        context['result'] = "null";
+                    } else {
+                        context['result'] = doc.doencas[context.search];
+                    }
+                    data.context = context;
+
+                    res.status(200).json(data);
+                });
+
+
+            } else if (context.search_sintomas != null && context.show_search_sintomas == true) {
+                database.get('doencas', {
+                    revs_info: true
+                }, function (err, doc) {
+                    if (err) {
+                        context['result_sintomas'] = "null";
+                    } else {
+                        context['result_sintomas'] = doc.doencas[context.search_sintomas];
+                    }
+                    data.context = context;
+                    res.status(200).json(data);
+                });
+            } else if (context['searchDB'] != null && context['showDB'] == true) {
+                database.get('doencas', {
+                    revs_info: true
+                }, function (err, doc) {
+                    if (err) {
+                        context['result_search'] = "null";
+                    } else {
+                        
+                        context['result_search'] = doc.doencas[context.searchDB];
+                    }
+                    data.context = context;
+                    res.status(200).json(data);
+                });
+            } else {
+                res.status(200).json(data);
+            }
         }
     });
 }
@@ -246,14 +288,14 @@ function processChatMessage_doutor(req, res) {
 // DISCOVERY METHODS ========
 // ==========================
 
-app.get('/api/watson/discovery',function(req,res){
+app.get('/api/watson/discovery', function (req, res) {
     var query = req.query.q;
-    discovery.query(query, function(err,data){
-        if(err) {
+    discovery.query(query, function (err, data) {
+        if (err) {
             console.log("Error in discovery service", err);
             res.status(err.code || 500).json(err);
         }
-        else{
+        else {
             res.status(200).json(data);
         }
     });

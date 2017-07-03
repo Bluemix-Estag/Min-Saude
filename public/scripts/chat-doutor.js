@@ -1,8 +1,8 @@
 $(document).ready(function () {
 
-var main_height = document.getElementById('main_body').offsetHeight +'px';
-document.getElementById('overlay').style.height =  main_height
-document.getElementById('chat-popup').style.height =  main_height
+    var main_height = document.getElementById('main_body').offsetHeight + 'px';
+    document.getElementById('overlay').style.height = main_height
+    document.getElementById('chat-popup').style.height = main_height
 
     $('.modal').modal({
         dismissible: true, // Modal can be dismissed by clicking outside of the modal
@@ -25,7 +25,7 @@ document.getElementById('chat-popup').style.height =  main_height
 
 var params = {},
     watson = 'Watson',
-    context;
+    context = {};
 var patientName;
 var patientSus;
 var type;
@@ -46,14 +46,34 @@ function userMessage(message) {
             var response = JSON.parse(xhr.responseText);
             text = response.output.text; // Only display the first response
             context = response.context; // Store the context for next round of questions
-            // console.log("Got response from Ana: ", JSON.stringify(response));
+            console.log("Got response from Ana: ", JSON.stringify(response));
 
 
-            //
+
+            if (context['result'] != null) {
+                if (context['result'] == "null") {
+                    showResult(null);
+                } else {
+                    showResult(context['result']);
+                }
+                delete context['result'];
+            }
+
             // console.log(JSON.stringify(text));
             for (var txt in text) {
                 displayMessage(text[txt], watson);
             }
+
+            if (context['result_sintomas'] != null && context['show_search_sintomas'] == true) {
+                displaySearch(context['result_sintomas'],"sintomas");
+                context['show_search_sintomas'] = false;
+            }
+
+            if(context['showDB'] == true && context['searchDB'] != null){
+                displaySearch(context['result_search'],"definicao");
+                context['showDB'] = false;
+            }
+
 
         } else {
             console.error('Server error for Conversation. Return status of: ', xhr.statusText);
@@ -66,6 +86,22 @@ function userMessage(message) {
     };
     // console.log(JSON.stringify(params));
     xhr.send(JSON.stringify(params));
+}
+
+function showResult(result) {
+    var preescricao, cid;
+    if (result == null) {
+        preescricao = "Sem critério";
+        cid = "Não encontrado";
+    } else {
+        cid = result['CID'];
+        preescricao = "<h5>Medicamento:</h5><br><div style='margin-left:20px;'>-" + result['Medicamentos'].split('\n').join('<br>-') + "</div>";
+        preescricao += "<h5>Exames: </h5><br><div style='margin-left:20px;'>-" + result['Exames'].split('\n').join('<br>-') + "</div>";
+    }
+    preescricao += '<br> Retorno em ' + context['retorno'] + ' dias';
+
+    $('#cid').val(cid);
+    $('#preescricao').html(preescricao);
 }
 
 function newEvent(event) {
@@ -106,7 +142,21 @@ function displayMessage(text, user) {
 }
 
 
-
+function displaySearch(result,action) {
+    var text = "";
+    text = (action == "sintomas")?result.sintomas:result.introducao;
+    console.log(JSON.stringify(result));
+    var chat_body = document.getElementById('chat-body');
+    var bubble = document.createElement('div');
+    bubble.setAttribute("class", "bubble");
+    bubble.className += " watson";
+    bubble.innerHTML = (text.length > 300 )? text.substring(0,300) + '...<br><a href="#leiaMais" class="leia-mais">Leia mais</a>':text;
+    if(text.length > 300){
+        document.getElementById('leiaMais_info').innerHTML = (result.introducao != null )?'<h4>Introdução</h4><div style="margin-left:20px">'+result.introducao+'</div>':''+(result.sintomas != null)?'<h4>Sintomas</h4><div style="margin-left:20px;">'+result.sintomas+'</div>':'';
+    }
+    chat_body.appendChild(bubble);
+    chat_body.scrollTop = chat_body.scrollHeight;
+}
 
 
 
@@ -224,7 +274,10 @@ receberListaDoutor();
 
 
 function startTreatment(data) {
-    userMessage('');
+    context['init'] = true;
+    context['patient'] = data.patient;
+
+
     setTimeout(function () {
         $('#espera_imediato_holder').addClass('hide');
         $('#espera_prioritario_holder').addClass('hide');
@@ -232,18 +285,18 @@ function startTreatment(data) {
         $('#espera_imediato').removeClass('animated bounceOutLeft');
         $('#espera_prioritario').removeClass('animated bounceOutLeft');
         $('#espera_dia').removeClass('animated bounceOutLeft');
-        setTimeout(function(){
-         $('#overlay').removeClass('hide');   
-         $('#overlay').addClass('animated slideInLeft');
-         $('#chat-popup').removeClass('hide');
-         $('#chat-popup').addClass('animated slideInUp');
-        },250);
+        setTimeout(function () {
+            $('#overlay').removeClass('hide');
+            $('#overlay').addClass('animated slideInLeft');
+            $('#chat-popup').removeClass('hide');
+            $('#chat-popup').addClass('animated slideInUp');
+        }, 250);
         $('#loading-atendimento').removeClass('hide');
     }, 500)
 
 
     setTimeout(function () {
-        
+
         $('#row-info').removeClass('hide');
         $('#historico_holder').removeClass('hide');
         $('#historico').addClass('animated bounceInUp');
@@ -271,6 +324,8 @@ function startTreatment(data) {
     }, 1000);
     //
     var history = data.patient.historico[data.patient.historico.length - 1];
+    if (history != null) context['info'] = history;
+    userMessage('');
     setTimeout(function () {
         if (history['gravida'] != null) {
             $('#grav').removeClass('hide');
@@ -409,6 +464,7 @@ function countUp(timestamp, id) {
 function getIndividual() {
     var sus = document.getElementById('proximo-sus').value;
     xhrGet('https://min-saude-apis.mybluemix.net/getPatient?susNumber=' + sus, function (data) {
+
         startTreatment(data);
 
     }, function (err) {
@@ -420,7 +476,9 @@ function getIndividual() {
 
 function prescribe(sus_number) {
     xhrGet('https://min-saude-apis.mybluemix.net/removeDoctorList?susNumber=' + sus_number, function (data) {
-
+        setTimeOut(function () {
+            window.location.href = "/doutor";
+        }, 500)
     }, function (err) {
 
     })

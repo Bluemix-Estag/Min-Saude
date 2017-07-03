@@ -106,6 +106,7 @@ sendMessage: function (req, callback) {
                 return callback(err);
             }
             if (params.message) {
+                
                 var conv = req.body.context.conversation_id;
                 var context = req.body.context;
                 var res = {
