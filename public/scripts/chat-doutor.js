@@ -1,8 +1,6 @@
 $(document).ready(function () {
 
-    var main_height = document.getElementById('main_body').offsetHeight + 'px';
-    document.getElementById('overlay').style.height = main_height
-    document.getElementById('chat-popup').style.height = main_height
+
 
     $('.modal').modal({
         dismissible: true, // Modal can be dismissed by clicking outside of the modal
@@ -21,7 +19,12 @@ $(document).ready(function () {
     });
 });
 
-
+function fixes() {
+    var main_height = document.getElementById('main_body').offsetHeight + 'px';
+    document.getElementById('overlay').style.height = main_height
+    document.getElementById('chat-popup').style.height = main_height
+}
+fixes();
 
 var params = {},
     watson = 'Watson',
@@ -65,12 +68,12 @@ function userMessage(message) {
             }
 
             if (context['result_sintomas'] != null && context['show_search_sintomas'] == true) {
-                displaySearch(context['result_sintomas'],"sintomas");
+                displaySearch(context['result_sintomas'], "sintomas");
                 context['show_search_sintomas'] = false;
             }
 
-            if(context['showDB'] == true && context['searchDB'] != null){
-                displaySearch(context['result_search'],"definicao");
+            if (context['showDB'] == true && context['searchDB'] != null) {
+                displaySearch(context['result_search'], "definicao");
                 context['showDB'] = false;
             }
 
@@ -142,17 +145,17 @@ function displayMessage(text, user) {
 }
 
 
-function displaySearch(result,action) {
+function displaySearch(result, action) {
     var text = "";
-    text = (action == "sintomas")?result.sintomas:result.introducao;
+    text = (action == "sintomas") ? result.sintomas : result.introducao;
     console.log(JSON.stringify(result));
     var chat_body = document.getElementById('chat-body');
     var bubble = document.createElement('div');
     bubble.setAttribute("class", "bubble");
     bubble.className += " watson";
-    bubble.innerHTML = (text.length > 300 )? text.substring(0,300) + '...<br><a href="#leiaMais" class="leia-mais">Leia mais</a>':text;
-    if(text.length > 300){
-        document.getElementById('leiaMais_info').innerHTML = (result.introducao != null )?'<h4>Introdução</h4><div style="margin-left:20px">'+result.introducao+'</div>':''+(result.sintomas != null)?'<h4>Sintomas</h4><div style="margin-left:20px;">'+result.sintomas+'</div>':'';
+    bubble.innerHTML = (text.length > 300) ? text.substring(0, 300) + '...<br><a href="#leiaMais" class="leia-mais">Leia mais</a>' : text;
+    if (text.length > 300) {
+        document.getElementById('leiaMais_info').innerHTML = (result.introducao != null) ? '<h4>Introdução</h4><div style="margin-left:20px">' + result.introducao + '</div>' : '' + (result.sintomas != null) ? '<h4>Sintomas</h4><div style="margin-left:20px;">' + result.sintomas + '</div>' : '';
     }
     chat_body.appendChild(bubble);
     chat_body.scrollTop = chat_body.scrollHeight;
