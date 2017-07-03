@@ -2,23 +2,28 @@
     position: absolute;
     z-index: 99;
     right: 0;
-    bottom: 5%;
+    bottom: 0;
     background-color: rgba(255, 255, 255, 0.65);
     color:black;
-    width: 400px;
-    height: 80%;
+    width: 350px;
+    height: 100%;
     overflow: hidden;
     box-shadow: -10px 0px 10px 1px #aaaaaa;
     flex-direction: column;
     justify-content: space-between;
 }
+.animateChat{
+    animation: popup_open;
+    animation-duration: 1s;
+     animation-fill-mode:  forwards;
+}
 
 @keyframes popup_open {
     from {
-        height: 40px;
+        height: 20px;
     }
     to {
-        height: 86.3%;
+        height: 91.0%;
     }
 }
 
@@ -50,9 +55,8 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 90%;
+    height: 100%;
     overflow-y: scroll;
-    padding-top: 10px;
     
 }
 
@@ -143,7 +147,7 @@
     font-family: 'Source Sans Pro',sans-serif;
     font-weight: 300;
     font-size: 16px;
-    height: 40px;
+    height: 5% !important;
     display: flex;
     flex-direction: row;
 }

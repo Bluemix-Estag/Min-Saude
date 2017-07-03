@@ -23,12 +23,11 @@
   .bg-color{
       /*background-color:  #009973 !important;*/
   }
-  header , footer{
-    height: 5% !important;
-    
-  }
+ 
+
   main{
       height: 90% !important;
+      
       
   }
 .brand-div{

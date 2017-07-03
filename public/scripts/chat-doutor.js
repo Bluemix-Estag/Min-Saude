@@ -19,10 +19,15 @@ $(document).ready(function () {
     });
 });
 
+
+
+
 function fixes() {
-    var main_height = document.getElementById('main_body').offsetHeight + 'px';
-    document.getElementById('overlay').style.height = main_height
-    document.getElementById('chat-popup').style.height = main_height
+    var main = document.getElementById('main_body').offsetHeight;
+    var header = document.getElementById('nav').offsetHeight;
+
+    document.getElementById('chat-popup').style.top = header + 'px';
+    document.getElementById('chat-popup').style.height = main +  'px';
 }
 fixes();
 
@@ -292,7 +297,7 @@ function startTreatment(data) {
             $('#overlay').removeClass('hide');
             $('#overlay').addClass('animated slideInLeft');
             $('#chat-popup').removeClass('hide');
-            $('#chat-popup').addClass('animated slideInUp');
+            $('#chat-popup').addClass('animateChat');
         }, 250);
         $('#loading-atendimento').removeClass('hide');
     }, 500)
