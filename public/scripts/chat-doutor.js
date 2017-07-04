@@ -57,8 +57,7 @@ function userMessage(message) {
             console.log("Got response from Ana: ", JSON.stringify(response));
 
 
-
-            if (context['result'] != null) {
+    if (context['result'] != null) {
                 if (context['result'] == "null") {
                     showResult(null);
                 } else {
@@ -103,8 +102,8 @@ function showResult(result) {
         cid = "Não encontrado";
     } else {
         cid = result['CID'];
-        preescricao = "<h5>Medicamento:</h5><br><div style='margin-left:20px;'>-" + result['Medicamentos'].split('\n').join('<br>-') + "</div>";
-        preescricao += "<h5>Exames: </h5><br><div style='margin-left:20px;'>-" + result['Exames'].split('\n').join('<br>-') + "</div>";
+        preescricao = "<h5>Medicamento:</h5><br><div style='margin-left:20px; color:red;'>-" + result['Medicamentos'].split('\n').join('<br>-') + "</div>";
+        preescricao += "<h5>Exames: </h5><br><div style='margin-left:20px; color:red'>-" + result['Exames'].split('\n').join('<br>-') + "</div>";
     }
     preescricao += '<br> Retorno em ' + context['retorno'] + ' dias';
 
@@ -153,19 +152,28 @@ function displayMessage(text, user) {
 function displaySearch(result, action) {
     var text = "";
     text = (action == "sintomas") ? result.sintomas : result.introducao;
-    console.log(JSON.stringify(result));
     var chat_body = document.getElementById('chat-body');
     var bubble = document.createElement('div');
     bubble.setAttribute("class", "bubble");
     bubble.className += " watson";
-    bubble.innerHTML = (text.length > 300) ? text.substring(0, 300) + '...<br><a href="#leiaMais" class="leia-mais">Leia mais</a>' : text;
+    var id = context['search_sintomas'] || context['searchDB'];
+    bubble.innerHTML = (text.length > 300) ? text.substring(0, 300) + '...<br><a href="#'+action+'_'+id+'" class="leia-mais orange-text text-lighten-5" >Leia mais</a>' : text;
     if (text.length > 300) {
-        document.getElementById('leiaMais_info').innerHTML = (result.introducao != null) ? '<h4>Introdução</h4><div style="margin-left:20px">' + result.introducao + '</div>' : '' + (result.sintomas != null) ? '<h4>Sintomas</h4><div style="margin-left:20px;">' + result.sintomas + '</div>' : '';
+        var content = (result.introducao != null && result.introducao != 'Não encontrado' ) ? '<h4>Introdução</h4><div style="margin-left:20px">' + result.introducao + '</div>' : '';
+        content +=  (result.sintomas != null) ? '<h4>Sintomas</h4><div style="margin-left:20px;">' + result.sintomas + '</div>' : '';;
+        addModal(content,action+'_'+id);
     }
     chat_body.appendChild(bubble);
     chat_body.scrollTop = chat_body.scrollHeight;
 }
 
+function addModal(content,id){
+    var div = document.getElementById('modals');
+    var modal = '<div id="'+id+'" class="modal"><div class="modal-content">'+content+'</div><div class="modal-footer"><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" >Ok</a></div></div>';
+    div.innerHTML+=modal;
+        $('.modal').modal();
+
+}
 
 
 
@@ -363,13 +371,13 @@ function startTreatment(data) {
         $('#triagem').addClass('animated bounceInUp');
     }, 2000);
 
-    setTimeout(function () {
+    // setTimeout(function () {
 
-        $('#queixa_holder').val(history.queixa);
-        document.getElementById('queixa_tempo').innerHTML = history.tempo;
-        $('#row-queixa-exame').removeClass('hide');
-        $('#queixa').addClass('animated bounceInUp');
-    }, 2500);
+        $('#descricao-value').html(history.queixa);
+        // document.getElementById('queixa_tempo').innerHTML = history.tempo;
+        // $('#row-queixa-exame').removeClass('hide');
+        // $('#queixa').addClass('animated bounceInUp');
+    // }, 2500);
 
     setTimeout(function () {
         $('#row-pre-diagnostico').removeClass('hide');

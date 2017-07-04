@@ -123,7 +123,7 @@
 
                             </div>
                             <div class="col s12">
-                                <div class="input-field" id="div-pre-analise">
+                                <div class="input-field hide" id="div-pre-analise">
                                     <textarea id="pre-analise-value" disabled class="materialize-textarea" style="color: black !important;">Dor de cabeça e febre</textarea>
                                     <label for="pre-analise-value" style="color: black !important;">Pré Análise</label>
                                 </div>
@@ -136,7 +136,7 @@
                             </div>
 
                             <div class="col s12">
-                                <div class="input-field " id="grav">
+                                <div class="input-field hide" id="grav">
                                     <input disabled value="123" id="gravida" placeholder=" " type="text" class="validate black-text">
                                     <label for="gravida" class="black-text" id="freq_label">Gravidez</label>
                                 </div>
@@ -184,18 +184,18 @@
                                 </div>
                             </div>
                             <div class="col s12">
-                                <div class="input-field " id="tabag">
+                                <div class="input-field hide" id="tabag">
                                     <input disabled value="sim" id="tabagista" placeholder=" " type="text" class="validate black-text">
                                     <label for="tabagista" class="black-text">Tabagista</label>
                                 </div>
                             </div>
                             <div class="col s12">
-                                <div class="input-field " id="diabe">
+                                <div class="input-field hide" id="diabe">
                                     <input disabled value="sim" id="diabetes" type="text" placeholder=" " class="validate black-text">
                                     <label for="diabetes" class="black-text">Diabetico</label>
                                 </div>
                             </div>
-                            <div class="col s12">
+                            <div class="col s12 hide">
                                 <div class="input-field " id="prog-tabag">
                                     <input disabled value="sim" id="prog-tabagista" type="text" placeholder=" " class="validate black-text">
                                     <label for="prog-tabagista" class="black-text">Prog. tabagista</label>
@@ -391,17 +391,17 @@
                 <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="getIndividual()">Atender</a>
             </div>
         </div>
-           <div id="leiaMais" class="modal">
+      <div id="modal1" class="modal">
             <div class="modal-content">
-                <h4>Informações</h4>
-                <div id="leiaMais_info">
-
-                </div>
+                <h4>Atendimento</h4>
+                <p>Deseja inicar o atendimento para <span id="proximo-nome"></span>?</p>
+                <input type="hidden" id="proximo-sus" value="" />
             </div>
             <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" >Ok</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="getIndividual()">Atender</a>
             </div>
         </div>
+        <div id="modals"></div>
 
         <!-- -->
         <!--- End of ChatBot-->
