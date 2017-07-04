@@ -271,7 +271,7 @@ function processChatMessage_doutor(req, res) {
                             context['result'] = doc.doencas[context.search];
                         } else {
                             context['result'] = {};
-                            context['result']['errMsg'] = "Não fui treinado para isso";
+                            context['result']['errMsg'] = "Ainda não fui treinado para isso, mas gostaria de aprender :)";
                         }
                     }
                     data.context = context;
@@ -291,7 +291,7 @@ function processChatMessage_doutor(req, res) {
                         context['result_sintomas'] = doc.doencas[context.search_sintomas];
                     }else{
                         context['result_sintomas'] = {};
-                            context['result_sintomas']['errMsg'] = "Nao fui treinado para isso";
+                            context['result_sintomas']['errMsg'] = "Ainda não fui treinado para isso, mas gostaria de aprender :)";
                         }
                     }
                     data.context = context;
@@ -308,7 +308,7 @@ function processChatMessage_doutor(req, res) {
                         context['result_search'] = doc.doencas[context.searchDB];
                     }else{
                         context['result_search'] = {};
-                            context['result_search']['errMsg'] = 'Nao fui treinado para isso';
+                            context['result_search']['errMsg'] = 'Ainda não fui treinado para isso, mas gostaria de aprender :)';
                         }
                     }
                     data.context = context;
