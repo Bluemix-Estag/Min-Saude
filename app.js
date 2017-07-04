@@ -163,6 +163,29 @@ app.get('/getPatientAgenda', function (req, res) {
 });
 
 
+app.get('/getCID',function(req,res){
+    var result = null;
+    var cid_user = req.query.cid;
+    database.get('cid', {
+        revs_info:true
+    },function(err,doc){
+        var cids = doc.cids;
+        for(var cid of cids){
+            if(cid_user === (Object.keys(cid)[0])){
+                result = cid[(Object.keys(cid)[0])];
+                break;
+            }
+        }
+        if(result != null){
+            res.status(200).json({error: false, result});
+        }else{
+            res.status(404).json({error: true,message: "Não encontrado."});
+        }
+    })
+});
+
+
+
 // =============================
 // ROUTING METHODS==============
 // =============================
