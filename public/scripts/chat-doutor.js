@@ -27,7 +27,7 @@ function fixes() {
     var header = document.getElementById('nav').offsetHeight;
 
     document.getElementById('chat-popup').style.top = header + 'px';
-    document.getElementById('chat-popup').style.height = main +  'px';
+    document.getElementById('chat-popup').style.height = main + 'px';
 }
 fixes();
 
@@ -57,7 +57,7 @@ function userMessage(message) {
             console.log("Got response from Ana: ", JSON.stringify(response));
 
 
-    if (context['result'] != null) {
+            if (context['result'] != null) {
                 if (context['result'] == "null") {
                     showResult(null);
                 } else {
@@ -97,7 +97,7 @@ function userMessage(message) {
 
 function showResult(result) {
     var preescricao, cid;
-    if (result == null) {
+    if (result == null && result['errMsg']) {
         preescricao = "Sem critério";
         cid = "Não encontrado";
     } else {
@@ -151,27 +151,31 @@ function displayMessage(text, user) {
 
 function displaySearch(result, action) {
     var text = "";
-    text = (action == "sintomas") ? result.sintomas : result.introducao;
-    var chat_body = document.getElementById('chat-body');
-    var bubble = document.createElement('div');
-    bubble.setAttribute("class", "bubble");
-    bubble.className += " watson";
-    var id = context['search_sintomas'] || context['searchDB'];
-    bubble.innerHTML = (text.length > 300) ? text.substring(0, 300) + '...<br><a href="#'+action+'_'+id+'" class="leia-mais orange-text text-lighten-5" >Leia mais</a>' : text;
-    if (text.length > 300) {
-        var content = (result.introducao != null && result.introducao != 'Não encontrado' ) ? '<h4>Introdução</h4><div style="margin-left:20px">' + result.introducao + '</div>' : '';
-        content +=  (result.sintomas != null) ? '<h4>Sintomas</h4><div style="margin-left:20px;">' + result.sintomas + '</div>' : '';;
-        addModal(content,action+'_'+id);
+    if (result.errMsg != null) {
+        displayMessage(result.errMsg, 'watson')
+    } else {
+        text = (action == "sintomas") ? result.sintomas : result.introducao;
+        var chat_body = document.getElementById('chat-body');
+        var bubble = document.createElement('div');
+        bubble.setAttribute("class", "bubble");
+        bubble.className += " watson";
+        var id = context['search_sintomas'] || context['searchDB'];
+        bubble.innerHTML = (text.length > 300) ? text.substring(0, 300) + '...<br><a href="#' + action + '_' + id + '" class="leia-mais orange-text text-lighten-5" >Leia mais</a>' : text;
+        if (text.length > 300) {
+            var content = (result.introducao != null && result.introducao != 'Não encontrado') ? '<h4>Introdução</h4><div style="margin-left:20px">' + result.introducao + '</div>' : '';
+            content += (result.sintomas != null) ? '<h4>Sintomas</h4><div style="margin-left:20px;">' + result.sintomas + '</div>' : '';;
+            addModal(content, action + '_' + id);
+        }
+        chat_body.appendChild(bubble);
+        chat_body.scrollTop = chat_body.scrollHeight;
     }
-    chat_body.appendChild(bubble);
-    chat_body.scrollTop = chat_body.scrollHeight;
 }
 
-function addModal(content,id){
+function addModal(content, id) {
     var div = document.getElementById('modals');
-    var modal = '<div id="'+id+'" class="modal"><div class="modal-content">'+content+'</div><div class="modal-footer"><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" >Ok</a></div></div>';
-    div.innerHTML+=modal;
-        $('.modal').modal();
+    var modal = '<div id="' + id + '" class="modal"><div class="modal-content">' + content + '</div><div class="modal-footer"><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" >Ok</a></div></div>';
+    div.innerHTML += modal;
+    $('.modal').modal();
 
 }
 
@@ -373,10 +377,10 @@ function startTreatment(data) {
 
     // setTimeout(function () {
 
-        $('#descricao-value').html(history.queixa);
-        // document.getElementById('queixa_tempo').innerHTML = history.tempo;
-        // $('#row-queixa-exame').removeClass('hide');
-        // $('#queixa').addClass('animated bounceInUp');
+    $('#descricao-value').html(history.queixa);
+    // document.getElementById('queixa_tempo').innerHTML = history.tempo;
+    // $('#row-queixa-exame').removeClass('hide');
+    // $('#queixa').addClass('animated bounceInUp');
     // }, 2500);
 
     setTimeout(function () {

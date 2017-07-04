@@ -244,7 +244,12 @@ function processChatMessage_doutor(req, res) {
                     if (err) {
                         context['result'] = "null";
                     } else {
-                        context['result'] = doc.doencas[context.search];
+                        if (doc.doencas[context.search] != null) {
+                            context['result'] = doc.doencas[context.search];
+                        } else {
+                            context['result'] = {};
+                            context['result']['errMsg'] = "Não fui treinado para isso";
+                        }
                     }
                     data.context = context;
 
@@ -259,7 +264,12 @@ function processChatMessage_doutor(req, res) {
                     if (err) {
                         context['result_sintomas'] = "null";
                     } else {
+                        if(doc.doencas[context.search_sintomas] != null ){
                         context['result_sintomas'] = doc.doencas[context.search_sintomas];
+                    }else{
+                        context['result_sintomas'] = {};
+                            context['result_sintomas']['errMsg'] = "Nao fui treinado para isso";
+                        }
                     }
                     data.context = context;
                     res.status(200).json(data);
@@ -271,8 +281,12 @@ function processChatMessage_doutor(req, res) {
                     if (err) {
                         context['result_search'] = "null";
                     } else {
-                        
+                        if( doc.doencas[context.searchDB] != null){
                         context['result_search'] = doc.doencas[context.searchDB];
+                    }else{
+                        context['result_search'] = {};
+                            context['result_search']['errMsg'] = 'Nao fui treinado para isso';
+                        }
                     }
                     data.context = context;
                     res.status(200).json(data);
