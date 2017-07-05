@@ -18,16 +18,12 @@ $(document).ready(function () {
 
     $('#cid').on('input', function() { 
        var original_cid =  $(this).val();
-       xhrGet('/getCID?cid='+original_cid+'&doenca=Espirilose',function(data){
+       xhrGet('/getCID?cid='+original_cid+'&doenca='+context['doenca'],function(data){
            if(data.same_cid == true){
                alert('Mesmo CID');
            }else{
-               var question = confirm('O CID alterado é de ' + data.result + ' deseja continuar?');
-               if(question == true){
-                   
-               }else{
-                   document.getElementById('cid').value = '';
-               }
+               addModal('<h4>CID Alterado</h4><p>O CID alterado é de '+data.result+' deseja continuar?</p>','cidModal');
+            
            }
        },function(error){
            console.log(error);
@@ -190,13 +186,31 @@ function displaySearch(result, action) {
 }
 
 function addModal(content, id) {
-    var div = document.getElementById('modals');
+     var div = document.getElementById('modals');
+    if(id == 'cidModal'){
+        var modal = document.getElementById(id);
+        if(modal == null || modal === undefined){
+              var modal = '<div id="' + id + '" class="modal"><div class="modal-content" id="md-content">' + content + '</div><div class="modal-footer"><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="cancelCID()" >Cancel</a><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" >Ok</a></div></div>';
+                div.innerHTML += modal;
+        }else{
+            document.getElementById('md-content').innerHTML = content;
+        }
+          $('.modal').modal();
+                
+  $('#cidModal').modal('open');
+    }else{
+         
     var modal = '<div id="' + id + '" class="modal"><div class="modal-content">' + content + '</div><div class="modal-footer"><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" >Ok</a></div></div>';
     div.innerHTML += modal;
-    $('.modal').modal();
+    $('.modal').modal();    
+    }
+  
 
 }
 
+function cancelCID(){
+    document.getElementById('cid').value = '';
+}
 
 
 var local_imediato = [];
