@@ -100,6 +100,15 @@ function userMessage(message) {
                 context['showDB'] = false;
             }
 
+            if(context['retorno'] !== null || context['retorno'] === undefined){
+                $('#fim-consulta').on('click',function(){
+                    prescribe(context.patient.sus);
+                    setTimeout(function(){
+                        window.location.href= "/doutor";
+                    },5000);
+                });
+            }
+
 
         } else {
             console.error('Server error for Conversation. Return status of: ', xhr.statusText);
