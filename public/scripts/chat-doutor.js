@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-
-
     $('.modal').modal({
         dismissible: true, // Modal can be dismissed by clicking outside of the modal
         opacity: .5, // Opacity of modal background
@@ -17,6 +15,26 @@ $(document).ready(function () {
             // alert('Closed');
         } // Callback for Modal close
     });
+
+    $('#cid').on('input', function() { 
+       var original_cid =  $(this).val();
+       xhrGet('/getCID?cid='+original_cid+'&doenca=Espirilose',function(data){
+           if(data.same_cid == true){
+               alert('Mesmo CID');
+           }else{
+               var question = confirm('O CID alterado é de ' + data.result + ' deseja continuar?');
+               if(question == true){
+                   
+               }else{
+                   document.getElementById('cid').value = '';
+               }
+           }
+       },function(error){
+           console.log(error);
+       });
+    
+});
+
 });
 
 
