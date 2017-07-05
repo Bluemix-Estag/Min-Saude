@@ -71,13 +71,13 @@ function userMessage(message) {
             console.log("Got response from Ana: ", JSON.stringify(response));
 
 
-            if (context['result'] != null) {
+            if (context['result'] != null && context['show_search'] == true) {
                 if (context['result'] == "null") {
                     showResult(null);
                 } else {
                     showResult(context['result']);
                 }
-                delete context['result'];
+                context['show_search'] = false;
             }
 
             // console.log(JSON.stringify(text));
@@ -209,7 +209,7 @@ function addModal(content, id) {
 }
 
 function cancelCID(){
-    document.getElementById('cid').value = '';
+    document.getElementById('cid').value = context['result']['CID'];
 }
 
 
@@ -326,6 +326,7 @@ receberListaDoutor();
 
 
 function startTreatment(data) {
+    document.getElementById('cid').value = '';
     context['init'] = true;
     context['patient'] = data.patient;
 
