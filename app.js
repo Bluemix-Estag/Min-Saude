@@ -166,6 +166,7 @@ app.get('/getPatientAgenda', function (req, res) {
 app.get('/getCID',function(req,res){
     var result = null;
     var cid_user = req.query.cid;
+    var doenca_original = req.query.doenca;//o que o bot mandou
     database.get('cid', {
         revs_info:true
     },function(err,doc){
@@ -173,17 +174,24 @@ app.get('/getCID',function(req,res){
         for(var cid of cids){
             if(cid_user === (Object.keys(cid)[0])){
                 result = cid[(Object.keys(cid)[0])];
+                var new_result = result.toLowerCase();
+                //verifica se a descricao do cid encontrado tem doenca original
+                if(new_result.indexOf(doenca_original) != -1 || result.indexOf(doenca_original) != -1){
+                    var same_cid = true;
+                }else{
+                    //error avisar o medico 
+                    var same_cid = false;
+                }
                 break;
             }
         }
         if(result != null){
-            res.status(200).json({error: false, result});
+            res.status(200).json({error: false, result,same_cid});
         }else{
             res.status(404).json({error: true,message: "Não encontrado."});
         }
     })
 });
-
 
 
 // =============================
