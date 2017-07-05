@@ -20,7 +20,7 @@ $(document).ready(function () {
        var original_cid =  $(this).val();
        xhrGet('/getCID?cid='+original_cid+'&doenca='+context['doenca'],function(data){
            if(data.same_cid == true){
-               alert('Mesmo CID');
+               addModal('<h4>CID Alterado</h4><p>O CID digitado é de '+data.result+' </p>','cidMod');
            }else{
                addModal('<h4>CID Alterado</h4><p>O CID alterado é de '+data.result+' deseja continuar?</p>','cidModal');
             
@@ -81,8 +81,13 @@ function userMessage(message) {
             }
 
             // console.log(JSON.stringify(text));
-            for (var txt in text) {
-                displayMessage(text[txt], watson);
+            if(context['show_modal'] != true){
+                for (var txt in text) {
+                    displayMessage(text[txt], watson);
+     }
+            }else{
+                displaySearch(text[0],'show');
+                context['show_modal'] = false;
             }
 
             if (context['result_sintomas'] != null && context['show_search_sintomas'] == true) {
@@ -91,7 +96,7 @@ function userMessage(message) {
             }
 
             if (context['showDB'] == true && context['searchDB'] != null) {
-                displaySearch(context['result_search'], "definicao");
+                displaySearch(context['result_search'], "introducao");
                 context['showDB'] = false;
             }
 
@@ -168,16 +173,17 @@ function displaySearch(result, action) {
     if (result.errMsg != null) {
         displayMessage(result.errMsg, 'watson')
     } else {
-        text = (action == "sintomas") ? result.sintomas : result.introducao;
+        text = (action == "sintomas") ? result.sintomas : (action == "introducao")?result.introducao: result;
         var chat_body = document.getElementById('chat-body');
         var bubble = document.createElement('div');
         bubble.setAttribute("class", "bubble");
         bubble.className += " watson";
-        var id = context['search_sintomas'] || context['searchDB'];
+        var id = context['search_sintomas'] || context['searchDB'] || context['show_id'];
         bubble.innerHTML = (text.length > 300) ? text.substring(0, 300) + '...<br><a href="#' + action + '_' + id + '" class="leia-mais orange-text text-lighten-5" >Leia mais</a>' : text;
         if (text.length > 300) {
             var content = (result.introducao != null && result.introducao != 'Não encontrado') ? '<h4>Introdução</h4><div style="margin-left:20px">' + result.introducao + '</div>' : '';
-            content += (result.sintomas != null) ? '<h4>Sintomas</h4><div style="margin-left:20px;">' + result.sintomas + '</div>' : '';;
+            content += (result.sintomas != null) ? '<h4>Sintomas</h4><div style="margin-left:20px;">' + result.sintomas + '</div>' : '';
+            content += (action == 'show')?'<h4>'+context['modal_title']+'</h4><div style="margin-left:20px;">'+text+'</div>':'';
             addModal(content, action + '_' + id);
         }
         chat_body.appendChild(bubble);
@@ -198,6 +204,16 @@ function addModal(content, id) {
           $('.modal').modal();
                 
   $('#cidModal').modal('open');
+    }else if(id == 'cidMod'){
+        var modal = document.getElementById(id);
+        if(modal == null || modal === undefined){
+              var modal = '<div id="' + id + '" class="modal"><div class="modal-content" id="md-content">' + content + '</div><div class="modal-footer"><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" >Ok</a></div></div>';
+                div.innerHTML += modal;
+        }else{
+            document.getElementById('md-content').innerHTML = content;
+        }
+          $('.modal').modal();
+          $('#cidMod').modal('open');
     }else{
          
     var modal = '<div id="' + id + '" class="modal"><div class="modal-content">' + content + '</div><div class="modal-footer"><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" >Ok</a></div></div>';
