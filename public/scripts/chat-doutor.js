@@ -85,6 +85,12 @@ function userMessage(message) {
             console.log("Got response from Ana: ", JSON.stringify(response));
 
 
+            if(context['historico'] != null){
+                $('#queixa_value').html(context['historico']['queixa']);
+                $('#queixa_tempo').html(context['historico']['tempo']);
+
+            }
+
             if (context['result'] != null && context['show_search'] == true) {
                 if (context['result'] == "null") {
                     showResult(null);
@@ -414,6 +420,7 @@ function startTreatment(data) {
 
         $('#triagem_holder').removeClass('hide');
 
+        
         $('#nome').val(data.patient.nome);
         $('#final_name').val(data.patient.nome);
         $('#receita_name').val(data.patient.nome);
@@ -460,8 +467,8 @@ function startTreatment(data) {
 
     // setTimeout(function () {
 
-    $('#descricao-value').html(history.queixa);
-    // document.getElementById('queixa_tempo').innerHTML = history.tempo;
+    $('#queixa_value').html(history.queixa);
+    document.getElementById('queixa_tempo').innerHTML = history.tempo;
     // $('#row-queixa-exame').removeClass('hide');
     // $('#queixa').addClass('animated bounceInUp');
     // }, 2500);
