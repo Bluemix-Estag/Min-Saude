@@ -16,24 +16,38 @@ $(document).ready(function () {
         } // Callback for Modal close
     });
 
-    $('#cid').on('input', function() { 
-       var original_cid =  $(this).val();
-       xhrGet('/getCID?cid='+original_cid+'&doenca='+context['doenca'],function(data){
-           if(data.same_cid == true){
-               addModal('<h4>CID Alterado</h4><p>O CID digitado é de '+data.result+' </p>','cidMod');
-           }else{
-               addModal('<h4>CID Alterado</h4><p>O CID alterado é de '+data.result+' deseja continuar?</p>','cidModal');
-            
-           }
-       },function(error){
-           console.log(error);
-       });
-    
-});
+    $('#cid').on('input', function () {
+        var original_cid = $(this).val();
+        xhrGet('/getCID?cid=' + original_cid + '&doenca=' + context['doenca'], function (data) {
+            if (data.same_cid == true) {
+                addModal('<h4>CID Alterado</h4><p>O CID digitado é de ' + data.result + ' </p>', 'cidMod');
+            } else {
+                addModal('<h4>CID Alterado</h4><p>O CID alterado é de ' + data.result + ' deseja continuar?</p>', 'cidModal');
+
+            }
+        }, function (error) {
+            console.log(error);
+        });
+
+
+
+
+
+
+
+
+    });
 
 });
 
 
+
+function finalizar() {
+    prescribe(context.patient.sus);
+    setTimeout(function () {
+        window.location.href = "/doutor";
+    }, 5000);
+}
 
 
 function fixes() {
@@ -81,12 +95,12 @@ function userMessage(message) {
             }
 
             // console.log(JSON.stringify(text));
-            if(context['show_modal'] != true){
+            if (context['show_modal'] != true) {
                 for (var txt in text) {
                     displayMessage(text[txt], watson);
-     }
-            }else{
-                displaySearch(text[0],'show');
+                }
+            } else {
+                displaySearch(text[0], 'show');
                 context['show_modal'] = false;
             }
 
@@ -100,12 +114,13 @@ function userMessage(message) {
                 context['showDB'] = false;
             }
 
-            if(context['retorno'] !== null || context['retorno'] === undefined){
-                $('#fim-consulta').on('click',function(){
-                    prescribe(context.patient.sus);
-                    setTimeout(function(){
-                        window.location.href= "/doutor";
-                    },5000);
+            if (context['retorno'] !== null || context['retorno'] === undefined) {
+                $('#fim-consulta').on('click', function () {
+                    $('#loading-atendimento').removeClass('hide');
+                    var print = '<a href="#" onclick="imprimirConsulta()"><i class="material-icons right">print</i></a>';
+                    var receita = document.getElementById('preescricao').innerHTML;
+                    var modalReceita = print + receita;
+                    addModal(modalReceita, 'receitaMedica');
                 });
             }
 
@@ -182,7 +197,7 @@ function displaySearch(result, action) {
     if (result.errMsg != null) {
         displayMessage(result.errMsg, 'watson')
     } else {
-        text = (action == "sintomas") ? result.sintomas : (action == "introducao")?result.introducao: result;
+        text = (action == "sintomas") ? result.sintomas : (action == "introducao") ? result.introducao : result;
         var chat_body = document.getElementById('chat-body');
         var bubble = document.createElement('div');
         bubble.setAttribute("class", "bubble");
@@ -192,7 +207,7 @@ function displaySearch(result, action) {
         if (text.length > 300) {
             var content = (result.introducao != null && result.introducao != 'Não encontrado') ? '<h4>Introdução</h4><div style="margin-left:20px">' + result.introducao + '</div>' : '';
             content += (result.sintomas != null) ? '<h4>Sintomas</h4><div style="margin-left:20px;">' + result.sintomas + '</div>' : '';
-            content += (action == 'show')?'<h4>'+context['modal_title']+'</h4><div style="margin-left:20px;">'+text+'</div>':'';
+            content += (action == 'show') ? '<h4>' + context['modal_title'] + '</h4><div style="margin-left:20px;">' + text + '</div>' : '';
             addModal(content, action + '_' + id);
         }
         chat_body.appendChild(bubble);
@@ -201,39 +216,49 @@ function displaySearch(result, action) {
 }
 
 function addModal(content, id) {
-     var div = document.getElementById('modals');
-    if(id == 'cidModal'){
+    var div = document.getElementById('modals');
+    if (id == 'cidModal') {
         var modal = document.getElementById(id);
-        if(modal == null || modal === undefined){
-              var modal = '<div id="' + id + '" class="modal"><div class="modal-content" id="md-content">' + content + '</div><div class="modal-footer"><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="cancelCID()" >Cancel</a><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" >Ok</a></div></div>';
-                div.innerHTML += modal;
-        }else{
+        if (modal == null || modal === undefined) {
+            var modal = '<div id="' + id + '" class="modal"><div class="modal-content" id="md-content">' + content + '</div><div class="modal-footer"><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick="cancelCID()" >Cancel</a><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" >Ok</a></div></div>';
+            div.innerHTML += modal;
+        } else {
             document.getElementById('md-content').innerHTML = content;
         }
-          $('.modal').modal();
-                
-  $('#cidModal').modal('open');
-    }else if(id == 'cidMod'){
+        $('.modal').modal();
+
+        $('#cidModal').modal('open');
+    } else if (id == 'cidMod') {
         var modal = document.getElementById(id);
-        if(modal == null || modal === undefined){
-              var modal = '<div id="' + id + '" class="modal"><div class="modal-content" id="md-content">' + content + '</div><div class="modal-footer"><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" >Ok</a></div></div>';
-                div.innerHTML += modal;
-        }else{
+        if (modal == null || modal === undefined) {
+            var modal = '<div id="' + id + '" class="modal"><div class="modal-content" id="md-content">' + content + '</div><div class="modal-footer"><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" >Ok</a></div></div>';
+            div.innerHTML += modal;
+        } else {
             document.getElementById('md-content').innerHTML = content;
         }
-          $('.modal').modal();
-          $('#cidMod').modal('open');
-    }else{
-         
-    var modal = '<div id="' + id + '" class="modal"><div class="modal-content">' + content + '</div><div class="modal-footer"><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" >Ok</a></div></div>';
-    div.innerHTML += modal;
-    $('.modal').modal();    
+        $('.modal').modal();
+        $('#cidMod').modal('open');
+    } else if (id == 'receitaMedica') {
+        var modal = document.getElementById(id);
+        if (modal == null || modal === undefined) {
+            var modal = '<div id="' + id + '" class="modal"><div class="modal-content" id="md-content">' + content + '</div><div class="modal-footer"><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="finalizar" onclick="finalizar()">Ok</a></div></div>';
+            div.innerHTML += modal;
+        } else {
+            document.getElementById('md-content').innerHTML = content;
+        }
+        $('.modal').modal();
+        $('#receitaMedica').modal('open');
+    } else {
+
+        var modal = '<div id="' + id + '" class="modal"><div class="modal-content">' + content + '</div><div class="modal-footer"><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" >Ok</a></div></div>';
+        div.innerHTML += modal;
+        $('.modal').modal();
     }
-  
+
 
 }
 
-function cancelCID(){
+function cancelCID() {
     document.getElementById('cid').value = context['result']['CID'];
 }
 
@@ -413,7 +438,7 @@ function startTreatment(data) {
         $('#temperatura').val(history.temperatura);
         $('#cardiaca').val(history.freq_card);
         $('#respiratoria').val(history.freq_resp);
-        $('#pressao').val(history.pressaoN + ' / ' + history.pressaoD);
+        $('#pressao').val(history.pressaoN * 10 + ' / ' + history.pressaoD * 10);
         $('#glicemia').val(history.glicemia);
         $('#saturacao').val(history.o2);
         $('#dor_peito').val((history.dor == true) ? "Sim" : "Não");
@@ -566,5 +591,3 @@ function prescribe(sus_number) {
 function imprimirConsulta() {
     window.print();
 }
-
-

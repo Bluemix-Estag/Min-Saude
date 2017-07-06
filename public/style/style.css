@@ -112,10 +112,15 @@
 /*Historico Card*/
 #historico{
   width: 300px !important;
-  height: 380px !important;
+  height: 150px !important;
   position: absolute;
   top: 80px !important;
   left: 70px !important;
+}
+
+#historico_holder{
+  height: 150px !important;
+  overflow-y: scroll !important;
 }
 
 #lista-triagem{

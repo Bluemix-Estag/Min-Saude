@@ -258,16 +258,23 @@
     border-bottom: 1px solid #39535C;
 }
 
+#loading_atendimento{
+    z-index: 99;
+    position: absolute;
+    top: 50px;
+    left: 250px;
+}
+
 /**/
 
 @media print {
   body * {
     visibility: hidden;
   }
-  #final, #final * {
+  #receitaMedica, #receitaMedica * {
     visibility: visible;
   }
-  #final {
+  #receitaMedica {
     position: absolute;
     left: 150px !important;
     top: 20px !important;

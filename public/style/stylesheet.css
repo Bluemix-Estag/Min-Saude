@@ -69,12 +69,12 @@
 }
 
 #triagem{
-    max-height: 412px !important;
-    overflow-y: scroll !important;
+    max-height: 312px !important;
 }
 
 #historico ,  #triagem{
-    height: 412px;
+    height: 312px;
+    overflow-y: scroll;
 }
 
 
