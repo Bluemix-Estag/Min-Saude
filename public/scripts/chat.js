@@ -40,7 +40,7 @@ function userMessage(message) {
                     reason(context['info']['queixa']);
                 }
 
-                if (context['info'].tempo != null) {
+                if (context['info']['tempo'] != null) {
                     periodReason(context['info'].tempo);
                 }
 
@@ -232,7 +232,6 @@ function reason(queixas) {
 }
 
 function periodReason(periodo) {
-
     $('#queixa_tempo_holder').removeClass('hide');
     $('#queixa_tempo').html(periodo);
     $('#queixa_tempo').addClass('animate bounceInRight');
