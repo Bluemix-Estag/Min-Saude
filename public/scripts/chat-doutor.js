@@ -87,6 +87,8 @@ function userMessage(message) {
 
             if(context['historico'] != null){
                 $('#queixa_value').html(context['historico']['queixa']);
+                $('#descricao-value').html(context['historico']['queixa']);
+                alert('funcionou');
                 $('#queixa_tempo').html(context['historico']['tempo']);
 
             }
@@ -441,7 +443,7 @@ function startTreatment(data) {
             $('#grav').removeClass('hide');
             $('#gravida').val(history.gravida);
         }
-
+        $('#descricao-value').val(history.queixa);
         $('#temperatura').val(history.temperatura);
         $('#cardiaca').val(history.freq_card);
         $('#respiratoria').val(history.freq_resp);
@@ -480,7 +482,7 @@ function startTreatment(data) {
 
     if (history.descricao != null) {
         setTimeout(function () {
-            document.getElementById('descricao-value').innerHTML = history.descricao;
+            document.getElementById('descricao-value').innerHTML = context['history']['descricao'];
 
             // if(history.pre_analise){
 
