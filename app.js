@@ -198,11 +198,11 @@ app.get('/getCID',function(req,res){
 // ROUTING METHODS==============
 // =============================
 
-app.get('/index', function (req, res) {
+app.get('/triagem', function (req, res) {
     res.render('index.html');
 });
 
-app.get('/acolhimento', function (req, res) {
+app.get('/recepcao', function (req, res) {
     res.render('acolhimento.html');
 });
 
