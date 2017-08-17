@@ -1,6 +1,11 @@
 /**
- * Module dependencies.
+ * @file Node js server.
+ * @author Rabah Zeineddine  <rzeined@br.ibm.com>
+ * @author Edison Cury Neto  <ecury@br.ibm.com>
  */
+
+
+
 
 var express = require('express');
 var routes = require('./routes');
@@ -32,6 +37,7 @@ app.use('/scripts', express.static(path.join(__dirname, '/views/scripts')));
 
 
 app.set('port', process.env.PORT || 3000);
+
 
 fs.stat('./vcap-local.json', function (err, stat) {
     if (err && err.code === 'ENOENT') {
@@ -92,9 +98,8 @@ function initCloudant() {
     database = Cloudant.db.use(dbname);
 
 }
-// =============================
-// CLOUDANT METHODS=============
-//==============================
+
+
 
 app.get('/getPatient', function (req, res) {
     var sus = req.query.sus;
@@ -154,6 +159,13 @@ app.get('/getPatientAgenda', function (req, res) {
             if (patient != -1) {
                 patient = patients[patient];
                 patient.atividades = atividades;
+
+
+
+
+
+                
+
                 res.status(200).json(patient);
             } else {
                 res.status(404).json({ error: true, description: "Patient not found", status: 404 });
@@ -201,6 +213,7 @@ app.get('/getCID',function(req,res){
 app.get('/acolhimento', function (req, res) {
     res.render('index.html');
 });
+
 
 app.get('/recepcao', function (req, res) {
     res.render('acolhimento.html');

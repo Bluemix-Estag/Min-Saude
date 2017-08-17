@@ -41,7 +41,7 @@ $(document).ready(function () {
         
 
         setTimeout(function(){
-            window.location.href = '/index';
+            window.location.href = '/acolhimento';
         },5000);
     })
 

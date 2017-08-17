@@ -23,10 +23,8 @@ $( document ).ready(function(){
         $('#row-espera').removeClass('hide');
         $('#atendimento').addClass('animated bounceOutDown');
         
-        
-
         setTimeout(function(){
-            window.location.href = '/index';
+            window.location.href = '/acolhimento';
         },5000);
     })
 

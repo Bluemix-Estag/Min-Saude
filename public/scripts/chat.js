@@ -340,7 +340,7 @@ function receberLista() {
         }
         local_list = patients;
 
-        console.log(JSON.stringify(data));
+        // console.log(JSON.stringify(data));
     }, function (error) {
 
     });
@@ -354,21 +354,25 @@ receberLista();
 
 function pacienteAtendido() {
     var first = local_list.shift();
-    
+    console.log('passou por aqui');
     document.getElementById('sus_' + first.sus_number).parentElement.remove();
+    console.log('passou por aqui 2');
     var result = {
         priority: (context.atendimento == 'imediato')?'3':(context.atendimento == 'prioritario')?'2':'1',
         info: context.info,
         patient: context.patient    
     }
-
+    console.log('passou por aqui 3');
     // alert(JSON.stringify(result));
     xhrPost('https://min-saude-apis.mybluemix.net/checkIn', result, function (data) {
+        console.log(JSON.stringify(data));
+        console.log('passou por aqui 4');
         // alert(JSON.stringify(data));
     }, function (err) {
-        // console.log(err);
+        console.log(err);
         // alert(JSON.stringify(err));
     });
+    console.log('passou por aqui 5');
 }
 
 
