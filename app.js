@@ -35,69 +35,30 @@ app.use('/style', express.static(path.join(__dirname, '/views/style')));
 app.use('/scripts', express.static(path.join(__dirname, '/views/scripts')));
 
 
+require('dotenv').load()
+
+
 
 app.set('port', process.env.PORT || 3000);
-
-
-fs.stat('./vcap-local.json', function (err, stat) {
-    if (err && err.code === 'ENOENT') {
-        // file does not exist
-        console.log('No vcap-local.json');
-        initializeAppEnv();
-    } else if (err) {
-        console.log('Error retrieving local vcap: ', err.code);
-    } else {
-        vcapLocal = require("./vcap-local.json");
-        console.log("Loaded local VCAP", vcapLocal);
-        appEnvOpts = {
-            vcap: vcapLocal
-        };
-        initializeAppEnv();
-    }
-});
-
-
-// get the app environment from Cloud Foundry, defaulting to local VCAP
-function initializeAppEnv() {
-    appEnv = cfenv.getAppEnv(appEnvOpts);
-    if (appEnv.isLocal) {
-        require('dotenv').load();
-    }
-    if (appEnv.services.cloudantNoSQLDB) {
-        initCloudant();
-    } else {
-        console.error("No Cloudant service exists.");
-    }
-}
 
 
 // =====================================
 // CLOUDANT SETUP ======================
 // =====================================
+
+
 var dbname = "my_db_dev";
 var database;
+var Cloudant = require('cloudant');
 
-function initCloudant() {
-    var cloudantURL = appEnv.services.cloudantNoSQLDB[0].credentials.url || appEnv.getServiceCreds("min-saude-cloudantNoSQLDB").url;
-    var Cloudant = require('cloudant')({
-        url: cloudantURL,
-        plugin: 'retry',
-        retryAttempts: 10,
-        retryTimeout: 500
-    });
-    // Create the accounts Logs if it doesn't exist
-    Cloudant.db.create(dbname, function (err, body) {
-        if (err && err.statusCode == 412) {
-            console.log("Database already exists: ", dbname);
-        } else if (!err) {
-            console.log("New database created: ", dbname);
-        } else {
-            console.log('Cannot create database!');
-        }
-    });
-    database = Cloudant.db.use(dbname);
-
-}
+// Initialize Cloudant with settings from .env
+var username = process.env.cloudant_username || "nodejs";
+var password = process.env.cloudant_password;
+var cloudant = Cloudant({
+    account: username,
+    password: password
+});
+database = cloudant.db.use(dbname);
 
 
 
@@ -109,7 +70,11 @@ app.get('/getPatient', function (req, res) {
     }, function (err, doc) {
         if (err) {
             console.log(err);
-            res.status(500).json({ error: true, description: "Internal server error", status: 500 });
+            res.status(500).json({
+                error: true,
+                description: "Internal server error",
+                status: 500
+            });
         } else {
             var patient = null;
             var patients = doc.patients;
@@ -123,7 +88,11 @@ app.get('/getPatient', function (req, res) {
             if (patient != null) {
                 res.status(200).json(patient);
             } else {
-                res.status(404).json({ error: true, description: "Patient not found", status: 404 });
+                res.status(404).json({
+                    error: true,
+                    description: "Patient not found",
+                    status: 404
+                });
             }
         }
     })
@@ -136,7 +105,11 @@ app.get('/getPatientAgenda', function (req, res) {
         revs_info: true
     }, function (err, doc) {
         if (err) {
-            res.status(500).json({ error: true, description: "Internal server error", status: 500 });
+            res.status(500).json({
+                error: true,
+                description: "Internal server error",
+                status: 500
+            });
         } else {
             var patients = doc.patients;
             var now = moment().unix() * 1000;
@@ -164,43 +137,54 @@ app.get('/getPatientAgenda', function (req, res) {
 
 
 
-                
+
 
                 res.status(200).json(patient);
             } else {
-                res.status(404).json({ error: true, description: "Patient not found", status: 404 });
+                res.status(404).json({
+                    error: true,
+                    description: "Patient not found",
+                    status: 404
+                });
             }
         }
     })
 });
 
 
-app.get('/getCID',function(req,res){
+app.get('/getCID', function (req, res) {
     var result = null;
     var cid_user = req.query.cid;
-    var doenca_original = req.query.doenca;//o que o bot mandou
+    var doenca_original = req.query.doenca; //o que o bot mandou
     database.get('cid', {
-        revs_info:true
-    },function(err,doc){
+        revs_info: true
+    }, function (err, doc) {
         var cids = doc.cids;
-        for(var cid of cids){
-            if(cid_user === (Object.keys(cid)[0])){
+        for (var cid of cids) {
+            if (cid_user === (Object.keys(cid)[0])) {
                 result = cid[(Object.keys(cid)[0])];
                 var new_result = result.toLowerCase();
                 //verifica se a descricao do cid encontrado tem doenca original
-                if(new_result.indexOf(doenca_original) != -1 || result.indexOf(doenca_original) != -1){
+                if (new_result.indexOf(doenca_original) != -1 || result.indexOf(doenca_original) != -1) {
                     var same_cid = true;
-                }else{
+                } else {
                     //error avisar o medico 
                     var same_cid = false;
                 }
                 break;
             }
         }
-        if(result != null){
-            res.status(200).json({error: false, result,same_cid});
-        }else{
-            res.status(404).json({error: true,message: "Não encontrado."});
+        if (result != null) {
+            res.status(200).json({
+                error: false,
+                result,
+                same_cid
+            });
+        } else {
+            res.status(404).json({
+                error: true,
+                message: "Não encontrado."
+            });
         }
     })
 });
@@ -220,7 +204,7 @@ app.get('/recepcao', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-    res.render('login.html');
+    res.redirect('/recepcao');
 });
 
 app.get('/dashboard', function (req, res) {
@@ -246,8 +230,7 @@ function processChatMessage_triagem(req, res) {
         if (err) {
             console.log("Error in sending message: ", err);
             res.status(err.code || 500).json(err);
-        }
-        else {
+        } else {
             var context = data.context;
             res.status(200).json(data);
         }
@@ -262,8 +245,7 @@ function processChatMessage_acolhimento(req, res) {
         if (err) {
             console.log("Error in sending message: ", err);
             res.status(err.code || 500).json(err);
-        }
-        else {
+        } else {
             var context = data.context;
             res.status(200).json(data);
         }
@@ -278,8 +260,7 @@ function processChatMessage_doutor(req, res) {
         if (err) {
             console.log("Error in sending message: ", err);
             res.status(err.code || 500).json(err);
-        }
-        else {
+        } else {
             var context = data.context;
             if (context.search != null && context.show_search == true) {
                 database.get('doencas', {
@@ -308,10 +289,10 @@ function processChatMessage_doutor(req, res) {
                     if (err) {
                         context['result_sintomas'] = "null";
                     } else {
-                        if(doc.doencas[context.search_sintomas] != null ){
-                        context['result_sintomas'] = doc.doencas[context.search_sintomas];
-                    }else{
-                        context['result_sintomas'] = {};
+                        if (doc.doencas[context.search_sintomas] != null) {
+                            context['result_sintomas'] = doc.doencas[context.search_sintomas];
+                        } else {
+                            context['result_sintomas'] = {};
                             context['result_sintomas']['errMsg'] = "Ainda não fui treinado para isso, mas gostaria de aprender :)";
                         }
                     }
@@ -325,10 +306,10 @@ function processChatMessage_doutor(req, res) {
                     if (err) {
                         context['result_search'] = "null";
                     } else {
-                        if( doc.doencas[context.searchDB] != null){
-                        context['result_search'] = doc.doencas[context.searchDB];
-                    }else{
-                        context['result_search'] = {};
+                        if (doc.doencas[context.searchDB] != null) {
+                            context['result_search'] = doc.doencas[context.searchDB];
+                        } else {
+                            context['result_search'] = {};
                             context['result_search']['errMsg'] = 'Ainda não fui treinado para isso, mas gostaria de aprender :)';
                         }
                     }
@@ -352,8 +333,7 @@ app.get('/api/watson/discovery', function (req, res) {
         if (err) {
             console.log("Error in discovery service", err);
             res.status(err.code || 500).json(err);
-        }
-        else {
+        } else {
             res.status(200).json(data);
         }
     });

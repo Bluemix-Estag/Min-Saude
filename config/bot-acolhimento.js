@@ -2,51 +2,21 @@ var watson = require('watson-developer-cloud');
 var WORKSPACE_ID = "e0c50eb3-2132-4fde-92aa-d2b7b6fd6e49";
 var cfenv = require('cfenv');
 var chrono = require('chrono-node');
-var fs = require('fs');
-// load local VCAP configuration
-var vcapLocal_a = null;
-var appEnv_a = null;
 var appEnvOpts_a = {};
 var conversationWorkspace_a, conversation_a;
-fs.stat('./vcap-local.json', function (err, stat) {
-    if (err && err.code === 'ENOENT') {
-        // file does not exist
-        console.log('No vcap-local.json');
-        initializeAppEnv();
-    } else if (err) {
-        console.log('Error retrieving local vcap: ', err.code);
-    } else {
-        vcapLocal_a = require("../vcap-local.json");
-        console.log("Loaded local VCAP", vcapLocal_a);
-        appEnvOpts_a = {
-            vcap: vcapLocal_a
-        };
-        initializeAppEnv();
-    }
-});
-// get the app environment from Cloud Foundry, defaulting to local VCAP
-function initializeAppEnv() {
-    appEnv_a = cfenv.getAppEnv(appEnvOpts_a);
-    if (appEnv_a.isLocal) {
-        require('dotenv').load();
-    }
-    if (appEnv_a.services.conversation) {
-        initConversation();
-    } else {
-        console.error("No Watson conversation service exists");
-    }
-}
+
+
+require('dotenv').load()
+initConversation()
 
 // =====================================
 // CREATE THE SERVICE WRAPPER ==========
 // =====================================
 // Create the service wrapper
 function initConversation() {
-    var conversationCredentials_a = appEnv_a.getServiceCreds("Bot-Saude");
-    console.log(conversationCredentials_a);
-    var conversationUsername_a = process.env.CONVERSATION_USERNAME || conversationCredentials_a.username;
-    var conversationPassword_a = process.env.CONVERSATION_PASSWORD || conversationCredentials_a.password;
-    var conversationURL_a = process.env.CONVERSATION_URL || conversationCredentials_a.url;
+    var conversationUsername_a = process.env.CONVERSATION_USERNAME
+    var conversationPassword_a = process.env.CONVERSATION_PASSWORD
+    var conversationURL_a = process.env.CONVERSATION_URL
     conversation_a = watson.conversation({
         url: conversationURL_a,
         username: conversationUsername_a,
@@ -54,43 +24,6 @@ function initConversation() {
         version_date: '2017-04-10',
         version: 'v1'
     });
-    // check if the workspace ID is specified in the environment
-    conversationWorkspace_a = process.env.CONVERSATION_WORKSPACE;
-    // if not, look it up by name or create one
-    if (!conversationWorkspace_a) {
-        const workspaceId = WORKSPACE_ID; // Workspace name goes here.
-        console.log('No conversation workspace configured in the environment.');
-        console.log(`Looking for a workspace with id '${workspaceId}'...`);
-        conversation_a.listWorkspaces((err, result) => {
-            if (err) {
-                console.log('Failed to query workspaces. Conversation will not work.', err);
-            } else {
-                const workspace_a = result.workspaces.find(workspace => workspace.workspace_id === workspaceId);
-                if (workspace_a) {
-                    conversationWorkspace_a = workspace_a.workspace_id;
-                    console.log("Using Watson Conversation with username", conversationUsername_a, "and workspace", conversationWorkspace_a);
-                } else {
-                    console.log('Importing workspace from ./conversation/conversation-demo.json');
-                    // create the workspace
-                    const watsonWorkspace_a = JSON.parse(fs.readFileSync('./conversation/conversation-demo.json'));
-                    // force the name to our expected name
-                    watsonWorkspace_a.name = "acolhimentov1";
-                    conversation_a.createWorkspace(watsonWorkspace_a, (createErr, workspace_a) => {
-                        if (createErr) {
-                            console.log('Failed to create workspace', err);
-                        } else {
-                            conversationWorkspace_a = workspace_a.workspace_id;
-                            console.log(`Successfully created the workspace '${workspaceId}'`);
-                            console.log("Using Watson Conversation with username", conversationUsername_a, "and workspace", conversationWorkspace_a);
-                        }
-                    });
-                }
-            }
-        });
-    } else {
-        console.log('Workspace ID was specified as an environment variable.');
-        console.log("Using Watson Conversation with username", conversationUsername_a, "and workspace", conversationWorkspace_a);
-    }
 }
 var request = require('request');
 // =====================================
@@ -164,7 +97,7 @@ function buildContextObject(req, callback) {
     }
     // Null out the parameter object to start building
     var params = {
-        workspace_id: conversationWorkspace_a,
+        workspace_id: process.env.CONVERSATION_WORKSPACEC,
         input: {},
         context: {}
     };

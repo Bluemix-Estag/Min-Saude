@@ -277,7 +277,7 @@ var local_dia = [];
 
 
 function receberListaDoutor() {
-    xhrGet('https://min-saude-apis.mybluemix.net/getDoctorList', function (data) {
+    xhrGet('https://ministerio-saude-apis.mybluemix.net/getDoctorList', function (data) {
 
         var imediato = data.imediato;
         var prioritario = data.prioritario;
@@ -575,7 +575,7 @@ function countUp(timestamp, id) {
 
 function getIndividual() {
     var sus = document.getElementById('proximo-sus').value;
-    xhrGet('https://min-saude-apis.mybluemix.net/getPatient?susNumber=' + sus, function (data) {
+    xhrGet('https://ministerio-saude-apis.mybluemix.net/getPatient?susNumber=' + sus, function (data) {
 
         startTreatment(data);
 
@@ -587,7 +587,7 @@ function getIndividual() {
 
 
 function prescribe(sus_number) {
-    xhrGet('https://min-saude-apis.mybluemix.net/removeDoctorList?susNumber=' + sus_number, function (data) {
+    xhrGet('https://ministerio-saude-apis.mybluemix.net/removeDoctorList?susNumber=' + sus_number, function (data) {
         setTimeOut(function () {
             window.location.href = "/doutor";
         }, 500)

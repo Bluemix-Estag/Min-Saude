@@ -44,7 +44,7 @@ function userMessage(message) {
                     "sus_number": context['info']['sus']
                 }
                 
-                xhrPost('https://min-saude-apis.mybluemix.net/addWaiting', new_patient, function(result){
+                xhrPost('https://ministerio-saude-apis.mybluemix.net/addWaiting', new_patient, function(result){
                     setTimeout(function(){
                         window.location.href = '/acolhimento';
                     },3000);

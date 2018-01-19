@@ -321,7 +321,7 @@ var local_list = [];
 var waiting_list = [];
 
 function receberLista() {
-    xhrGet('https://min-saude-apis.mybluemix.net/getWaiting', function (data) {
+    xhrGet('https://ministerio-saude-apis.mybluemix.net/getWaiting', function (data) {
 
         var patients = data['patients'];
         waiting_list = getWaitingList(patients, local_list);
@@ -364,7 +364,7 @@ function pacienteAtendido() {
     }
     console.log('passou por aqui 3');
     // alert(JSON.stringify(result));
-    xhrPost('https://min-saude-apis.mybluemix.net/checkIn', result, function (data) {
+    xhrPost('https://ministerio-saude-apis.mybluemix.net/checkIn', result, function (data) {
         console.log(JSON.stringify(data));
         console.log('passou por aqui 4');
         // alert(JSON.stringify(data));
